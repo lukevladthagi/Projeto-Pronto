@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Resultado % Projetado x Real</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+                <li class="breadcrumb-item">Avaliação Desempenho</li>
+                <li class="breadcrumb-item active">Pesquisar Gestor</li>
+                <li class="breadcrumb-item active">Listagem da pesquisa</li>
+                <li class="breadcrumb-item active">Ficha de colaborador</li>
+                <li class="breadcrumb-item active">Resultado de indicadores</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!-- Recent Sales -->
+                    <div class="col-12">
+                        <!-- Tabela de metas com projecao -->
+                        <div class="card recent-sales">
+                            <div class="card-body">
+                                <h2 class="card-title">RESULTADOS - % DA META</h2>
+                                <div class="list-group">
+                                </div>
+                                <div class="table-responsive table-block overflow-auto">
+                                    <table class="table table-borderless datatable table-striped" id="minha-tabela">
+                                        <!-- Cabeçalho da tabela -->
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Meta</th>
+                                                {% for mes in meses %}
+                                                <th scope="col">{{ mes }}</th>
+                                                {% endfor %}
+                                                <th class="text-center" scope="col">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- Dados da tabela -->
+                                        <tbody>
+                                            {% for meta in metas %}
+                                            <tr>
+                                                <td>{{ meta.meta }}</td>
+                                                {% for mes in meses %}
+                                                {% for resultado in resultados %}
+                                                {% if resultado.meta == meta.id and resultado.mes == mes %}
+                                                <td> {{ resultado.porcentagem }}%</td>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endfor %}
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- End Recent Sales -->
+                    <hr style="border-width: 4px;">
+                    <div class="card col-12">
+                        <h2 class="card-title">DASHBOARDS <hr></h2>
+                        
+                        <div class="row">
+                            {% for meta in metas %}
+                            {% for key, value in dados.items %}
+                            {% if key == meta.id %}
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ meta.meta }}</h5>
+                                        <!-- Line Chart -->
+                                          <canvas id="myChart{{ meta.id }}"></canvas>
+                                          <script>
+
+                                                // Dados de lançados e projetados
+                                                var lancados = {{ value.lancados|safe }};
+                                                var projetados = {{ value.projetados|safe }};
+
+                                                // Configuração do gráfico
+                                                var ctx = document.getElementById('myChart{{ meta.id }}').getContext('2d');
+                                                var chart = new Chart(ctx, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: {{ meses|safe }},
+                                                    datasets: [{
+                                                    label: 'Lançados',
+                                                    type: 'bar',
+                                                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                                    borderWidth: 1,
+                                                    data: lancados
+                                                    }, {
+                                                    label: 'Projetados',
+                                                    type: 'line',
+                                                    fill: false,
+                                                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                                    borderWidth: 1,
+                                                    data: projetados
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                    }
+                                                }
+                                                });
+                                          </script>
+                                        <!-- End Line CHart -->
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+
+                    </div><!-- End Recent Sales -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+{% endblock %}

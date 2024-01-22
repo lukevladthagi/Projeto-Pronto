@@ -1,0 +1,21 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+<div class="login100-form validate-form flex-sb flex-w button-container">
+	<a href="{% url 'cancelaAgenda' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/Prancheta_5.png' %}" alt="Imagem do Link" class="link-icon" width="10%">
+		<span class="link-label">Minhas Consultas</span>
+	</a>
+	<a href="{% url 'cancelaExame' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/Prancheta_6.png' %}" alt="Imagem do Link" class="link-icon" width="10%">
+		<span class="link-label">Meus Exames</span>
+	</a>
+	<a href="{% url 'marcacao' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+	</a>
+</div>
+{% endblock %}
+
+	
+
+	

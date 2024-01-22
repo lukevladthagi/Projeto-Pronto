@@ -1,0 +1,21 @@
+{% extends 'base_totem.html' %}
+{% block content %}  
+<div class="card_a_herf">
+    <div class="logo-img">
+        <img class="logo_hospital" src="../static/img/Logo-Horizontal-Padr∆o.png"/>
+    </div>
+    <a href="{% url 'especialidades' %}" class="btn-google m-b-20">
+        Agendamento de consultas
+    </a>
+    <a href="{% url 'exames' %}" class="btn-google m-b-20">
+        Agendamento de exames
+    </a>
+    <a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+        Meus agendamentos
+    </a>
+    <a href="{% url 'paciente' %}" class="btn-google m-b-20">
+        Voltar
+    </a>
+</div>
+
+{% endblock %} 

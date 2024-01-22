@@ -1,0 +1,381 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Avaliação Proctor {{ dt_esc }}</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Relatório</li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Nota Avaliação</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Order details page-->
+      <div class="d-flex flex-column gap-7 gap-lg-10">
+        <!--begin::Tab content-->
+        <div class="tab-content">
+          <!--begin::Tab pane-->
+          <div class="tab-pane fade show active" id="kt_ecommerce_sales_order_summary" role="tab-panel">
+            <!--begin::Orders-->
+            <div class="d-flex flex-column gap-7 gap-lg-10">
+              <!--begin::Product List-->
+              <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
+                <!--begin::Card header-->
+                <div class="card-header">
+                  <div class="card-title">
+                    <h2>Resultado de Avaliação proctor: <b>{{armazena_nome_S}}</b></h2>
+                  </div>
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                  <div class="table-responsive">
+                    <table class="table table-row-bordered gy-5">
+                      <thead>
+                        <tr>
+                          <th scope="col">DIMENSÃO</th>
+                          <th scope="col">N/A</th>
+                          <th scope="col">NÃO</th>
+                          <th scope="col">SIM</th>
+                          <th scope="col">NOTA</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>ASSISTENCIAL</td>
+                          <td>{{qt_na_ass}}</td>
+                          <td>{{qt_n_ass}}</td>
+                          <td>{{qt_s_ass}}</td>
+                          <td>{{qt_tot_ass}}</td>
+                        </tr>
+                        <tr>
+                          <td>DOCUMENTOS</td>
+                          <td>{{qt_na_doc}}</td>
+                          <td>{{qt_n_doc}}</td>
+                          <td>{{qt_s_doc}}</td>
+                          <td>{{qt_tot_doc}}</td>
+                        </tr>
+                        <tr>
+                          <td>ESTOQUE</td>
+                          <td>{{qt_na_est}}</td>
+                          <td>{{qt_n_est}}</td>
+                          <td>{{qt_s_est}}</td>
+                          <td>{{qt_tot_est}}</td>
+                        </tr>
+                        <tr>
+                          <td>HOTELARIA</td>
+                          <td>{{qt_na_hot}}</td>
+                          <td>{{qt_n_hot}}</td>
+                          <td>{{qt_s_hot}}</td>
+                          <td>{{qt_tot_hot}}</td>
+                        </tr>
+                        <tr>
+                          <td>MANUTENÇÃO</td>
+                          <td> {{qt_na_man}} </td>
+                          <td> {{qt_n_man}} </td>
+                          <td> {{qt_s_man}} </td>
+                          <td> {{qt_tot_man}} </td>
+                        </tr>
+                        <tr>
+                          <td>PESSOAS</td>
+                          <td>{{ qt_na_pess }}</td>
+                          <td>{{ qt_n_pess }}</td>
+                          <td>{{ qt_s_pess }}</td>
+                          <td>{{ qt_tot_pess }}</td>
+                        </tr>
+                        <tr>
+                          <td><b>TOTAL</b></td>
+                          <td><b>{{qt_tot_na}}</b></td>
+                          <td><b>{{qt_tot_n}}</b></td>
+                          <td><b>{{qt_tot_s}}</b></td>
+                          <td class="bg-success text-white"><b>{{qt_tot_tot}}</b></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end::Card body-->
+              </div>
+              <!--end::Product List-->
+              <!--begin::Product List-->
+              <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
+                <!--begin::Card header-->
+                <div class="card-header">
+                  <div class="card-title">
+                    <h2>Itens Negativos: <b>{{armazena_nome_S}}</b></h2>
+                  </div>
+                  	<!--begin::Progress-->
+                      <div class="d-flex align-items-center flex-column mt-3 w-100">
+                        <div class="d-flex justify-content-between fw-bold fs-6 text-white opacity-75 w-100 mt-auto mb-2">
+                          <span>43 Pendentes</span>
+                          <span>57%</span>
+                        </div>
+                        <div class="h-8px mx-3 w-100 bg-white bg-opacity-50 rounded">
+                          <div class="bg-white rounded h-8px" role="progressbar" style="width: 57%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+										<!--end::Progress-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                  <div class="table-responsive text-center">
+                    <table class="table table-row-bordered gy-5">
+                      <thead>
+                          <tr>
+                              <th scope="col">Pergunta</th>
+                              <th scope="col">Dimensao</th>
+                              <th scope="col">Eixo</th>
+                              <th scope="col">Comentário</th>
+                              <th scope="col">Evidência</th>
+                              <th scope="col">Área Responsavel</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Prioridade</th>
+                              <th scope="col">Sugest.Curadoria</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for resposta in respostas %}
+                          {% if resposta.resposta == "nao" and resposta.created_at == dt_esc %}
+                          <tr>
+                              <td>
+                                <a href="#" class="btn btn-primary er w-100 fs-6 px-8 py-4" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target{{resposta.id}}">{{ resposta.pergunta }}</a>
+                              </td>
+                              <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                              <td>{{ resposta.titulo }}</td>
+                              <td>{{ resposta.comentario }}</td>
+                              {% if resposta.evidencia == None %}
+                              <td></td>
+                              {% else %}
+                              <td>
+                                  <a href="{{ resposta.evidencia }}" target="_blank">
+                                      <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                                  </a>
+                              </td>
+                              {% endif %}
+                              {% if resposta.a_resp == None %}
+                              <td></td>
+                              {% else %}
+                                  {% for setor in setores %}
+                                  {% if resposta.a_resp == setor.id %}
+                                  <td>{{ setor.name }}</td>
+                                  {% endif %}
+                                  {% endfor %}
+                              {% endif %}
+                              <td class="text-end pe-12">
+                                <span class="badge py-3 px-4 fs-7 badge-light-success">Em Aberto</span>
+                              </td>
+<!--                          <td class="text-end pe-12">
+                                <span class="badge py-3 px-4 fs-7 badge-light-success">Complated</span>
+                              </td> -->
+                          </tr>
+                          <!--begin::Modal - New Target-->
+                          <div class="modal fade" id="kt_modal_new_target{{resposta.id}}" tabindex="-1" aria-hidden="true">
+                            <!--begin::Modal dialog-->
+                            <div class="modal-dialog modal-dialog-centered mw-650px">
+                                <!--begin::Modal content-->
+                                <div class="modal-content rounded">
+                                    <!--begin::Modal header-->
+                                    <div class="modal-header pb-0 border-0 justify-content-end">
+                                        <!--begin::Close-->
+                                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                            <i class="ki-duotone ki-cross fs-1">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <!--begin::Modal header-->
+                                    <!--begin::Modal body-->
+                                    <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                                        <!--begin:Form-->
+                                        <form id="kt_modal_new_target_form" class="form" action="#">
+                                            <!--begin::Heading-->
+                                            <div class="mb-13 text-center">
+                                                <!--begin::Title-->
+                                                <h1 class="mb-3">{{ resposta.pergunta }}</h1>
+                                                <!--end::Title-->
+                                                <!--begin::Description-->
+                                                <div class="text-muted fw-semibold fs-5">Area Responsável:
+                                                  <a href="#" class="fw-bold link-primary">
+                                                    {% for setor in setores %}
+                                                    {% if resposta.a_resp == setor.id %}
+                                                    {{ setor.name }}
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                  </a>.
+                                                </div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Heading-->
+                                            <!-- O que será feito? (What) -->
+                                            <div class="d-flex flex-column mb-8">
+                                              <label class="fs-6 fw-semibold mb-2">O que será feito?</label>
+                                              <textarea class="form-control form-control-solid" rows="3" name="target_details" placeholder="Digite os Detalhes do que será feito"></textarea>
+                                            </div>
+
+                                            <!-- Por que será feito? (Why) -->
+                                            <div class="d-flex flex-column mb-8">
+                                              <label class="fs-6 fw-semibold mb-2">Por que será feito?</label>
+                                              <textarea class="form-control form-control-solid" rows="3" name="why_details" placeholder="Digite os Detalhes do Porquê"></textarea>
+                                            </div>
+
+                                            <!-- Quando será feito? (When) -->
+                                            <div class="d-flex flex-column mb-8">
+                                              <label class="fs-6 fw-semibold mb-2">Quando será feito?</label>
+                                              <textarea class="form-control form-control-solid" rows="3" name="when_details" placeholder="Digite os Detalhes de Quando"></textarea>
+                                            </div>
+
+                                            <!-- Onde será feito? (Where) -->
+                                            <div class="d-flex flex-column mb-8">
+                                              <label class="fs-6 fw-semibold mb-2">Onde será feito?</label>
+                                              <textarea class="form-control form-control-solid" rows="3" name="where_details" placeholder="Digite os Detalhes de Onde"></textarea>
+                                            </div>
+
+                                            <!-- Quem fará? (Who) -->
+                                            <div class="d-flex flex-column mb-8">
+                                              <label class="fs-6 fw-semibold mb-2">Quem fará?</label>
+                                              <textarea class="form-control form-control-solid" rows="3" name="who_details" placeholder="Digite os Detalhes de Quem"></textarea>
+                                            </div>
+
+                                            <!-- Como será feito? (How) -->
+                                            <div class="d-flex flex-column mb-8">
+                                              <label class="fs-6 fw-semibold mb-2">Como será feito?</label>
+                                              <textarea class="form-control form-control-solid" rows="3" name="how_details" placeholder="Digite os Detalhes do Como"></textarea>
+                                            </div>
+
+                                            <!--begin::Actions-->
+                                            <div class="text-center">
+                                                <button type="reset" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>
+                                                <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
+                                                    <span class="indicator-label">Criar Plano de ação</span>
+                                                    <span class="indicator-progress">Please wait...
+                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end:Form-->
+                                    </div>
+                                    <!--end::Modal body-->
+                                </div>
+                                <!--end::Modal content-->
+                            </div>
+                            <!--end::Modal dialog-->
+                          </div>
+                          <!--end::Modal - New Target-->
+                          {% endif %}
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                  
+                  </div>
+                </div>
+                <!--end::Card body-->
+              </div>
+              <!--end::Product List-->
+              {% for resposta in respostas %}
+              {% if resposta.resposta == "nao" and resposta.created_at == dt_esc %}
+              <!--begin::Product List-->
+              <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
+                <!--begin::Card header-->
+                <div class="card-header">
+                  <div class="card-title">
+                    <h2>Evidência por dimensões | <span>Dimensão:<b>{{ resposta.dimensao|slice:"8:21" }}</b></span></b></h2>
+                  </div>
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                  <div class="row">
+                    {% if imagens %}
+                      {% for imagem in imagens %}
+                          {% if resposta.id == imagem.resposta %}
+                          <div class="col-lg-4" style="margin-bottom: 15px;">
+                            <span>Dimensão:<b>{{ resposta.dimensao|slice:"8:21" }}</b></span>
+                            <a href="{{ imagem.evidencia }}" target="_blank">
+                              <img src="{{ imagem.evidencia }}" alt="Evidência" class="image-clickable" style="width: 380px;border: 0.5px solid black;">
+                            </a>
+                          </div>
+                          {% endif %}
+                      {% endfor %}
+                    {% else %}
+                    <div class="col-lg-4" style="margin-bottom: 15px;">
+                      <h5 class="card-title"><span><b>Sem dados</b></span></h5>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+                <!--end::Card body-->
+              </div>
+              <!--end::Product List-->
+              {% endif %}
+              {% endfor %}
+              <div class="text-center">
+                <button id="btnImprimir" class="btn btn-primary" onclick="imprimirTemplate()">imprimir</button>
+              </div> 
+            </div>
+            <!--end::Orders-->
+          </div>
+          <!--end::Tab pane-->
+        </div>
+        <!--end::Tab content-->
+      </div>
+      <!--end::Order details page-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+<script>
+  function imprimirTemplate() {
+    // Esconde o botão antes de imprimir
+    document.getElementById('btnImprimir').style.display = 'none';
+
+    // Chama o método de impressão
+    window.print();
+
+    // Restaura a exibição do botão após a impressão
+    document.getElementById('btnImprimir').style.display = 'hide';
+  }
+</script>
+{% endblock %}

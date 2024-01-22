@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Avaliação Desempenho Geral: {{ trim.trimestre }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+                <li class="breadcrumb-item">Avaliação Desempenho</li>
+                <li class="breadcrumb-item active">Pesquisar Gestor</li>
+                <li class="breadcrumb-item active">Listagem da pesquisa</li>
+                <li class="breadcrumb-item active">Ficha de colaborador</li>
+                <li class="breadcrumb-item active">Avaliação de Desempenho Geral</li>
+                <li class="breadcrumb-item active">{{ trim.trimestre }}</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dados Colaborador</h5>
+
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3">
+                            <div class="col-md-12">
+                                <label for="inputName5" class="form-label">Nome Colaborador</label>
+                                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.nome}}"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.funcao}}"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Escolaridade</label>
+                                <input type="text" class="form-control" id="inputName5"
+                                    value="{{usuario_nome.escolaridade}}" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Gestor Imediato</label>
+                                <input type="text" class="form-control" id="inputName5" value="Gestor Imediato"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputDate" class="form-label">Data de Admissão</label>
+                                <input type="text" class="form-control" disabled value="{{usuario_nome.admissao}}">
+
+                            </div>
+
+                        </form><!-- End Multi Columns Form -->
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Critérios de Avaliação</h5>
+                            <div class="d-flex col-lg-12">
+                                <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show text-white col-lg-6 me-2"
+                                    role="alert">
+                                    Nota 1 - Não cumpre o requisito
+                                </div>
+                                <div class="alert alert-warning bg-warning border-0 alert-dismissible fade show text-white col-lg-6 mX-2"
+                                    role="alert">
+                                    Nota 2 - Cumpre moderadamente
+                                </div>
+                            </div>
+                            <div class="d-flex col-lg-12">
+                                <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show text-white col-lg-6 me-2"
+                                    role="alert">
+                                    Nota 3 - Cumpre o que foi solicitado
+                                </div>
+                                <div class="alert alert-primary bg-primary text-light border-0 alert-dismissible fade show text-white col-lg-6 mX-2"
+                                    role="alert">
+                                    Nota 4 - Cumpre o requisito e supera as expectativas
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title"></h5>
+
+                        <div id="budgetChart" style="min-height: 568px;" class="echart"></div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <form action="" method="POST">
+                {% for indicador in indicadores %}
+                {% if indicador.tp_aval == 1 %}
+                {% csrf_token %}
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <br>
+                            <input type="hidden" id="input_hidden_pg" name="indicador_id{{indicador.id}}"
+                                value="{{ indicador.id }}">
+                            <h5 style="color: #012970; font-weight: 600">{{ indicador.titulo }}</h5>
+
+                            <div class="input-group">
+                                {% for item in itemindicador %}
+                                {% if indicador.id == item.indicador %}
+                                <div class="col-lg-10" style="margin-top: 15px;">
+                                    <input type="hidden" style="margin-bottom: 15px;" name="item_id{{item.id}}"value="{{ item.id }}">{{item.item }}</input>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect{{ item.id }}_tri1" aria-label="Floating label select example" name="res_tri{{ item.id }}" required>
+                                        <option></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+
+                                    <label for="floatingSelect{{ item.id }}_tri1">{{ trim.trimestre }}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center">
+                        <button type="reset" class="btn btn-primary" style="margin: 0px 5px 0px 5px;">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar Avaliação</button>
+                    </div>
+            </form>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                    legend: {
+                        data: ['1° TRIM', '2° TRIM', '3° TRIM', '4° TRIM']
+                    },
+                    radar: {
+                        indicator: [
+                            {
+                                name: 'Assiduidade',
+                                max: 8
+                            },
+                            {
+                                name: 'Responsabilidade',
+                                max: 16
+                            },
+                            {
+                                name: 'Disciplina',
+                                max: 8
+                            },
+                            {
+                                name: 'Motivação',
+                                max: 16
+                            }
+                        ]
+                    },
+                    series: [{
+                        name: 'Budget vs spending',
+                        type: 'radar',
+                        data: [
+                            {
+                                value: ['{{ tri_1_0 }}', '{{ tri_1_1 }}', '{{ tri_1_2 }}', '{{ tri_1_3 }}'],
+                                name: '1° TRIM'
+                            },
+                            {
+                                value: ['{{ tri_2_0 }}', '{{ tri_2_1 }}', '{{ tri_2_2 }}', '{{ tri_2_3 }}'],
+                                name: '2° TRIM'
+                            },
+                            {
+                                value: ['{{ tri_3_0 }}', '{{ tri_3_1 }}', '{{ tri_3_2 }}', '{{ tri_3_3 }}'],
+                                name: '3° TRIM'
+                            },
+                            {
+                                value: ['{{ tri_4_0 }}', '{{ tri_4_1 }}', '{{ tri_4_2 }}', '{{ tri_4_3 }}'],
+                                name: '4° TRIM'
+                            }
+                        ]
+                    }]
+                });
+            });
+        </script>
+        
+
+    </section>
+
+</main>
+
+{% endblock %}

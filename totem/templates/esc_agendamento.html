@@ -1,0 +1,15 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+				
+<a href="{% url 'especialidades' %}" class="btn-google m-b-20">
+	Agendamento de Consultas 
+</a>
+<a href="{% url 'cancelaAgenda' %}" class="btn-google m-b-20">
+	Cancelar uma das consultas  
+</a>
+<a href="{% url 'marcacao' %}" class="btn-google m-b-20">
+	<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+</a>
+	
+{% endblock %}	

@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Avaliação Proctor {{ dt_esc }}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">Relatório</li>
+        <li class="breadcrumb-item active">Nota Avaliação</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Relatório de Avaliação de Peso: <b>{{armazena_nome_S}}</b></h5>
+
+            <!-- Primary Color Bordered Table -->
+            <table class="table table-bordered border-primary">
+              <thead>
+                <tr>
+                  <th scope="col">DIMENSÃO</th>
+                  <th scope="col">N/A</th>
+                  <th scope="col">NÃO</th>
+                  <th scope="col">SIM</th>
+                  <th scope="col">NOTA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ASSISTENCIAL <span> - peso:{{peso_ass}}</span> </td>
+                  <td>{{qt_na_ass}}</td>
+                  <td>{{qt_n_ass}}</td>
+                  <td>{{qt_s_ass}}</td>
+                  <td>{{qt_tot_ass}}</td>
+                </tr>
+                <tr>
+                  <td>DOCUMENTOS<span> - peso:{{peso_doc}}</span> </td>
+                  <td>{{qt_na_doc}}</td>
+                  <td>{{qt_n_doc}}</td>
+                  <td>{{qt_s_doc}}</td>
+                  <td>{{qt_tot_doc}}</td>
+                </tr>
+                <tr>
+                  <td>ESTOQUE<span> - peso:{{peso_est}}</span> </td>
+                  <td>{{qt_na_est}}</td>
+                  <td>{{qt_n_est}}</td>
+                  <td>{{qt_s_est}}</td>
+                  <td>{{qt_tot_est}}</td>
+                </tr>
+                <tr>
+                  <td>HOTELARIA<span> - peso:{{peso_hot}}</span> </td>
+                  <td>{{qt_na_hot}}</td>
+                  <td>{{qt_n_hot}}</td>
+                  <td>{{qt_s_hot}}</td>
+                  <td>{{qt_tot_hot}}</td>
+                </tr>
+                <tr>
+                  <td>MANUTENÇÃO<span> - peso:{{peso_man}}</span> </td>
+                  <td>{{qt_na_man}}</td>
+                  <td>{{qt_n_man}}</td>
+                  <td>{{qt_s_man}}</td>
+                  <td>{{qt_tot_man}}</td>
+                </tr>
+                <tr>
+                  <td>PESSOAS<span> - peso:{{peso_pess}}</span> </td>
+                  <td>{{qt_na_pess}}</td>
+                  <td>{{qt_n_pess}}</td>
+                  <td>{{qt_s_pess}}</td>
+                  <td>{{qt_tot_pess}}</td>
+                </tr>
+                <tr>
+                  <td><b>TOTAL</b></td>
+                  <td><b>{{qt_tot_na}}</b></td>
+                  <td><b>{{qt_tot_n}}</b></td>
+                  <td><b>{{qt_tot_s}}</b></td>
+                  <td class="bg-success text-white"><b>{{qt_tot_tot}}</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- End Primary Color Bordered Table -->
+
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Itens Negativos: <b>{{armazena_nome_S}}</b></h5>
+            <table class="table table-bordered border-primary">
+              <thead>
+                <tr>
+                  <th scope="col">Pergunta</th>
+                  <th scope="col">Dimensao</th>
+                  <th scope="col">Eixo</th>
+                  <th scope="col">Comentário</th>
+                  <th scope="col">Evidência</th>
+                  <th scope="col">Área Responsavel</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for resposta in respostas %}
+                {% if resposta.resposta == "nao" and resposta.created_at == dt_esc %}
+                <tr>
+                  <td>{{ resposta.pergunta }}</td>
+                  <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                  <td>{{ resposta.titulo }}</td>
+                  <td>{{ resposta.comentario }}</td>
+                  {% if resposta.evidencia == None %}
+                  <td></td>
+                  {% else %}
+                  <td>
+                    <a href="{{ resposta.evidencia }}" target="_blank">
+                      <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                    </a>
+                  </td>
+                  {% endif %}
+                  {% if resposta.a_resp == None %}
+                  <td></td>
+                  {% else %}
+                    {% for setor in setores %}
+                    {% if resposta.a_resp == setor.id %}
+                    <td>{{ setor.name }}</td>
+                    {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- EVIDÊNCIA POR DIMENSAO -->
+        {% for resposta in respostas %}
+        {% if resposta.resposta == "nao" and resposta.created_at == dt_esc %}
+        <div class="card">
+          <div class="card-body">  
+                <h5 class="card-title">Evidência por dimensões | <span>Dimensão:<b>{{ resposta.dimensao|slice:"8:21" }}</b></span></h5>
+                <div class="col-lg-12" data-lightbox="image-set">             
+                  <div class="row">
+                    {% if imagens %}
+                      {% for imagem in imagens %}
+                          {% if resposta.id == imagem.resposta %}
+                          <div class="col-lg-4" style="margin-bottom: 15px;">
+                            <span>Dimensão:<b>{{ resposta.dimensao|slice:"8:21" }}</b></span>
+                            <a href="{{ imagem.evidencia }}" target="_blank">
+                              <img src="{{ imagem.evidencia }}" alt="Evidência" class="image-clickable" style="width: 380px;border: 0.5px solid black;">
+                            </a>
+                          </div>
+                          {% endif %}
+                      {% endfor %}
+                    {% else %}
+                    <div class="col-lg-4" style="margin-bottom: 15px;">
+                      <h5 class="card-title"><span><b>Sem dados</b></span></h5>
+                    </div>
+                    {% endif %}
+                  </div>
+                  <hr>
+              </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <div class="text-center">
+          <button id="btnImprimir" class="btn btn-primary" onclick="imprimirTemplate()">imprimir</button>
+        </div> 
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<script>
+  function imprimirTemplate() {
+    // Esconde o botão antes de imprimir
+    document.getElementById('btnImprimir').style.display = 'none';
+
+    // Chama o método de impressão
+    window.print();
+
+    // Restaura a exibição do botão após a impressão
+    document.getElementById('btnImprimir').style.display = 'hide';
+  }
+</script>
+
+{% endblock %}

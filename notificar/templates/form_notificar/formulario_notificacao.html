@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificar - Hospital Prontocardio (Segurança do Paciente)</title>
+    <link href="{% static 'css/notificar.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="formbold-main-wrapper">
+        
+        <div class="formbold-form-wrapper">
+            <img src="{% static 'img/notificar_logo_novo.jpeg' %}" width="100%" style="margin-bottom: 5%; margin-top: -7%; border-radius: 10px;">
+            <form id="formNotif" action="" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                <div class="formbold-mb-3">
+                    <label for="dob" class="formbold-form-label"> Data do Evento * </label>
+                    <input type="date" name="dataEvento" id="dob" class="formbold-form-input"  placeholder="dd/mm/aaaa" inputmode="numeric" required/>
+                </div>
+
+                <div>
+                    <label class="formbold-form-label">Qual o setor <strong>NOTIFICADOR? *</strong></label>
+                    <select class="formbold-form-input" name="setorNotificador" id="occupation" required>
+                    <option value="SELECT" disabled selected>Selecione um setor</option>
+                      {% for setor in setores %}
+                      <option value="{{ setor.id }}">{{ setor.name }}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                <br>
+
+                <div>
+                    <label class="formbold-form-label">Qual o setor <strong>NOTIFICADO? *</strong></label>
+                    <select class="formbold-form-input" name="sefotNotificado" id="occupation" required>
+                        <option value="SELECT" disabled selected>Selecione um setor</option>
+                        {% for setor in setores %}
+                        <option value="{{ setor.id }}">{{ setor.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br>
+
+                <div class="formbold-mb-3">
+                    <label for="Name" class="formbold-form-label"> Nome do Paciente </label>
+                    <input type="name" name="nomePaciente" id="name" placeholder="Escreva aqui " class="formbold-form-input" />
+                </div>
+
+                <div class="formbold-mb-3">
+                    <label for="age" class="formbold-form-label"> Idade </label>
+                    <input type="text" name="idadePaciente" id="age" placeholder="ex:25" class="formbold-form-input"
+                        inputmode="numeric"/>
+                </div>
+
+                <div class="formbold-mb-6">
+                    <label for="qusSix" class="formbold-form-label">
+                        Tipo de incidente: * 
+                    </label>
+                    <select class="formbold-form-input" name="tpIncidente" id="occupation" required >
+                        <option value="SELECT" disabled selected>Selecione um problema</option>
+                        {% for incidente in tpIncidente %}
+                        <option value="{{ incidente.id }}">{{ incidente.tp_Incidente }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="formbold-textarea">
+                    <label for="message" class="formbold-form-label" > Descreva o evento ocorrido com o máximo de
+                        informações e detalhes possíveis: *</label>
+                    <textarea rows="6" name="eventoDescricao" id="message" placeholder="Descreva a situação aqui..."
+                        class="formbold-form-input" required></textarea>
+
+                </div>
+
+                <div class="formbold-mb-3">
+                    <label for="upload" class="formbold-form-label" style="margin-top: 3%;">
+                        Caso tenha uma foto você poderá anexá-la:
+                    </label>
+                    <input type="file" name="evidencia" id="upload" class="formbold-form-input formbold-form-file"  />
+                </div>
+
+                <button class="formbold-btn">Enviar</button>
+                <div class="copyright">&copy; Copyright <strong><span>Setor desenvolvimento TI Hospitalprontocardio</span></strong>. All Rights Reserved</div>
+               
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function mascara(dataId) {
+            const input = document.getElementById(dataId);
+            if (!input) {
+                console.error(`Elemento com o ID '${dataId}' não encontrado.`);
+                return;
+            }
+
+            const { value } = input;
+            const formattedValue = value
+                .replace(/\D/g, '') // Remove caracteres não numéricos
+                .replace(/^(\d{2})(\d)/g, '$1/$2') // Formata os dois primeiros dígitos com '/'
+                .replace(/^(\d{2})\/(\d{2})(\d)/g, '$1/$2/$3') // Formata os quatro primeiros dígitos com '/'
+                .replace(/(\d{2})\/(\d{2})\/(\d{4}).*/, '$1/$2/$3'); // Limita a 10 caracteres (dd/mm/aaaa)
+            input.value = formattedValue;
+        }
+
+        
+        var form = document.getElementById('formNotif');
+        form.addEventListener('submit', function(event) {
+        var dataNotifErrorInput = document.getElementById('dataNotifErrorInput');
+        var dataNotifErrorSpan = document.getElementById('dataNotifErrorSpan');
+
+        if (!nameInput.value) {
+            dataNotifErrorInput.style.display = 'block';
+            event.preventDefault();
+        } else {
+            dataNotifErrorInput.style.display = 'none';
+        }
+        });
+  
+    </script>
+</body>
+
+</html>

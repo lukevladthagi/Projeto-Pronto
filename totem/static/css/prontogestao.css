@@ -1,0 +1,43 @@
+.btn_cacelar_avaliacao{
+    text-decoration: none;
+    color: white;
+}
+
+.btn_cacelar_avaliacao:hover{
+    color: white;
+}
+
+.Av_Col_Center{
+    text-align: center;
+}
+
+.search-wrapper-pg {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.user-cards-pg {
+    display:block;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: .25rem;
+    margin-top: 1rem;
+}
+
+.card-pg {
+    padding: .5rem;
+}
+
+.card-pg > .body {
+    font-size: .8rem;
+    color: #777;
+}
+
+.hide-pg {
+    display: none;
+}
+
+.table_pg{
+    position: relative;
+    overflow: auto;
+}

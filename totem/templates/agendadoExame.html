@@ -1,0 +1,51 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+
+<form action="" method="POST" id="exameForm">
+    {% csrf_token %}
+    <fieldset>
+        <div class="form-card">
+            <header>
+                <h1>AGENDAMENTO CONCLUIDO</h1>
+                <hr>
+            <h3>Exames Agendados</h3>
+            {% for item in descricao %}
+            <h5>{{item}}</h5>
+            <br>
+            {% endfor %}
+            <br>
+            <a href="{% url 'exames' %}" class="btn-google m-b-20">
+                Próximo agendamento
+            </a>
+            <a class="btn-google m-b-20" href="#" onclick="submitForm()">Finalizar</a>
+        </div>
+    </fieldset>
+</form>
+
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+    <script>
+        function submitForm() {
+            // Get the form element
+            var form = document.getElementById("exameForm");
+            // Submit the form
+            form.submit();
+        }
+    </script>
+{% endblock %}	

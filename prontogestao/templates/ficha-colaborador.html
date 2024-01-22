@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Ficha de colaborador</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item">Avaliação Desempenho</li>
+        <li class="breadcrumb-item active">Pesquisar Gestor</li>
+        <li class="breadcrumb-item active">Listagem da pesquisa</li>
+        <li class="breadcrumb-item active">Ficha de colaborador</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Dados Colaborador</h5>
+
+            <!-- Multi Columns Form -->
+            <form class="row g-3">
+              <div class="col-md-12">
+                <label for="inputName5" class="form-label">Nome Colaborador</label>
+                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.nome}}" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputName5" class="form-label">Cargo</label>
+                <input type="text" class="form-control" id="inputName5" value="{{cargo.nome}}" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputName5" class="form-label">Escolaridade</label>
+                <input type="text" class="form-control" id="inputName5" value="{{escolaridade.nome}}" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputName5" class="form-label">Gestor Imediato</label>
+                <input type="text" class="form-control" id="inputName5" value="Gestor Imediato" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputDate" class="form-label">Data de Admissão</label>
+                <input type="text" class="form-control" disabled value="{{usuario_nome.admissao}}">
+              </div>
+
+
+            </form><!-- End Multi Columns Form -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Escolha a Avaliação</h5>
+
+            <!-- Accordion without outline borders -->
+            <div class="accordion accordion-flush" id="accordionDesempenhoGeral">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <div class="d-flex justify-content-center">
+                      <b>Avaliação de desempenho geral</b>
+                    </div>
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionDesempenhoGeral">
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avDesempGeral' usuario_nome.id 1 1 %}">1º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avDesempGeral' usuario_nome.id 1 2 %}">2º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avDesempGeral' usuario_nome.id 1 3 %}">3º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avDesempGeral' usuario_nome.id 1 4 %}">4º Trimestre</a>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwoCompetencia">
+                  <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwoCompetencia" aria-expanded="false" aria-controls="flush-collapseTwoCompetencia">
+                    <div class="d-flex justify-content-center">
+                      <b>Avaliação de Competência</b>
+                    </div>
+                  </button>
+                </h2>
+                <div id="flush-collapseTwoCompetencia" class="accordion-collapse collapse" aria-labelledby="flush-headingTwoCompetencia" data-bs-parent="#accordionDesempenhoGeral">
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avCompetencia' usuario_nome.id 2 1 %}">1º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avCompetencia' usuario_nome.id 2 2 %}">2º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avCompetencia' usuario_nome.id 2 3 %}">3º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'avCompetencia' usuario_nome.id 2 4 %}">4º Trimestre</a>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Cadastro de Metas -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwoMetas">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwoMetas" aria-expanded="false" aria-controls="flush-collapseTwoMetas">
+                    <b>Cadastro de Metas</b>
+                  </button>
+                </h2>
+                <div id="flush-collapseTwoMetas" class="accordion-collapse collapse" aria-labelledby="flush-headingTwoMetas" data-bs-parent="#accordionDesempenhoGeral">
+                  <!-- Conteúdo do Cadastro de Metas -->
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'cadastroMetasProdutividade' usuario_nome.id %}">Cadastro de Indicadores</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'resultadoLancv2' usuario_nome.id %}">Resultado de Indicadores</a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Accordion without outline borders -->
+            
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+</main>
+
+
+
+{% endblock %}

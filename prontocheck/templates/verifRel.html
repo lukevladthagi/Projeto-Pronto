@@ -1,0 +1,462 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Relatório Proctor: {{armazena_nome_S}}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item"><a>Relatório</a></li>
+        <li class="breadcrumb-item active">Relatório gerado</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card card-body-pc">
+          {% for dimensao in dimensaos %}
+          <div class="card card-body">
+            <h5 class="card-title">{{dimensao.dimensao}}</h5>
+            {% for titulo in titulos %}
+            {% if titulo.dimensao == dimensao.id %}
+            <div class="card card-body">
+              <h5 class="card-title">{{titulo.titulo}}</h5>
+              {% for pergunta in perguntas %}
+              {% if pergunta.titulo == titulo.id %}
+              <div class="input-group col-lg-12">
+                <div class="col-lg-9">
+                  <span class="col-lg-9" style="margin-bottom: 15px;">{{pergunta.pergunta}}</span>
+                </div>
+                <div class="col-lg-3">
+                  {% for resposta in respostas %}
+                  {% if resposta.pergunta == pergunta.id and resposta.resposta == "sim" and resposta.created_at == dt_esc %}
+                  <input type="radio" class="btn-check" autocomplete="off" value="sim" disabled>
+                  <label class="btn btn-secondary colors" for="sim{{pergunta.id}}">Sim</label>
+                  <a class="btn btn-secondary colors" data-bs-toggle="modal" data-bs-target="#basicModal{{pergunta.id}}">Editar</a>
+                  <a class="btn btn-secondary colorn" data-bs-toggle="modal" data-bs-target="#smallModal">Excluir</a>              
+
+
+                  <div class="modal fade" id="basicModal{{pergunta.id}}" tabindex="-1">
+                    <div class="modal-dialog">
+                      <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">{{pergunta.pergunta}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                <input type="hidden" name="id_resp" value="{{resposta.id}}">
+                                <input type="radio" class="btn-check text-center" name="resposta" id="sim{{pergunta.id}}" autocomplete="off" value="sim">
+                                <label class="btn btn-secondary colors" for="sim{{pergunta.id}}">Sim</label>
+                    
+                                <input type="radio" class="btn-check" name="resposta" id="nao{{pergunta.id}}" autocomplete="off" value="nao">
+                                <label class="btn btn-secondary colorn" for="nao{{pergunta.id}}">Não</label>
+                    
+                                <input type="radio" class="btn-check" name="resposta" id="naoAplica{{pergunta.id}}" autocomplete="off" value="na">
+                                <label class="btn btn-secondary colorna" for="naoAplica{{pergunta.id}}">Não se Aplica</label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                {% if resposta.comentario == null %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                {% else %}
+                                <label for="inputDate" class="form-label">Comentário Anterior:</label><br>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">{{resposta.comentario}}</span>
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              {% if resposta.evidencia == null %}
+                              <div class="col-lg-12" data-lightbox="image-set">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Não foi adicionado evidência</span>
+                              </div>
+                              <br>
+                              {% else %}
+                              <div class="col-lg-12" data-lightbox="image-set">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span><br>
+                                <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 100px;">
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span>
+                                <input type="file" class="form-control" id="inputGroupFile02" name="evidencia{{pergunta.id}}">
+                              </div>
+                              <br>
+                              {% endif %}
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                {% if resposta.a_resp == null %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                <select id="inputState" class="form-select" name="setor">
+                                  <option selected disabled></option>
+                                  {%for setor in setores%}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                                {% else %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                {%for setor in setores%}
+                                {% if setor.id == resposta.a_resp %}
+                                <input type="text" value="{{ setor.name }}" disabled>
+                                {% endif %}
+                                {% endfor %}
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                <select id="inputState" class="form-select" name="arearesponsavel">
+                                  <option selected disabled></option>
+                                  {%for setor in setores%}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                                <br>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary">Limpar</button>
+                            <button type="submit" class="btn btn-primary disableOnSubmit" >Salvar Mudanças</button>
+                          </div>
+  
+                        </div>
+                      </form>
+                    </div>
+                  </div><!-- End Basic Modal-->
+
+
+                  <div class="modal fade" id="smallModal" tabindex="-1">
+                    <div class="modal-dialog modal-sm">
+                      <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Exclusão de resposta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza de que deseja excluir esta resposta?
+                          </div>
+                          <div class="modal-footer text-center">
+                            <input type="hidden" name="id_resp" value="{{resposta.id}}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-primary disableOnSubmit" >Apagar</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div><!-- End Small Modal-->
+
+
+                  {% endif %}
+                  {% if resposta.pergunta == pergunta.id and resposta.resposta == "nao" and resposta.created_at == dt_esc %}
+                  <input type="radio" class="btn-check" autocomplete="off" value="nao" disabled>
+                  <label class="btn btn-secondary colorn" for="nao{{pergunta.id}}">Não</label>
+                  <a class="btn btn-secondary colors" data-bs-toggle="modal" data-bs-target="#basicModal{{pergunta.id}}">Editar</a>
+                  <a class="btn btn-secondary colorn" data-bs-toggle="modal" data-bs-target="#smallModal">Excluir</a>   
+
+
+                  <div class="modal fade" id="basicModal{{pergunta.id}}" tabindex="-1">
+                    <div class="modal-dialog">
+                      <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">{{pergunta.pergunta}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                <input type="hidden" name="id_resp" value="{{resposta.id}}">
+                                <input type="radio" class="btn-check text-center" name="resposta" id="sim{{pergunta.id}}" autocomplete="off" value="sim">
+                                <label class="btn btn-secondary colors" for="sim{{pergunta.id}}">Sim</label>
+                    
+                                <input type="radio" class="btn-check" name="resposta" id="nao{{pergunta.id}}" autocomplete="off" value="nao">
+                                <label class="btn btn-secondary colorn" for="nao{{pergunta.id}}">Não</label>
+                    
+                                <input type="radio" class="btn-check" name="resposta" id="naoAplica{{pergunta.id}}" autocomplete="off" value="na">
+                                <label class="btn btn-secondary colorna" for="naoAplica{{pergunta.id}}">Não se Aplica</label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                {% if resposta.comentario == null %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                {% else %}
+                                <label for="inputDate" class="form-label">Comentário Anterior:</label><br>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">{{resposta.comentario}}</span>
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              {% if resposta.evidencia == null %}
+                              <div class="col-lg-12" data-lightbox="image-set">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Não foi adicionado evidência</span>
+                              </div>
+                              <br>
+                              {% else %}
+                              <div class="col-lg-12" data-lightbox="image-set">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span><br>
+                                <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 100px;">
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span>
+                                <input type="file" class="form-control" id="inputGroupFile02" name="evidencia{{pergunta.id}}">
+                              </div>
+                              <br>
+                              {% endif %}
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                {% if resposta.a_resp == null %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                <select id="inputState" class="form-select" name="setor">
+                                  <option selected disabled></option>
+                                  {%for setor in setores%}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                                {% else %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                {%for setor in setores%}
+                                {% if setor.id == resposta.a_resp %}
+                                <input type="text" value="{{ setor.name }}" disabled>
+                                {% endif %}
+                                {% endfor %}
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                <select id="inputState" class="form-select" name="arearesponsavel">
+                                  <option selected disabled></option>
+                                  {%for setor in setores%}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                                <br>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary">Limpar</button>
+                            <button type="submit" class="btn btn-primary disableOnSubmit" >Salvar Mudanças</button>
+                          </div>
+  
+                        </div>
+                      </form>
+                    </div>
+                  </div><!-- End Basic Modal-->
+
+
+                  <div class="modal fade" id="smallModal" tabindex="-1">
+                    <div class="modal-dialog modal-sm">
+                      <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Exclusão de resposta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza de que deseja excluir esta resposta?
+                          </div>
+                          <div class="modal-footer text-center">
+                            <input type="hidden" name="id_resp" value="{{resposta.id}}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-primary disableOnSubmit" >Apagar</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div><!-- End Small Modal-->
+
+
+                  {% endif %}
+                  {% if resposta.pergunta == pergunta.id and resposta.resposta == "na" and resposta.created_at == dt_esc %}
+                  <input type="radio" class="btn-check" name="pergunta{{pergunta.id}}" id="na{{pergunta.id}}" autocomplete="off" value="nao" disabled>
+                  <label class="btn btn-secondary colorna" for="na{{pergunta.id}}">Não Se Aplica</label>
+                  <a class="btn btn-secondary colors" data-bs-toggle="modal" data-bs-target="#basicModal{{pergunta.id}}">Editar</a>
+                  <a class="btn btn-secondary colorn" data-bs-toggle="modal" data-bs-target="#smallModal">Excluir</a>   
+
+
+                  <div class="modal fade" id="basicModal{{pergunta.id}}" tabindex="-1">
+                    <div class="modal-dialog">
+                      <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">{{pergunta.pergunta}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                <input type="hidden" name="id_resp" value="{{resposta.id}}">
+                                <input type="radio" class="btn-check text-center" name="resposta" id="sim{{pergunta.id}}" autocomplete="off" value="sim">
+                                <label class="btn btn-secondary colors" for="sim{{pergunta.id}}">Sim</label>
+                    
+                                <input type="radio" class="btn-check" name="resposta" id="nao{{pergunta.id}}" autocomplete="off" value="nao">
+                                <label class="btn btn-secondary colorn" for="nao{{pergunta.id}}">Não</label>
+                    
+                                <input type="radio" class="btn-check" name="resposta" id="naoAplica{{pergunta.id}}" autocomplete="off" value="na">
+                                <label class="btn btn-secondary colorna" for="naoAplica{{pergunta.id}}">Não se Aplica</label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                {% if resposta.comentario == null %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                {% else %}
+                                <label for="inputDate" class="form-label">Comentário Anterior:</label><br>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">{{resposta.comentario}}</span>
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              {% if resposta.evidencia == null %}
+                              <div class="col-lg-12" data-lightbox="image-set">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Não foi adicionado evidência</span>
+                              </div>
+                              <br>
+                              {% else %}
+                              <div class="col-lg-12" data-lightbox="image-set">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span><br>
+                                <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 100px;">
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span>
+                                <input type="file" class="form-control" id="inputGroupFile02" name="evidencia{{pergunta.id}}">
+                              </div>
+                              <br>
+                              {% endif %}
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                {% if resposta.a_resp == null %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                <select id="inputState" class="form-select" name="setor">
+                                  <option selected disabled></option>
+                                  {%for setor in setores%}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                                {% else %}
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                {%for setor in setores%}
+                                {% if setor.id == resposta.a_resp %}
+                                <input type="text" value="{{ setor.name }}" disabled>
+                                {% endif %}
+                                {% endfor %}
+                                <hr>
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                <select id="inputState" class="form-select" name="arearesponsavel">
+                                  <option selected disabled></option>
+                                  {%for setor in setores%}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                                <br>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary">Limpar</button>
+                            <button type="submit" class="btn btn-primary disableOnSubmit" >Salvar Mudanças</button>
+                          </div>
+  
+                        </div>
+                      </form>
+                    </div>
+                  </div><!-- End Basic Modal-->
+
+
+                  <div class="modal fade" id="smallModal" tabindex="-1">
+                    <div class="modal-dialog modal-sm">
+                      <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Exclusão de resposta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Tem certeza de que deseja excluir esta resposta?
+                          </div>
+                          <div class="modal-footer text-center">
+                            <input type="hidden" name="id_resp" value="{{resposta.id}}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-primary disableOnSubmit" >Apagar</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div><!-- End Small Modal-->
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+              <hr>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          <br>
+          {% endfor %}
+        </div>
+        <div class="text-center">
+          <button class="btn btn-primary" onclick="imprimirTemplate()">Converter para PDF</button>
+        </div>
+      </div>
+    </div> <!-- End Table with hoverable rows -->
+  </section>
+</main><!-- End #main -->
+<style>
+  .colors {
+    background-color: rgb(40, 167, 59);
+    cursor: pointer;
+  }
+
+  .colorn {
+    background-color: rgb(177, 36, 36);
+    cursor: pointer;
+  }
+
+  .colorna {
+    background-color: rgb(129, 193, 244);
+    cursor: pointer;
+  }
+</style>
+<script>
+  function imprimirTemplate() {
+    window.print();
+  }
+  </script>
+
+{% endblock %}

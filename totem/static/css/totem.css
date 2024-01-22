@@ -1,0 +1,454 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0; 
+    overflow: hidden;    
+    
+}
+
+/* Escopo Base */
+
+main{
+    background-color: #212A51;
+    overflow: hidden;
+    min-height: 100vh; 
+}
+
+.card-body{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10% auto;  
+}
+
+.card_a_herf{
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo-img{
+    justify-content: center;
+    display: flex;
+    text-align: left;
+}
+
+.cancelaDiv{
+    display: flex;
+    width: 30%;
+}
+
+.cancelar_agend{
+    display: flex;
+    width: 30%;
+}
+
+.cancelar_agend h5{
+    position: absolute;
+    top: 42%;
+    left: 26%;
+}
+
+.cancelaDiv p{
+    position: absolute;
+    top: 57%;
+    left: 25%;
+    font-size: 23px;
+}
+
+.logo-img img{
+    width: 60%;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.btn_scope{
+    position: absolute; 
+    top: 50%; 
+    left: 33%;
+}
+
+.card_a_herf a,
+.card_a_herf button {
+    display: flex;
+    background-color: #212A51;
+    text-decoration: none;
+    margin-bottom: 4%;
+    padding: 5%;
+    border-radius: 30px;
+    text-align: center;
+    justify-content: center;
+    color: #ffff;
+    font-size: 23px;
+}
+
+/* Estilização para o funcionamento do checkbox dos exames */
+.custom-checkbox input {
+    display: none; 
+  }
+  
+  .custom-checkbox label {
+    display: flex;
+    background-color: #212A51;
+    text-decoration: none;
+    margin-bottom: 4%;
+    padding: 5%;
+    border-radius: 30px;
+    text-align: center;
+    justify-content: center;
+    color: #ffff;
+    font-size: 23px;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox input:checked + label {
+    background-color: #182037; 
+    color: #fff; 
+  }
+
+.scrollable {
+    max-height: 800px; /* Defina a altura máxima desejada */
+    overflow-y: auto;
+    margin-left: 1%;
+}
+
+.card_a_herf a:hover,
+.card_a_herf button:hover {
+    text-decoration: none;
+    color: #ffff;
+    background-color: #43516f;
+}
+
+/* Tela "PegaCPF" */
+.container_login {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container_login label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+.container_login input[type="cpf"],
+.container_login input[type="date"],
+.container_login input[type="tel"],
+.container_login select {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.container_login hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+
+.container_cadastro {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    
+}
+
+.container_cadastro label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 450;
+    font-size: 20px;
+}
+
+.container_cadastro input[type="text"],
+.container_cadastro input[type="tel"],
+.container_cadastro input[type="date"],
+.container_cadastro select {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.button-container {
+	justify-content: center;
+}
+
+.button-container a {
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.button-icon {
+	width: 8%; /* Ajuste o tamanho da imagem conforme necessário */
+	margin-right: 10px; /* Ajuste o espaçamento entre a imagem e o rótulo */
+}
+
+.button-label {
+	font-size: 23px; /* Ajuste o tamanho da fonte do rótulo */
+}
+
+
+.link-label {
+	font-size: 23px; /* Ajuste o tamanho da fonte do rótulo */
+}
+
+.teclado-numerico {
+    display: none; /* Inicialmente oculto */
+    /* Estilos adicionais do teclado numérico */
+}
+
+
+@media (max-width: 576px) {
+    .container_cadastro {
+        max-width: 100%;
+        padding: 10px;
+    }
+}
+
+.sexo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.sexo-wrapper input[type="checkbox"]{
+    margin: 5%;
+}
+
+.verif_btn{
+    align-items: center;
+    justify-items: center;
+}
+
+hr{
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+}
+
+
+
+.container_login {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container_login label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.container_login input[type="text"],
+.container_login select {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.container_login input[type="submit"] {
+    background-color: #212A51 ;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.btn-google {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
+.accordion-header {
+    font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
+    margin-bottom: 10px; /* Ajuste o espaçamento inferior conforme necessário */
+}
+
+.btn_volta_hconsulta {
+    margin-top: 20px; /* Ajuste o espaçamento superior conforme necessário */
+}
+
+@media screen and (max-height: 599px){
+
+    .logo-img p{
+        display: none;
+    }
+
+    .logo-img img{
+        width: 80px;
+    }
+
+    .btn_solicitar{
+        font-size: 8px;
+    }
+
+    .card{
+        width: 10%;
+    }
+
+    .container_login input, label{
+        font-size: 10px;
+    }
+    
+}
+
+@media screen and (max-height: 1000px){
+
+    .card{
+        height: 80%;
+        width: 50%;
+    }
+
+    .logo-img img{
+        margin: 10%;
+    }
+
+}
+
+@media screen and (min-height: 1001px){
+
+    .card{
+        height: 65%;
+        width: 90%;
+    }
+
+    .logo-img img{
+        margin: 8%;
+    }
+
+    .container_login{
+        align-items: center;
+        justify-items: center; 
+        padding: 3%;
+        border-radius: 30px;
+        
+    }
+
+    .card_a_herf{
+        width: 80%;  
+    }
+
+    .card_a_herf button {
+        width: 100%;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    .card_a_herf a,
+    .card_a_herf button {
+        display: flex;
+        background-color: #212A51;
+        text-decoration: none;
+        margin-bottom: 4%;
+        padding: 5%;
+        border-radius: 30px;
+        text-align: center;
+        justify-content: center;
+        color: #ffff;
+        font-size: 23px;
+    }
+
+}
+
+@media screen and (max-width: 466px){
+
+    select{
+        width: 10%;
+    }
+
+    .card{
+        width: 80%;
+    }
+
+
+    .logo-img img{
+        margin: 15%;
+        width: 90%;
+    }
+
+    
+}
+
+
+/* Estiliza o scroll */
+.scrollable::-webkit-scrollbar {
+    width: 8px; /* Largura do scroll */
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: #888; /* Cor do scroll */
+    border-radius: 4px; /* Arredondamento do scroll */
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Cor do scroll quando passar o mouse */
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 8px; /* Largura do scroll */
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: #96989A; /* Cor do scroll */
+    border-radius: 4px; /* Arredondamento do scroll */
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Cor do scroll quando passar o mouse */
+}
+
+/* Espaçamento interno para afastar visualmente os itens do scroll */
+.scrollable {
+    padding-right: 15px; /* Espaçamento interno à direita */
+}
+
+
+
+
+
+
+
+

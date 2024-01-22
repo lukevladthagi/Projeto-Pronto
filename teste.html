@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar PDF</title>
+</head>
+<body>
+  <div id="pdf"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfjs/2.15.18/pdf.min.js"></script>
+
+  <script>
+    const pdfUrl = "http://192.168.4.33:8000/media/documentos_solicitados/Servic_os_2024.pdf";
+
+    const pdf = new PDFJS.PDFDocument(pdfUrl);
+
+    const canvas = document.getElementById("pdf");
+
+    const ctx = canvas.getContext("2d");
+
+    pdf.getPage(1).then((page) => {
+      page.render(ctx);
+      canvas.print();
+    });
+  </script>
+</body>
+</html>

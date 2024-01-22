@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Relatório checklist / Dia: {{data_esc}} / Setor: {{nm_setor.name}}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Relatório</a></li>
+        <li class="breadcrumb-item active">Relatório gerado</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Resultado de Avaliação proctor: <b>{{armazena_nome_S}}</b></h5>
+            <!-- Primary Color Bordered Table -->
+            <table class="table table-bordered border-primary">
+              <thead>
+                <tr>
+                  <th scope="col">DIMENSÃO</th>
+                  <th scope="col">N/A</th>
+                  <th scope="col">NÃO</th>
+                  <th scope="col">SIM</th>
+                  <th scope="col">NOTA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ASSISTENCIAL</td>
+                  <td>{{qt_na_ass}}</td>
+                  <td>{{qt_n_ass}}</td>
+                  <td>{{qt_s_ass}}</td>
+                  <td>{{qt_tot_ass}}</td>
+                </tr>
+                <tr>
+                  <td>DOCUMENTOS</td>
+                  <td>{{qt_na_doc}}</td>
+                  <td>{{qt_n_doc}}</td>
+                  <td>{{qt_s_doc}}</td>
+                  <td>{{qt_tot_doc}}</td>
+                </tr>
+                <tr>
+                  <td>ESTOQUE</td>
+                  <td>{{qt_na_est}}</td>
+                  <td>{{qt_n_est}}</td>
+                  <td>{{qt_s_est}}</td>
+                  <td>{{qt_tot_est}}</td>
+                </tr>
+                <tr>
+                  <td>HOTELARIA</td>
+                  <td>{{qt_na_hot}}</td>
+                  <td>{{qt_n_hot}}</td>
+                  <td>{{qt_s_hot}}</td>
+                  <td>{{qt_tot_hot}}</td>
+                </tr>
+                <tr>
+                  <td>MANUTENÇÃO</td>
+                  <td>{{qt_na_man}}</td>
+                  <td>{{qt_n_man}}</td>
+                  <td>{{qt_s_man}}</td>
+                  <td>{{qt_tot_man}}</td>
+                </tr>
+                <tr>
+                  <td>PESSOAS</td>
+                  <td>{{qt_na_pess}}</td>
+                  <td>{{qt_n_pess}}</td>
+                  <td>{{qt_s_pess}}</td>
+                  <td>{{qt_tot_pess}}</td>
+                </tr>
+                <tr>
+                  <td><b>TOTAL</b></td>
+                  <td><b>{{qt_tot_na}}</b></td>
+                  <td><b>{{qt_tot_n}}</b></td>
+                  <td><b>{{qt_tot_s}}</b></td>
+                  <td class="bg-success text-white"><b>{{qt_tot_tot}}</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- End Primary Color Bordered Table -->
+
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button id="btnImprimir" class="btn btn-primary" onclick="imprimirTemplate()">imprimir</button>
+        </div> 
+      </div>
+    </div>
+  </section>
+</main><!-- End #main -->
+<style>
+  .colors {
+    background-color: rgb(40, 167, 59);
+    cursor: pointer;
+  }
+
+  .colorn {
+    background-color: rgb(177, 36, 36);
+    cursor: pointer;
+    margin-right: 5px; /* Ajuste a margem direita conforme necessário */
+    padding: 4px 8px; /* Ajuste o preenchimento conforme necessário */
+    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+  }
+
+  .colorna {
+    background-color: rgb(129, 193, 244);
+    cursor: pointer;
+  }
+</style>
+<script>
+  function imprimirTemplate() {
+    window.print();
+  }
+  </script>
+
+{% endblock %}

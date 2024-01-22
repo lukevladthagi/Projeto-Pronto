@@ -1,0 +1,23 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+
+{%for elemento in dados%}
+
+	{% if elemento.nome_convenio == 'Particular' %}
+		<a href="{% url 'especialidade' %}" class="btn-google m-b-20">
+			{{ elemento.nome_convenio }}
+		</a>
+	{% endif %}	
+{%endfor%}
+	<br> <hr><br>
+{%for elemento in dados%}
+	<a href="{% url 'especialidade' %}" class="btn-google m-b-20">
+		{{ elemento.nome_convenio }}
+	</a>
+{%endfor%}
+<a href="{% url 'esc_agendamento' %}" class="btn-google m-b-20">
+	<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+</a>
+
+{% endblock %}	

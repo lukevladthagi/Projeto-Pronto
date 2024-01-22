@@ -1,0 +1,636 @@
+{% extends 'base.html' %}
+{% block content %}  
+{% load static %} 
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Alterar Informações</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">ProntoTicket Técnico</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Contacts App- Add New Contact-->
+      <div class="row g-7">
+        <!--begin::Content-->
+        <div class="col-xl-12">
+          <!--begin::Contacts-->
+          <div class="card card-flush h-lg-100" id="kt_contacts_main">
+            <!--begin::Card header-->
+            <div class="card-header pt-7" id="kt_chat_contacts_header">
+              <!--begin::Card title-->
+              <div class="card-title">
+                <i class="ki-duotone ki-badge fs-1 me-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                </i>
+                <h2>Informações do Chamado</h2>
+              </div>
+              <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-5">
+              <!--begin::Form-->
+              <form id="kt_ecommerce_settings_general_form" class="form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-3">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="col">
+                      <!--begin::Input group-->
+                      <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                          <span>Solicitante</span>
+                        </label>
+                        <!--end::Label-->
+                        <div class="w-100">
+                          <!--begin::Select2-->
+                          <select id="kt_ecommerce_select2_country" class="form-select form-select-solid" name="solicitanteSelect" id="solSelect">
+                            {% for us in usuarios %}
+                              {% if chamado.usuario == us.id %}
+                                <option selected value="{{us.id}}">{{us.nome}}</option>
+                              {% endif %}
+                              {% if chamado.usuario != us.id %}
+                                <option value="{{ us.id }}">{{ us.nome }}</option>
+                              {% endif %}
+                            {% endfor %}
+                          </select>
+                          <!--end::Select2-->
+                        </div>
+                      </div>
+                      <!--end::Input group-->
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="col">
+                      <!--begin::Input group-->
+                      <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                          <span>Responsável</span>
+                        </label>
+                        <!--end::Label-->
+                        <div class="w-100">
+                          {% if chamado.usuario == usuarioLogado %}
+                            <select id="kt_ecommerce_select2_country" class="form-select form-select-solid" name="responsavelSelect" id="solSelect">
+                              {% for us in usuarios %}
+                                {% if chamado.usuario_atendime == us.id %}
+                                  <option selected value="{{us.id}}">{{us.nome}}</option>
+                                {% endif %}
+                                {% if chamado.usuario_atendime != us.id %}
+                                  <option value="{{ us.id }}">{{ us.nome }}</option>
+                                {% endif %}
+                              {% endfor %}
+                            </select>
+                          
+                          {% else %}
+                            {% if chamado.usuario_atendime != None  %}
+                              <input type="text" class="form-control" value="{{ userAtend }}" readonly>
+                            {% else %}
+                              <input type="text" class="form-control" value="Sem responsável" readonly>
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                      </div>
+                      <!--end::Input group-->
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="col">
+                      <!--begin::Input group-->
+                      <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                          <span>Data de Abertura</span>
+                        </label>
+                        <!--end::Label-->
+                        <div class="w-100">
+                          <!--begin::Select2-->
+                          <input type="text" class="form-control" value="{{ chamado.created_at }}" name="data" id="dateInput" readonly>
+                          <!--end::Select2-->
+                        </div>
+                      </div>
+                      <!--end::Input group-->
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-3">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Unidade Hospitalar</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select id="kt_ecommerce_select2_country" class="form-select form-select-solid" name="data">
+                          {% if chamado.unidade == 1 %}
+                            <option value="1">Hospital Prontocardio</option>
+                          {% endif %}
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Setor do Local</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select id="setorLocalSelect" class="form-select form-select-solid" name="setorLocalSelect">
+                          {% for setor in setores %}
+                            {% if chamado.setor_local == setor.id %}
+                              <option selected value="{{setor.id}}" >{{setor.name}}</option>
+                            {% endif %}
+                            {% if setor.id != chamado.setor_local %}
+                              <option value="{{ setor.id }}">{{ setor.name }}</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Local do ocorrido</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select id="localChamadoSelect" class="form-select form-select-solid" name="localChamadoSelect">
+                          {% for loc in local %}
+                            {% if chamado.local_setor == loc.id %}
+                              <option selected value="{{loc.id}}">{{loc.local}}</option>
+                            {% endif %}
+                            {% if chamado.setor_local != loc.local %}
+                              <option value="{{ loc.id }}">{{ loc.local }}</option>
+                            {% endif %}
+                          {%endfor%}
+                          
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                </div>
+                <!--end::Row-->
+
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-3">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Área Responsável</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select id="setor" class="form-select form-select-solid" name="setor">
+                          <option selected value="{{setorId}}" >{{chamado.setor_recebe}}</option>
+                          {% for setor in setores %}
+                            {% if setor.id == 1 or setor.id == 2 or setor.id == 3 or setor.id == 17 or setor.id == 23 or setor.id == 31 or setor.id == 32 or setor.id == 33 %}
+                              {% if setor.id != setorId %}
+                                <option value="{{ setor.id }}">{{ setor.name }}</option>
+                              {% endif %}
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Tipo de Problema</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select id="tipoProblema" class="form-select form-select-solid" name="tpProb">
+                          {% for item in tipoProb %}
+                            {% if chamado.tp_problema == item.id %}
+                              <option selected value="{{item.id}}">{{item.tipoProb}}</option>
+                            {% endif %}
+                            {% if chamado.tp_problema != item.id %}
+                              <option value="{{ item.id }}">{{ item.tipoProb }}</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Problema</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select id="probSelect" class="form-select form-select-solid" name="problema">
+                          <option selected value="{{problemaId}}" >{{chamado.problema}}</option>
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                </div>
+                <!--end::Row-->
+
+
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-3">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Possui Paciente?</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select class="form-select form-select-solid" name="paciente">
+                          {% if chamado.paciente == "sim" %}
+                            <option selected value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                          {% elif chamado.paciente == "nao" %}
+                            <option selected value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                          {% endif %}
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Agendar Chamado</span>
+                      </label>
+                      <!--end::Label-->
+                      {% if chamado.status != 4 %}
+                        <div class="w-100">
+                          <input type="datetime-local" class="form-control dateInput" name="dataAgend">
+                        </div>
+                        
+                      {% else %}
+                        <div class="w-100">
+                          <input type="datetime-local" class="form-control dateInput" name="dataAgend" disabled>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Prioridade do Chamado</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        {% if chamado.prioridade == "alta" %}
+                          <input type="text" class="form-control" value="alta" readonly>
+                        {% elif chamado.prioridade == "media" %}
+                          <input type="text" class="form-control" value="media" readonly>
+                        {% elif chamado.prioridade == "baixa" %}
+                         <input type="text" class="form-control" value="baixa" readonly>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                </div>
+                <!--end::Row-->
+
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-3">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Técnico Executante</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Select2-->
+                        <select id="kt_ecommerce_select2_country" class="form-select form-select-solid" name="tecnicoSelect">
+                          {% if chamado.tec_responsavel != None %}
+                            <option selected value="{{chamado.tec_responsavel}}" >{{chamado.tecNome}}</option>
+                          {% else %}
+                            <option selected value="" >Selecione o Ténico</option>
+                          {% endif %}
+                          {% for tecnico in tecnicos %}
+                            {% if chamado.tec_responsavel != tecnico.id  %}
+                              <option value="{{ tecnico.id }}">{{ tecnico.usuarioNome }}</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+                        <!--end::Select2-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Telefone</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <input type="text" class="form-control" value="{{ chamado.telefone }}" name="telefone" readonly>
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>E-mail</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <input type="text" class="form-control" value="{{ chamado.email }}" name="" readonly>
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                </div>
+                <!--end::Row-->
+
+                <!--begin::Collapse Manutenção-->
+                <div class="separator mb-6"></div>
+                {% if chamado.setor_recebe == 'Manutenção' %}
+                <div class="card shadow-sm text-center mb-6">
+                  <div class="card-header collapsible cursor-pointer rotate" data-bs-toggle="collapse" data-bs-target="#kt_docs_card_collapsible">
+                    <h3 class="card-title">Manutenção</h3>
+                    <div class="card-toolbar rotate-180">
+                      <i class="ki-duotone ki-down fs-1"></i>
+                    </div>
+                  </div>
+                  <div id="kt_docs_card_collapsible" class="collapse">
+                    <div class="card-body">
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">Solicitação de Compra</button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#equipeModal">Equipe Disponível</button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#terceModal">Terceirizados</button>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                <!--end::Collapse Manutenção-->
+
+                <!--begin::Modals Manutenção-->
+                <div class="modal fade" id="basicModal" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <label for="inputState" class="form-label">Tipo da compra</label>
+                          <select class="form-select" id="inputState" name="tipoCompra">
+                            <option value="" disabled selected>Selecione um tipo</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Urgente</option>
+                          </select>
+                        </div>
+                        <div>
+                          <br>
+                          <label for="inputState" class="form-label">Data de agendamento (Planejamento)</label>
+                          <input type="datetime-local" class="form-control dateInput" name="compraAgend">
+                        </div>
+                        <div>
+                          <br>
+                          <label class="form-label" for="floatingTextarea">Motivo da compra</label>
+                          <textarea class="form-control" id="floatingTextarea" name="compraTexto"></textarea>
+                        </div>
+                      </div>
+                      <div class="text-center">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
+                        <button type="reset" class="btn btn-primary text-center">Apagar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      </div>
+                      <br>
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="modal fade" id="equipeModal" tabindex="-2">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <label for="form-select" class="form-label">Selecione quem vai realizar:</label>
+                          <select id="setor" class="form-select" name="tecResponsavel">
+                            <option selected value="" >Selecione o Técnico</option>
+                            {% for tecnico in tecnicos %}
+                              <option value="{{ tecnico.id }}">{{ tecnico.usuarioNome }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                        <div>
+                          <br>
+                          <label for="inputState" class="form-label">Próxima Escala</label>
+                          <input type="datetime-local" class="form-control dateInput" name="escalaEquipe">
+                        </div>
+                        <div>
+                          <br>
+                          <label class="form-label" for="floatingTextarea">Observação</label>
+                          <textarea class="form-control" id="floatingTextarea" name="equipeObs"></textarea>
+                        </div>
+                        <div class="text-center">
+                          <br>
+                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
+                          <button type="reset" class="btn btn-primary text-center">Apagar</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                        <br>
+                      </div>
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="modal fade" id="terceModal" tabindex="-2">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <br>
+                          <label for="inputState" class="form-label">Data de Agendamento</label>
+                          <input type="datetime-local" class="form-control dateInput" name="terceAgend">
+                          <br>
+                        </div>
+                        <label for="inputState" class="form-label">Empresa Terceirizada</label>
+                        <select id="setor" class="form-select" name="empresaTerc">
+                          <option selected value="" >Selecione a Empresa</option>
+                          {% for empresa in empresas %}
+                            <option value="{{ empresa.id }}">{{ empresa.nome }}</option>
+                          {% endfor %}
+                        </select>
+                        <div>
+                          <br>
+                          <label class="form-label" for="floatingTextarea">Observação</label>
+                          <textarea class="form-control" id="floatingTextarea" name="terceObs"></textarea>
+                        </div>
+                        <div class="text-center">
+                          <br>
+                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
+                          <button type="reset" class="btn btn-primary text-center">Apagar</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                        <br>
+                      </div>
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--end::Modals Manutenção-->
+
+                
+
+                <div class="d-flex justify-content-end">
+                  <!--begin::Button-->
+                  <a class="btn btn-light me-3" href="{% url 'editar_chamado' idchamado=idchamado %}">Voltar</a>
+                  <!--end::Button-->
+                  <!--begin::Button-->
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                  <!--end::Button-->
+                </div>
+                <!--end::Action buttons-->
+              </form>
+              <!--end::Form-->
+            </div>
+
+            <!--end::Card body-->
+          </div>
+          <!--end::Contacts-->
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Contacts App- Add New Contact-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+
+</div>
+
+<input type="text" value="{{problema}}" id="probJson" hidden>
+<input type="text" value="{{tipoProbGeral}}" id="tipoProbJson" hidden>
+<input type="text" value="{{chamado.problema}}" id="opAnterior" hidden>
+<input type="text" value="{{local}}" id="localJson" hidden>
+
+<script src="{% static 'js/editarInfo.js' %}"></script>
+
+<!--end::Content wrapper-->
+{% endblock %}

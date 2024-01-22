@@ -1,0 +1,17 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+<form action="" method="POST" id="msform">
+	{% csrf_token %}
+	<fieldset>
+		<div class="form-card">
+			<img style="right: 25px;" src="{% static 'images/julia.png' %}"/>
+			<h5 style="right: -25px;" class="fs-title">
+				Cadastro não efetuado, verifique se faltou preencher algum campo</h5>
+			</div>
+	</fieldset>
+</form>
+<a href="{% url 'novoPac' %}" class="btn-google m-b-20">
+	Voltar
+</a>	
+{% endblock %}

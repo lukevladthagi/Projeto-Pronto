@@ -1,0 +1,4 @@
+.card-body-pc{
+    max-width: 1500px; /* Defina a altura máxima desejada */
+    overflow-x: auto;
+}

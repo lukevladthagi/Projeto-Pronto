@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Listagem de Gestores</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item">Avaliação Desempenho</li>
+        <li class="breadcrumb-item active">Pesquisar Gestor</li>
+        <li class="breadcrumb-item active">Listagem da pesquisa</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Resultado da pesquisa:</b></h5>
+            <!-- Primary Color Bordered Table -->
+            <table class="table table-bordered border-primary">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Função</th>
+                  <th scope="col">Admissão</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                  <td><a href="{% url 'fichaColaborador' usuario.id %}">{{usuario.nome}}</a></td>
+                  {% for cargo in cargos %}
+                  {% if usuario.funcao == cargo.id %}
+                  <td>{{cargo.nome}}</td>
+                  {% endif %}
+                  {% endfor %}
+                  <td>{{usuario.admissao}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Primary Color Bordered Table -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<script>
+  function imprimirTemplate() {
+    // Esconde o botão antes de imprimir
+    document.getElementById('btnImprimir').style.display = 'none';
+
+    // Chama o método de impressão
+    window.print();
+
+    // Restaura a exibição do botão após a impressão
+    document.getElementById('btnImprimir').style.display = 'hide';
+  }
+</script>
+
+{% endblock %}

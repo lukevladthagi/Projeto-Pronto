@@ -1,0 +1,15 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+	<div class="itens_totem scrollable">
+		{%for elemento in dados%}
+				<input  type="hidden" name="nrServico" value="{{ elemento.codigo_servico }}">
+				<a href="{% url 'horarioConsulta' cdesp=elemento.codigo_servico %}" class="btn-google m-b-20">{{ elemento.descricao_servico }}</a>
+		{%endfor%}
+	
+		<a href="{% url 'marcacao' %}" class="btn-google m-b-20">
+			<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+		</a>
+	</div>
+	
+{% endblock %}

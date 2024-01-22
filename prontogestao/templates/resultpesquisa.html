@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Resultado</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+                <li class="breadcrumb-item">Avaliação desempenho</li>
+                <li class="breadcrumb-item active">Resultado</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dados Colaborador</h5>
+
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3">
+                            <div class="col-md-12">
+                                <label for="inputName5" class="form-label">Nome Colaborador</label>
+                                <input type="text" class="form-control" id="inputName5" value="Lucas Marins" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="inputName5" value="Cargo referente" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Escolaridade</label>
+                                <input type="text" class="form-control" id="inputName5" value="Escolaridade referente" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Gestor Imediato</label>
+                                <input type="text" class="form-control" id="inputName5" value="Gestor Imediato" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputDate" class="form-label">Data de Admissão</label>
+
+                                <input type="date" class="form-control" disabled>
+
+
+                            </div>
+
+                            
+                        </form><!-- End Multi Columns Form -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Escolha a Avaliação</h5>
+
+                        <!-- List group with Links and buttons -->
+                        <div class="list-group">
+                            
+                            <a class="btn btn-outline-secondary" href="{% url 'avaliacao_desemp_geral' %}">Avaliação de desempenho geral</a>
+                            <a class="btn btn-outline-secondary" href="{% url 'avaliacao_competencia' %}">Avaliação competência</a>
+                            <a class="btn btn-outline-secondary" href="{% url 'auto_avaliacao_competencia' %}">Avaliação competência auto</a>                                                      
+                            <a class="btn btn-outline-secondary" href="{% url 'relatorio_gestao' %}">Relatório</a>                              
+                        </div><!-- End List group with Links and buttons -->
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+
+</main>
+
+
+
+{% endblock %}

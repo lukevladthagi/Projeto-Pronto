@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}   
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>{{armazena_nome_S}}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'relatorio' %}">Relatório</a></li>
+        <li class="breadcrumb-item active">Relatório gerado</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card card-body-pc">
+          {% for dimensao in dimensaos %}
+          {% if dimensao.setor == setor_esc %}
+          <div class="card-body">
+            <h5 class="card-title">{{dimensao.dimensao}}</h5>
+            <!-- Table with hoverable rows -->
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">Nº</th> -->
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Pergunta</th>
+                    <th scope="col">Resposta</th>
+                    <th scope="col">Evidência</th>
+                    <th scope="col">Comentário</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for titulo in titulos %}
+                    {% if titulo.dimensao == dimensao.id %}
+                      {% for pergunta in perguntas %}
+                        {% if pergunta.titulo == titulo.id %}
+                          {% for resposta in respostas %}
+                          {% if resposta.pergunta == pergunta.id %}
+                          {% if resposta.created_at == dt_esc %}
+                            <tr>
+                              <td>{{titulo.titulo}}</td>
+                              <td>{{pergunta.pergunta}}</td>
+                              {% if resposta.resposta == "sim" %}
+                              <td><i class="bi bi-hand-thumbs-up-fill text-success"></i></td>
+                              {% endif %}
+                              {% if resposta.resposta == "nao" %}
+                              <td><i class="bi bi-hand-thumbs-down-fill text-danger"></i></td>
+                              {% endif %}
+                              {% if resposta.resposta == "na" %}
+                              <td><i class="bi bi-dash-circle-fill text-secondary"></i></td>
+                              {% endif %}
+                              <td>
+                              {% if resposta.evidencia == null %}
+                              <p>---</p>
+                              {% else %}
+                              <a href="{{ resposta.evidencia }}" data-lightbox="image-set">
+                                <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                              </a>
+                              <td>{{resposta.comentario}}</td>
+                              </td>
+                            </tr>
+                          {% endif %}
+                          {%endif %}
+                          {% endif %}
+                          {% endfor %}
+                          {% else %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
+          <br>
+          {% endif %}
+          {% endfor %} 
+        </div>
+        <div class="text-center">
+          <button onclick="printPage()" class="btn btn-primary">Imprimir</button>
+        </div>
+      </div>
+    </div>       <!-- End Table with hoverable rows -->
+  </section>
+</main><!-- End #main -->
+{% endblock %}

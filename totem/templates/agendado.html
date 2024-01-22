@@ -1,0 +1,139 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+
+<form action="" method="POST" id="msform">
+    {% csrf_token %}
+        <fieldset>
+            <div class="form-card">
+                {% if dados.protocoloagenda != empty %}
+                    <header>
+                        <h1>AGENDAMENTO CONCLUIDO!</h1>
+                        <hr>
+                    </header>
+                    <h3 style="font-size: 20px; font-weight: 500;">{{ dados.mensagem }}</h3>
+                    <br>
+                    <h4>Numero de protocolo:</h4>
+                    <h5>{{ dados.protocoloagenda }}</h5>
+                    <br>
+                    <a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+                        Agendamentos
+                    </a>
+                    <a href="{% url 'paciente' %}" class="btn-google m-b-20">
+                        Finalizar
+                    </a>
+                {% else %}
+                    <h3 style="font-size: 20px;">{{ dados.mensagem }}</h3>
+                    <br>
+                    <a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+                        Agendamentos
+                    </a>
+
+                {% endif %}
+            </div>
+        </fieldset>
+</form>
+
+    
+	
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+    <script>
+        function mascara(i){
+   
+   var v = i.value;
+   
+   if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+      i.value = v.substring(0, v.length-1);
+      return;
+   }
+   
+   i.setAttribute("maxlength", "14");
+   if (v.length == 3 || v.length == 7) i.value += ".";
+   if (v.length == 11) i.value += "-";
+
+}
+        $(document).ready(function(){
+    
+    var current_fs, next_fs, previous_fs; //fieldsets
+    var opacity;
+    
+    $(".next").click(function(){
+        
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+        
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        
+        //show the next fieldset
+        next_fs.show(); 
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+            step: function(now) {
+                // for making fielset appear animation
+                opacity = 1 - now;
+    
+                current_fs.css({
+                    'display': 'none',
+                    'position': 'relative'
+                });
+                next_fs.css({'opacity': opacity});
+            }, 
+            duration: 600
+        });
+    });
+    
+    $(".previous").click(function(){
+        
+        current_fs = $(this).parent();
+        previous_fs = $(this).parent().prev();
+        
+        //Remove class active
+        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+        
+        //show the previous fieldset
+        previous_fs.show();
+    
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+            step: function(now) {
+                // for making fielset appear animation
+                opacity = 1 - now;
+    
+                current_fs.css({
+                    'display': 'none',
+                    'position': 'relative'
+                });
+                previous_fs.css({'opacity': opacity});
+            }, 
+            duration: 600
+        });
+    });
+    
+    $('.radio-group .radio').click(function(){
+        $(this).parent().find('.radio').removeClass('selected');
+        $(this).addClass('selected');
+    });
+    
+    $(".submit").click(function(){
+        return false;
+    })
+        
+    });
+    </script>
+{% endblock %}

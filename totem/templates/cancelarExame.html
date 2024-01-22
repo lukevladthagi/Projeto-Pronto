@@ -1,0 +1,42 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+
+{% if dados|length > 0 %}
+	<span class="login100-form-title p-b-49">	
+		<img class="juliapng" src="{% static 'img/julia_2.png' %}" width="20%"/>  
+		<h5 style="display: -webkit-inline-box; margin-right: 30px;">Selecione para cancelar um agendamento</h5>
+	</span>
+	
+	{% for elemento in dados %}
+		<form class="listaAgendamento" action="" method="POST">
+			<input  type="hidden" name="name" value="{{ elemento.cd_it_agenda_central }}">
+				<a href="{% url 'confirmaCancelamentoExame' cdIt=elemento.cd_it_agenda_central %}" class="btn-google m-b-20">
+				<img src="{% static 'img/prancheta_6.png' %}" style="width: 25%; "/>
+				<div class="container" style="font-size: 16px;">
+				{{ elemento.item_agendamento.descricao_item }}
+				</div>
+				<div class="container">
+					{{ elemento.hr_agenda }}
+				</div>
+			</a>
+		</form>
+	{% endfor %}
+	<a href="{% url 'marcacao' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+	</a>
+{% else %}
+<div class="cancelaDiv">
+	<div class="logo-img">
+		<img src="{% static 'img/julia_2.png' %}" />
+		<p>Você não possui agendamentos marcados!</p>
+	</div>
+		
+</div>	
+<a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+	<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+</a>
+{% endif %}
+{% endblock %}
+
+    

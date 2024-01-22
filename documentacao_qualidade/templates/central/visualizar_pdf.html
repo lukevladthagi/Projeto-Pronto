@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}   
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+  <!--begin::Content container-->
+  <div id="kt_app_content_container" class="app-container container-fluid">
+    <!--begin::Row-->
+    <div class="row gx-5 gx-xl-10">
+    <!--begin::Col-->
+    <div class="col-xxl-12 mb-5 mb-xl-10">
+      <button onclick="openPdfAndPrint()">Visualizar e Imprimir PDF</button>
+
+      <script>
+          function openPdfAndPrint() {
+              // Substitua o URL com o caminho correto para o seu arquivo PDF
+              var pdfUrl = 'http://192.168.4.33:8000/media/documentos_solicitados/Servic_os_2024.pdf';
+  
+              // Abre uma nova janela
+              var newWindow = window.open(pdfUrl, '_blank');
+  
+              // Espera até que a nova janela esteja carregada antes de chamar a função de impressão
+              newWindow.onload = function() {
+                  newWindow.print();
+              };
+          }
+      </script>
+
+    </div>
+    <!--end::Col-->
+    </div>
+    <!--end::Row-->
+  </div>
+  <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+{% endblock %}

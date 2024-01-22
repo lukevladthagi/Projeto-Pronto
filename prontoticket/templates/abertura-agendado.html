@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}   
+{% load static %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item">ProntoTicket</li>
+        <li class="breadcrumb-item active">Agendar Chamado</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Agendamento de Chamados:</h5>
+
+            <!-- General Form Elements -->
+            <form class="row g-3 getForm" action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="col-md-3">
+                <label for="setor" class="form-label">Área Responsável</label>
+                <select id="setor" class="form-select" name="setor" required>
+                  <option selected value="" >Selecione a área</option>
+                  {% for setor in setores %}
+                  {% if setor.id == 1 or setor.id == 2 or setor.id == 3 or setor.id == 17 or setor.id == 23 or setor.id == 31 or setor.id == 32 or setor.id == 33 %}
+                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <!-- <div class="col-md-2">
+              </div>
+               -->
+              <div class="col-md-4">
+                <label for="tipoProblema" class="form-label">Tipo de Problema</label>
+                <select id="tipoProblema" class="form-select" name="tipoProblema" required>
+                  <option selected value="" >Selecione o tipo</option>
+                </select>
+              </div>
+              <div class="col-md-5">
+                <label for="tipoProblema" class="form-label">Problema</label>
+                <select id="probSelect" class="form-select" name="problema" required>
+                  <option selected value="" >Selecione o problema</option>
+                </select>
+              </div>
+              <div class="col-md-5">
+                <label for="inputState" class="form-label">Setor do chamado</label>
+                <select id="setorLocalSelect" class="form-select" name="setorLocalSelect" required>
+                  <option selected value="" >Selecione o setor</option>
+                  {% for setor in setores %}
+                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-7">
+                <label for="tipoProblema" class="form-label">Local do chamado</label>
+                <select id="localChamadoSelect" class="form-select" name="localChamadoSelect" required>
+                  <option selected value="" >Selecione o local</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;" name="comentario" required></textarea>
+                  <label for="floatingTextarea">Descreva aqui, em detalhes, qual é a sua solicitação.</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="inputState" class="form-label">Unidade:</label>
+                <select id="inputState" class="form-select" name="unidade" required>
+                  <option selected value="">Selecione a unidade</option>
+                  <option value="1">Hospital Prontocardio</option>
+                </select>
+              </div>
+               <div class="col-md-4">
+                <label for="inputState" class="form-label">Afeta o paciente?</label>
+                <select id="inputState" class="form-select" name="paciente" required>
+                  <option selected value="">Clique aqui</option>
+                  <option value="sim">Sim</option>
+                  <option value="nao">Não</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label for="inputState" class="form-label">Data</label>
+                <input type="datetime-local" class="form-control dateInput" name="dataSelecionada" required>
+              </div>
+              <!-- <label for='selecao-arquivo'>Selecionar um arquivo &#187;</label>
+              
+              <input id='selecao-arquivo' type='file'> -->
+
+              <div class="col-md-6">
+                <br>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="contato" placeholder="Your Email" name="contato" required>
+                  <label for="contato" >Informe um número para contato</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <br>
+                <div class="form-floating">
+                  <input type="email" class="form-control" id="email" placeholder="Your Email" name="email" required>
+                  <label for="email">Informe um e-mail</label>
+                </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02" name="foto">
+              </div>
+
+              <div class="text-center" id="LinkGap">
+                <button type="submit" class="btn btn-primary text-center disableOnSubmit">Enviar</button>
+                <button type="reset" class="btn btn-secondary text-center">Apagar</button>
+              </div>
+            </form><!-- End Multi Columns Form -->
+            <!-- End General Form Elements -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="text" value="{{problemas}}" id="probJson" hidden>
+    <input type="text" value="{{tipoProb}}" id="tipoProbJson" hidden>
+    <input type="text" value="{{local}}" id="localJson" hidden>
+    <input type="text" value="{{setores}}" id="setoresJson" hidden>
+  </section>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/smartSelect.js' %}"></script>
+{% endblock %}

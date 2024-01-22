@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}  
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Cadastro</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Dashboard</a></li>
+          <li class="breadcrumb-item">Prontocheck</li>
+          <li class="breadcrumb-item active">Cadastro</li>
+        </ol>
+      </nav>
+    </div>
+  
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+  
+          <div class="card">
+            <div class="card-body">
+                <form class="row g-8" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-5 select_cadastro">
+                    <label for="inputState" class="form-label" id="label_cadastro">Selecione a dimensão do setor que deseja avaliar:</label>
+                    <select id="dimensao" class="form-select" name="dimensao">
+                        <option>Selecione a área</option>
+                        {% for dim in dimensoes %}
+                        <option value="{{ dim.id }}" selected>{{ dim.dimensao }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Próximo</button>
+                        <button type="reset" class="btn btn-secondary" id="a_button">Apagar</button>
+                    </div>
+                    </div>
+                </form>
+  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </section>
+  
+  </main>
+
+{% endblock %}

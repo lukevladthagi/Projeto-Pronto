@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+        <!--begin::Toolbar container-->
+        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Controle de Orçamento por Setor</h1>
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                    <li class="breadcrumb-item text-muted">
+                        <a href="#" class="text-muted text-hover-primary">Home</a>
+                    </li>
+                    <li class="breadcrumb-item text-muted">Controle de Orçamento</li>
+                </ul>
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl">
+            <div class="row g-7">
+                <div class="col-xl-12">
+                    <div class="card card-flush h-lg-100">
+                        <div class="card-header pt-7">
+                            <div class="card-title">
+                                <h2>Detalhes do Orçamento:</h2>
+                            </div>
+                        </div>
+                        <div class="card-body pt-5">
+                            <!-- Tabela de Controle de Orçamento -->
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Setor</th>
+                                        <th>Orçamento Total</th>
+                                        <th>Orçamento Utilizado</th>
+                                        <th>Orçamento Restante</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Marketing</td>
+                                        <td>R$ 100.000,00</td>
+                                        <td>R$ 50.000,00</td>
+                                        <td>R$ 50.000,00</td>
+                                        <td>
+                                            <button class="btn btn-info btn-sm" onclick="abrirModal('marketing')">Ver Detalhes</button>
+                                            <button class="btn btn-warning btn-sm">Solicitar Ajuste</button>
+                                        </td>
+                                    </tr>
+                                    <!-- Repetir para outros setores -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+<!-- Modal de Detalhes do Orçamento -->
+<div id="modalDetalhes" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2>Detalhes do Orçamento de Marketing</h2>
+        <!-- Conteúdo do modal -->
+        <p>Informações detalhadas do orçamento do setor de Marketing...</p>
+    </div>
+</div>
+
+<script>
+function abrirModal(setor) {
+    // Aqui você pode adicionar lógica para carregar os detalhes específicos do setor
+    document.getElementById('modalDetalhes').style.display = 'block';
+}
+
+function fecharModal() {
+    document.getElementById('modalDetalhes').style.display = 'none';
+}
+</script>
+
+<script src="assets/plugins/global/plugins.bundle.js"></script>
+{% endblock %}

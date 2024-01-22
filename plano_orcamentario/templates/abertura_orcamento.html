@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+        <!--begin::Toolbar container-->
+        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Abertura de Orçamento</h1>
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                    <li class="breadcrumb-item text-muted">
+                        <a href="#" class="text-muted text-hover-primary">Home</a>
+                    </li>
+                    <li class="breadcrumb-item text-muted">Abertura de Orçamento</li>
+                </ul>
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl">
+            <div class="row g-7">
+                <div class="col-xl-12">
+                    <div class="card card-flush h-lg-100" id="kt_contacts_main">
+                        <div class="card-header pt-7" id="kt_chat_contacts_header">
+                            <div class="card-title">
+                                <h2>Detalhes do Orçamento:</h2>
+                            </div>
+                        </div>
+                        <div class="card-body pt-5">
+                            <form id="form_orcamento" action="" method="POST">
+                                {% csrf_token %}
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+                                    <!-- Seleção de Mês -->
+                                    <div class="col">
+                                        <div class="mb-7">
+                                            <label class="form-label">Selecione o(s) Mês(es):</label>
+                                            <select class="form-select" name="meses" multiple>
+                                                <option value="janeiro">Janeiro</option>
+                                                <option value="fevereiro">Fevereiro</option>
+                                                <option value="marco">Março</option>
+                                                <!-- Adicione opções para todos os meses -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Valor do Orçamento -->
+                                    <div class="col">
+                                        <div class="mb-7">
+                                            <label class="form-label">Valor do Orçamento:</label>
+                                            <input type="number" name="valor_orcamento" class="form-control" placeholder="Valor"/>
+                                        </div>
+                                    </div>
+                                    <!-- Descrição e Departamento -->
+                                    <div class="col">
+                                        <div class="mb-7">
+                                            <label class="form-label">Descrição do Orçamento:</label>
+                                            <textarea name="descricao_orcamento" class="form-control" rows="5" placeholder="Descreva o orçamento"></textarea>
+                                        </div>
+                                        <div class="mb-7">
+                                            <label class="form-label">Departamento:</label>
+                                            <select class="form-select" name="departamento">
+                                                <option selected disabled>Escolha...</option>
+                                                <option value="financeiro">Financeiro</option>
+                                                <option value="marketing">Marketing</option>
+                                                <option value="vendas">Vendas</option>
+                                                <!-- Outros departamentos -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Botões de Ação - Centralizados -->
+                                <div class="row">
+                                    <div class="col d-flex justify-content-center">
+                                        <button type="reset" class="btn btn-secondary me-2">Limpar Formulário</button>
+                                        <button type="submit" class="btn btn-primary">Salvar Orçamento</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+<script src="assets/plugins/global/plugins.bundle.js"></script>
+{% endblock %}

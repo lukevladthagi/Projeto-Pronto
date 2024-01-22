@@ -1,0 +1,16 @@
+{% extends 'base_totem.html' %}
+{% block content %} 
+{% load static %}
+
+<div class="button-container">
+	<a href="{% url 'login' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/paciente_existente.png' %}" alt="Paciente" class="button-icon" />
+		<span class="button-label">Paciente</span>
+	</a>
+	<a href="{% url 'cadPac' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/novo_paciente.png' %}" alt="Novo Paciente" class="button-icon" />
+		<span class="button-label">Novo Paciente</span>
+	</a>
+</div>
+
+{% endblock %}

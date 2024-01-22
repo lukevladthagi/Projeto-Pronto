@@ -1,0 +1,194 @@
+
+{% extends 'base.html' %}
+{% block content %}   
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">ProntoPlayer <b>Sistema de videos</b></h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="#" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Marketing</li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">ProntoPlayer</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  {% for video in video_list %}
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Contacts App- Add New Contact-->
+      <div class="row g-7">
+        <!--begin::Content-->
+        <div class="col-xl-12">
+          <!--begin::Contacts-->
+          <div class="card card-flush h-lg-100" id="kt_contacts_main">
+            <!--begin::Card header-->
+            <div class="card-header pt-7" id="kt_chat_contacts_header">
+              <!--begin::Card title-->
+              <div class="card-title">
+                <i class="ki-duotone ki-badge fs-1 me-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                </i>
+                <h2>{{ video.title }}:</h2>
+              </div>
+              <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-5">
+              <!--begin::Row-->
+              <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                <!--begin::Col-->
+                <div class="col">
+                  <!--begin::Input group-->
+                  <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-semibold form-label mt-3">
+                      <span class="required">{{ video.description|slice:":100" }}:</span>
+                    </label>
+                    <!--end::Label-->
+                    <div class="w-100">
+                      <!--begin::Select2-->
+                      <video id="my-video" class="video-js" controls preload="auto" width="500" height="300" data-setup="{}" loop>
+                        <!-- Incluir a origem do vídeo usando a tag <source> -->
+                        <source src="{{ video.file }}" type="video/mp4">
+                      </video>
+                      <!--end::Select2-->
+                      <!--begin::Action buttons-->
+                      <div class="d-flex justify-content-center">
+                        <!--begin::Button-->
+                        <button type="submit" data-kt-contacts-type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#smallModal{{video.id}}">
+                          <span class="indicator-label">Excluir</span>
+                          <span class="indicator-progress">Por Favor aguarde...
+                          <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                        <!--end::Button-->
+                      </div>
+                      <!--end::Action buttons-->
+                      <div class="modal fade" id="smallModal{{video.id}}" tabindex="-1">
+                        <div class="modal-dialog modal-sm">
+                          <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="DEL">
+                            <input type="hidden" name="id_video" value="{{video.id}}">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Exclusão de video</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Tem certeza de que deseja excluir o video: <br> {{ video.title }} ?
+                
+                              </div>
+                              <div class="modal-footer text-center">
+                                <button type="submit" class="btn btn-primary disableOnSubmit" >Apagar</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div><!-- End Small Modal-->
+                    </div>
+                  </div>
+                  <!--end::Input group-->
+                </div>
+                <!--end::Col-->
+              </div>
+              <!--end::Row-->
+              <!--begin::Separator-->
+              <div class="separator mb-6"></div>
+              <!--end::Separator-->
+              <!--begin::Action buttons-->
+              <div class="d-flex justify-content-center">
+                <!--begin::Button-->
+                <button type="button" data-kt-contacts-type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+                  <span class="indicator-label">Adicionar</span>
+                  <span class="indicator-progress">Por Favor aguarde...
+                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                </button>
+                <!--end::Button-->
+              </div>
+              <!--end::Action buttons-->
+              <div class="modal fade" id="verticalycentered" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <h5 class="card-title">Adicionar Videos</h5>
+                      <form class="row g-3" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="_method" value="ADD">
+                        <div class="col-12">
+                          <label for="inputNanme4" class="form-label">Titulo</label>
+                          <input type="text" class="form-control" id="inputNanme4" name="titulo" required>
+                        </div>
+                        <div class="col-12">
+                          <label for="inputEmail4" class="form-label">Comentário</label>
+                          <textarea name="comentario" class="form-control" placeholder="Digite algum comentário sobre o video que vai ser hospedado" id="floatingTextarea" style="height: 100px;" required ></textarea>
+                        </div>
+                        <div class="col-12">
+                          <label for="inputPassword4" class="form-label">Video (apenas MP4)</label>
+                          <input class="form-control" type="file" id="inputPassword4" name="video" accept=".mp4" required><br>
+                        </div>
+                        <br>
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Enviar</button>
+                          <button type="reset" class="btn btn-secondary">Resetar</button>
+                        </div>
+                      </form><!-- Vertical Form -->
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+            </div>
+            <!--end::Card body-->
+          </div>
+          <!--end::Contacts-->
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Contacts App- Add New Contact-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  {% endfor %}
+  <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+{% endblock %}
+

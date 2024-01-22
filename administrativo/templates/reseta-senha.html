@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% block content %}   
+{% load static %}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Resetar Senha</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Resetar Senha</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Sign-in Method-->
+      <div class="card mb-5 mb-xl-10">
+        <!--begin::Card header-->
+        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_signin_method">
+          <div class="card-title m-0">
+            <h3 class="fw-bold m-0">Formulário Para alteração de Senha</h3>
+          </div>
+        </div>
+        <!--end::Card header-->
+        <!--begin::Content-->
+        <div id="kt_account_settings_signin_method" class="collapse show">
+          <!--begin::Card body-->
+          <div class="card-body border-top p-9">
+            <!--begin::Email Address-->
+            <div class="d-flex flex-wrap align-items-center d-none">
+              <!--begin::Label-->
+              <div id="kt_signin_email">
+                <div class="fs-6 fw-bold mb-1">Email Address</div>
+                <div class="fw-semibold text-gray-600">support@keenthemes.com</div>
+              </div>
+              <!--end::Label-->
+              <!--begin::Edit-->
+              <div id="kt_signin_email_edit" class="flex-row-fluid d-none">
+                <!--begin::Form-->
+                <form id="kt_signin_change_email" class="form" novalidate="novalidate">
+                  <div class="row mb-6">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                      <div class="fv-row mb-0">
+                        <label for="emailaddress" class="form-label fs-6 fw-bold mb-3">Enter New Email Address</label>
+                        <input type="email" class="form-control form-control-lg form-control-solid" id="emailaddress" placeholder="Email Address" name="emailaddress" value="support@keenthemes.com" />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="fv-row mb-0">
+                        <label for="confirmemailpassword" class="form-label fs-6 fw-bold mb-3">Confirm Password</label>
+                        <input type="password" class="form-control form-control-lg form-control-solid" name="confirmemailpassword" id="confirmemailpassword" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <button id="kt_signin_submit" type="button" class="btn btn-primary me-2 px-6">Update Email</button>
+                    <button id="kt_signin_cancel" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancel</button>
+                  </div>
+                </form>
+                <!--end::Form-->
+              </div>
+              <!--end::Edit-->
+              <!--begin::Action-->
+              <div id="kt_signin_email_button" class="ms-auto">
+                <button class="btn btn-light btn-active-light-primary">Change Email</button>
+              </div>
+              <!--end::Action-->
+            </div>
+            <!--end::Email Address-->
+            <!--begin::Separator-->
+            <div class="separator separator-dashed my-6 d-none"></div>
+            <!--end::Separator-->
+            <!--begin::Password-->
+            <div class="d-flex flex-wrap align-items-center mb-10">
+              <!--begin::Label-->
+              <div id="kt_signin_password">
+                <div class="fs-6 fw-bold mb-1">Senha</div>
+                <div class="fw-semibold text-gray-600">************</div>
+              </div>
+              <!--end::Label-->
+              <!--begin::Edit-->
+              <div id="kt_signin_password_edit" class="flex-row-fluid d-none">
+                <!--begin::Form-->
+                <form id="kt_signin_change_password" class="form" novalidate="novalidate" method="POST">
+                  {% csrf_token %}
+                  <div class="row mb-1">
+                    <div class="col-lg-4">
+                      <div class="fv-row mb-0">
+                        <label for="currentpassword" class="form-label fs-6 fw-bold mb-3">Senha Atual</label>
+                        <input type="password" class="form-control form-control-lg form-control-solid" name="currentpassword" id="currentpassword" />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="fv-row mb-0">
+                        <label for="newpassword" class="form-label fs-6 fw-bold mb-3">Nova Senha</label>
+                        <input type="password" class="form-control form-control-lg form-control-solid" name="newpassword" id="newpassword" />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="fv-row mb-0">
+                        <label for="confirmpassword" class="form-label fs-6 fw-bold mb-3">Confirme a nova senha</label>
+                        <input type="password" class="form-control form-control-lg form-control-solid" name="confirmpassword" id="confirmpassword" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class='form-text mb-5'>A senha deve ter pelo menos 8 caracteres e conter símbolos</div>
+                  <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-2 px-6">Atualizar Senha</button>
+                    <button id="kt_password_cancel" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancelar</button>
+                  </div>
+                </form>
+                <!--end::Form-->
+              </div>
+              <!--end::Edit-->
+              <!--begin::Action-->
+              <div id="kt_signin_password_button" class="ms-auto">
+                <button class="btn btn-light btn-active-light-primary">Clique aqui para resetar</button>
+              </div>
+              <!--end::Action-->
+            </div>
+            <!--end::Password-->
+            <!--begin::Notice-->
+            <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6 d-none">
+              <!--begin::Icon-->
+              <i class="ki-duotone ki-shield-tick fs-2tx text-primary me-4">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+              <!--end::Icon-->
+              <!--begin::Wrapper-->
+              <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                <!--begin::Content-->
+                <div class="mb-3 mb-md-0 fw-semibold">
+                  <h4 class="text-gray-900 fw-bold">Secure Your Account</h4>
+                  <div class="fs-6 text-gray-700 pe-7">Two-factor authentication adds an extra layer of security to your account. To log in, in addition you'll need to provide a 6 digit code</div>
+                </div>
+                <!--end::Content-->
+                <!--begin::Action-->
+                <a href="#" class="btn btn-primary px-6 align-self-center text-nowrap" data-bs-toggle="modal" data-bs-target="#kt_modal_two_factor_authentication">Enable</a>
+                <!--end::Action-->
+              </div>
+              <!--end::Wrapper-->
+            </div>
+            <!--end::Notice-->
+          </div>
+          <!--end::Card body-->
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Sign-in Method-->
+      <!--begin::Connected Accounts-->
+      <div class="card mb-5 mb-xl-10">
+        <!--begin::Card header-->
+        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_connected_accounts" aria-expanded="true" aria-controls="kt_account_connected_accounts">
+            <div class="card-title m-0">
+                <h3 class="fw-bold m-0">Setores de Acesso</h3>
+            </div>
+        </div>
+        <!--end::Card header-->
+        <!--begin::Content-->
+        <div id="kt_account_settings_connected_accounts" class="collapse show">
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+                <!--begin::Items-->
+                <div class="py-2">
+                    {% for setor in set_usuario %}
+                        <!--begin::Item-->
+                        <div class="d-flex flex-stack">
+                            <div class="d-flex">
+                                <img src="{% if setor == 'Google' %}assets/media/svg/brand-logos/google-icon.svg{% elif setor == 'Github' %}assets/media/svg/brand-logos/github.svg{% elif setor == 'Slack' %}assets/media/svg/brand-logos/slack-icon.svg{% endif %}" class="w-30px me-6" alt="" />
+                                <div class="d-flex flex-column">
+                                    <a href="#" class="fs-5 text-dark text-hover-primary fw-bold">{{ setor.name }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Item-->
+                        <div class="separator separator-dashed my-5"></div>
+                    {% endfor %}
+                </div>
+                <!--end::Items-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Connected Accounts-->
+
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+<!-- begin::Global Javascript Bundle(mandatory for all pages) -->
+<script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
+<script src="{% static 'js/scripts.bundle.js' %}"></script>
+<!-- end::Global Javascript Bundle -->
+<!-- begin::Vendors Javascript(used for this page only) -->
+<script src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script>
+<!-- end::Vendors Javascript -->
+<!-- begin::Custom Javascript(used for this page only) -->
+<script src="{% static 'js/custom/account/settings/signin-methods.js' %}"></script>
+<script src="{% static 'js/custom/account/settings/profile-details.js' %}"></script>
+<script src="{% static 'js/custom/account/settings/deactivate-account.js' %}"></script>
+<script src="{% static 'js/custom/pages/user-profile/general.js' %}"></script>
+<script src="{% static 'js/widgets.bundle.js' %}"></script>
+<script src="{% static 'js/custom/apps/chat/chat.js' %}"></script>
+<script src="{% static 'js/custom/utilities/modals/upgrade-plan.js' %}"></script>
+<script src="{% static 'js/custom/utilities/modals/create-campaign.js' %}"></script>
+<script src="{% static 'js/custom/utilities/modals/two-factor-authentication.js' %}"></script>
+<script src="{% static 'js/custom/utilities/modals/users-search.js' %}"></script>
+<!-- end::Custom Javascript -->
+{% endblock %}

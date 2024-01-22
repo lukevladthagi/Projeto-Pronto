@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--begin::Content wrapper-->
+<div class="container-fluid py-4">
+    <!--begin::Title and Patient Information-->
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <h3 class="text-dark mb-3">Receituários e Atestados / Receita</h3>
+            <div class="card">
+                <div class="card-body">
+                    <!-- Informações do paciente -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p><strong>Nome do Paciente:</strong> CLAUDIA CELIA DO NASCIMENTO SOUSA</p>
+                            <p><strong>Matrícula:</strong> 9178</p>
+                            <p><strong>Nascimento:</strong> 06/01/1975</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p><strong>Atendimento:</strong> 7593723</p>
+                            <p><strong>Data:</strong> 19/01/2024</p>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Espaço para mais informações ou ações -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Title and Patient Information-->
+
+    <!--begin::Prescription Form-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Detalhes da Receita Médica</h4>
+                </div>
+                <div class="card-body">
+                    <form id="form_receituario" method="POST">
+                        <!-- Data da Receita e Informações -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="dataReceita" class="form-label">Data da Receita:</label>
+                                <input type="date" id="dataReceita" name="dataReceita" class="form-control mb-3" required>
+                            </div>
+                            <div class="col-md-9">
+                                <label for="informacoesReceita" class="form-label">Informações da Receita:</label>
+                                <textarea id="informacoesReceita" name="informacoesReceita" class="form-control mb-3" rows="2" required></textarea>
+                            </div>
+                        </div>
+                        <!-- Campos para adicionar medicamentos -->
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <input type="text" class="form-control" placeholder="Medicamento" id="medicamento" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="text" class="form-control" placeholder="Via de Administração" id="viaAdministracao" required>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <input type="number" class="form-control" placeholder="Quantidade Total" id="quantidadeTotal" required>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <input type="text" class="form-control" placeholder="Unidade" id="unidade" required>
+                            </div>
+                            <div class="col-md-1 mb-3">
+                                <input type="text" class="form-control" placeholder="Frequência" id="frequencia" required>
+                            </div>
+                            <div class="col-md-1 mb-3">
+                                <input type="number" class="form-control" placeholder="Dias" id="dias" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <button type="button" class="btn btn-success" onclick="adicionarMedicamento()">Adicionar Medicamento</button>
+                            </div>
+                        </div>
+                        <!-- Lista de Medicamentos Adicionados -->
+                        <div id="listaMedicamentos" class="mb-3">
+                            <!-- Aqui serão listados os medicamentos adicionados -->
+                        </div>
+                        <!-- Botão de Salvar Receita -->
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-primary">Salvar Receita</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Prescription Form-->
+</div>
+<!--end::Content wrapper-->
+
+<script>
+// Função para adicionar medicamentos à lista
+function adicionarMedicamento() {
+    const medicamento = document.getElementById('medicamento').value;
+    const viaAdministracao = document.getElementById('viaAdministracao').value;
+    const quantidadeTotal = document.getElementById('quantidadeTotal').value;
+    const unidade = document.getElementById('unidade').value;
+    const frequencia = document.getElementById('frequencia').value;
+    const dias = document.getElementById('dias').value;
+
+    // Verificar se todos os campos estão preenchidos
+    if (!medicamento || !viaAdministracao || !quantidadeTotal || !unidade || !frequencia || !dias) {
+        alert('Por favor, preencha todos os campos do medicamento.');
+        return;
+    }
+
+    // Criar elemento para listar o medicamento
+    const item = document.createElement('div');
+    item.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'border', 'p-2', 'mb-2');
+    item.innerHTML = `
+        <span>${medicamento} - ${viaAdministracao} - ${quantidadeTotal} ${unidade} - ${frequencia} - ${dias} dias</span>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removerMedicamento(this)">Remover</button>
+    `;
+
+    // Adicionar à lista de medicamentos
+    document.getElementById('listaMedicamentos').appendChild(item);
+
+    // Limpar campos após adição
+    document.getElementById('medicamento').value = '';
+    document.getElementById('viaAdministracao').value = '';
+    document.getElementById('quantidadeTotal').value = '';
+    document.getElementById('unidade').value = '';
+    document.getElementById('frequencia').value = '';
+    document.getElementById('dias').value = '';
+}
+
+// Função para remover medicamento da lista
+function removerMedicamento(button) {
+    button.closest('.d-flex').remove();
+}
+</script>
+{% endblock %}

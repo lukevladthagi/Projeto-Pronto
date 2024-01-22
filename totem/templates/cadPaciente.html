@@ -1,0 +1,90 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container_cadastro scrollable">
+	<form action="" method="POST" id="msform">
+		{% csrf_token %}
+		<fieldset>
+			<div>
+				<h4 class="fs-title">Preencha os campos abaixo para efetuar o cadastro</h4>
+
+				<div>
+					<label for="nome">Nome</label>
+					<input oninput="mascara(this)" class="campo_cpf" type="text" name="nome" id="nome" required
+						placeholder="Informe o seu nome" autocomplete="off" />
+				</div>
+
+				<div>
+					<label for="cpf">CPF</label>
+					<input oninput="mascara(this)" class="campo_cpf" type="text" name="cpf" id="cpf" required
+						placeholder="Informe o seu CPF" minlength="11" maxlength="11" autocomplete="off" inputmode="numeric" />
+				</div>
+
+				<div>
+					<label for="fone">Telefone</label>
+					<input type="tel" id="telefone" required placeholder="(85)9xxxx-xxxx" name="telefone"
+					minlength="11" maxlength="11"  autocomplete="off" inputmode="numeric"/>
+				</div>
+
+				<div>
+					<label for="fone">Email</label>
+					<input type="text" placeholder="Informe seu email" name="email"/>
+				</div>
+
+				<div>
+					<label for="huey">Sexo</label>
+					<select class="dropdown" name="tpsexo" required>
+						<option selected disabled value="">Selecione uma opção</option>
+						<option value="M">Masculino</option>
+						<option value="F">Feminino</option>
+					</select>
+				</div>
+				
+				<div>
+					<label for="DataNascimento">Data De Nascimento:</label>
+					<input oninput="mascara('DataNascimento')" class="campo_cpf" type="date" name="DataNascimento" id="DataNascimento" required autocomplete="off" inputmode="numeric"/>
+				</div>
+			</div>
+
+
+
+
+			<div>
+				<label for="huey">Convênio</label>
+				<select class="dropdown" name="convenio" required>
+					<option selected disabled value="">Selecione o seu convênio</option>
+					{%for elemento in dados%}
+					<option value="{{ elemento.codigo_convenio }}">{{ elemento.nome_convenio }}</option>
+					{%endfor%}
+				</select>
+			</div>	
+		</fieldset>
+		<input type="submit" name="next" class="next action-button" value="Cadastrar" style="padding: 5%; width: 100%; border-radius: 30px; margin-bottom: 3%; font-size: 23px; margin-top: 10%; background-color: #212A51; color:#ffff;"/> 
+	</form>
+	<a href="{% url 'paciente' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/voltar_ngt.png' %}" width="8%">
+	</a>
+	
+</div>
+
+<!-- <script>
+    function mascara(DataNascimentoId) {
+    const input = document.getElementById(DataNascimentoId);
+    if (!input) {
+        console.error(`Elemento com o ID '${DataNascimentoId}' não encontrado.`);
+        return;
+    }
+
+    const { value } = input;
+    const formattedValue = value
+        .replace(/\D/g, '') // Remove caracteres não numéricos
+        .replace(/^(\d{2})(\d)/g, '$1/$2') // Formata os dois primeiros dígitos com '/'
+        .replace(/^(\d{2})\/(\d{2})(\d)/g, '$1/$2/$3') // Formata os quatro primeiros dígitos com '/'
+        .replace(/(\d{2})\/(\d{2})\/(\d{4}).*/, '$1/$2/$3'); // Limita a 10 caracteres (dd/mm/aaaa)
+    input.value = formattedValue;
+}
+</script> -->
+
+
+{% endblock %}

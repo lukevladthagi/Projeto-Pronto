@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+        <!--begin::Toolbar container-->
+        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Dashboard de Orçamento</h1>
+                <!-- Breadcrumbs -->
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl">
+            <!-- Dashboard Content -->
+            <!-- Gráfico de Barras: Orçamento por Departamento -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="graficoBarras"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Gráfico de Linha: Despesas ao Longo do Tempo -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="graficoLinha"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Gráfico de Barras: Distribuição de Despesas -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="graficoBarrasDespesas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+<!-- Incluir Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Dados e configurações do Gráfico de Barras (Orçamento por Departamento)
+const dadosBarras = {
+    labels: ['Marketing', 'Vendas', 'TI', 'RH'],
+    datasets: [
+        {
+            label: 'Orçado',
+            data: [15000, 20000, 5000, 8000],
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Realizado',
+            data: [12000, 19000, 3000, 5000],
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }
+    ]
+};
+const configBarras = {
+    type: 'bar',
+    data: dadosBarras,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+};
+new Chart(document.getElementById('graficoBarras'), configBarras);
+
+// Dados e configurações do Gráfico de Linha (Despesas ao Longo do Tempo)
+const dadosLinha = {
+    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+    datasets: [
+        {
+            label: 'Orçado',
+            data: [2500, 3000, 2800, 3200, 2900, 3100],
+            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            fill: true
+        },
+        {
+            label: 'Realizado',
+            data: [2000, 2400, 2700, 3000, 3200, 3500],
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: true
+        }
+    ]
+};
+const configLinha = {
+    type: 'line',
+    data: dadosLinha,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+};
+new Chart(document.getElementById('graficoLinha'), configLinha);
+
+// Dados e configurações do Gráfico de Barras (Distribuição de Despesas)
+const dadosBarrasDespesas = {
+    labels: ['Equipamentos', 'Software', 'Viagens', 'Outros'],
+    datasets: [
+        {
+            label: 'Orçado',
+            data: [500, 300, 200, 100],
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Realizado',
+            data: [450, 250, 150, 200],
+            backgroundColor: 'rgba(255, 206, 86, 0.5)',
+            borderColor: 'rgba(255, 206, 86, 1)',
+            borderWidth: 1
+        }
+    ]
+};
+const configBarrasDespesas = {
+    type: 'bar',
+    data: dadosBarrasDespesas,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+};
+new Chart(document.getElementById('graficoBarrasDespesas'), configBarrasDespesas);
+</script>
+
+{% endblock %}

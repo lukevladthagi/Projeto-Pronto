@@ -1,0 +1,10 @@
+[core]
+	editor = code --wait
+
+[alias]
+	#Commit
+	com = !git commit -m 
+	#Manejar features
+	start = !git flow feature start
+	finish = !git flow feature finish 
+	

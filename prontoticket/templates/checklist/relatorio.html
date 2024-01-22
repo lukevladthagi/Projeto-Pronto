@@ -1,0 +1,387 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %} 
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Relatório Proctor: {{nome_setor}} : {{dt_esc}}</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="#" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Qualidade</li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Proctor</li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Iniciar Avaliação</li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Escolhe dimensão</li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Avaliação</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+
+  {% for local in locais %}
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Contacts App- Add New Contact-->
+      <div class="row g-7">
+        <!--begin::Content-->
+        <div class="col-xl-12">
+          <!--begin::Contacts-->
+          <div class="card card-flush h-lg-100" id="kt_contacts_main">
+            <!--begin::Card header-->
+            <div class="card-header pt-7" id="kt_chat_contacts_header">
+              <!--begin::Card title-->
+              <div class="card-title">
+                <h2>{{local.local}}</h2>
+              </div>
+              <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            {% for item in itens %}
+            {% if item.local_id == local.id %}
+            <!--begin::Content-->
+            <div id="kt_app_content" class="app-content flex-column-fluid">
+              <!--begin::Content container-->
+              <div id="kt_app_content_container" class="app-container container-xxl">
+                <!--begin::Contacts App- Add New Contact-->
+                <div class="row g-7">
+                  <!--begin::Content-->
+                  <div class="col-xl-12">
+                    <!--begin::Contacts-->
+                    <div class="card card-flush h-lg-100" id="kt_contacts_main">
+                      <!--begin::Card header-->
+                      <div class="card-header pt-7" id="kt_chat_contacts_header">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                          <h2>{{item.nome}}</h2>
+                        </div>
+                        <!--end::Card title-->
+                      </div>
+                      <!--end::Card header-->
+                      {% for subitem in subitens %}
+                      {% if subitem.item_id == item.id %}
+                      <!--begin::Card body-->
+                      <div class="card-body pt-5">
+                        <!--begin::Row-->
+                        <div class="row row-cols-2 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                          <!--begin::Col-->
+                          <div class="col">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7">
+                              <!--begin::Label-->
+                              <label class="fs-6 fw-semibold form-label mt-3">
+                                <span>{{subitem.nome}}</span>
+                              </label>
+                              <!--end::Label-->
+                            </div>
+                            <!--end::Input group-->
+                          </div>
+                          <!--end::Col-->                 
+                          <!--begin::Col-->
+                          <div class="col">
+                            {% for chklist in chklists %}
+                            {% if chklist.subitem_id == subitem.id and chklist.resposta == 1 %}
+                            <input type="radio" class="btn-check" autocomplete="off" value="sim" disabled>
+                            <label class="btn btn-success " for="sim{{chklist.id}}">Sim</label>
+                            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditar{{chklist.id}}">Editar</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{chklist.id}}">Excluir</a>              
+
+                            <div class="modal fade" id="modalEditar{{chklist.id}}" tabindex="-1">
+                              <div class="modal-dialog">
+                                <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="_method" value="EDITAR">
+                                  <input type="hidden" name="id_chklist" value="{{chklist.id}}">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">{{subitem.nome}} - {{chklist.id}}</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="input-group col-lg-12">
+                                        <div class="col-lg-12">
+                                          <input type="hidden" name="id_chklist" value="{{chklist.id}}">
+                                          <input type="radio" class="btn-check text-center" name="resposta" id="sim{{chklist.id}}" autocomplete="off" value="1">
+                                          <label class="btn btn-light-success" for="sim{{chklist.id}}">Conforme</label>
+                              
+                                          <input type="radio" class="btn-check" name="resposta" id="nao{{chklist.id}}" autocomplete="off" value="2">
+                                          <label class="btn btn-danger" for="nao{{chklist.id}}">Não Conforme</label>
+                              
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="submit" class="btn btn-primary disableOnSubmit" >Salvar Mudanças</button>
+                                    </div>
+            
+                                  </div>
+                                </form>
+                              </div>
+                            </div><!-- End Basic Modal-->
+          
+                            <div class="modal fade" id="modalDelete{{chklist.id}}" tabindex="-1">
+                              <div class="modal-dialog modal-sm">
+                                <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                                  {% csrf_token %}
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Exclusão de resposta</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Tem certeza de que deseja excluir esta resposta?<br>
+                                      <span> <b> {{subitem.nome}}</b></span>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                      <input type="hidden" name="id_chklist" value="{{chklist.id}}">
+                                      <input type="hidden" name="_method" value="DELETE">
+                                      <button type="submit" class="btn btn-primary disableOnSubmit" >Apagar</button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div><!-- End Small Modal-->
+          
+                            {% endif %}
+                            {% if chklist.subitem_id == subitem.id and chklist.resposta == 2 %}
+                            <input type="radio" class="btn-check" autocomplete="off" value="nao" disabled>
+                            <label class="btn btn-danger" for="nao{{pergunta.id}}">Não</label>
+                            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditar{{chklist.id}}">Editar</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{chklist.id}}">Excluir</a>   
+                            <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#Evidencias{{chklist.id}}"><i class="bi bi-folder"></i></a>   
+    
+                            <div class="modal fade" id="modalEditar{{chklist.id}}" tabindex="-1">
+                              <div class="modal-dialog">
+                                <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="_method" value="EDITAR">
+                                  <input type="hidden" name="id_chklist" value="{{chklist.id}}">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">{{subitem.nome}} - {{chklist.id}}</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="input-group col-lg-12">
+                                        <div class="col-lg-12">
+                                          <input type="hidden" name="id_chklist" value="{{chklist.id}}">
+                                          <input type="radio" class="btn-check text-center" name="resposta" id="sim{{chklist.id}}" autocomplete="off" value="1">
+                                          <label class="btn btn-success" for="sim{{chklist.id}}">Conforme</label>
+                              
+                                          <input type="radio" class="btn-check" name="resposta" id="nao{{chklist.id}}" autocomplete="off" value="2">
+                                          <label class="btn btn-danger" for="nao{{chklist.id}}">Não Conforme</label>
+                              
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="input-group col-lg-12">
+                                        <div class="col-lg-12">
+                                          {% if chklist.descricao == null %}
+                                          <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                          <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                          {% else %}
+                                          <label for="inputDate" class="form-label">Comentário Anterior:</label><br>
+                                          <textarea class="form-control" aria-label="With textarea" name="comentario" disabled>{{chklist.descricao}}</textarea>
+                                          <hr>
+                                          <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                          <textarea class="form-control" aria-label="With textarea" name="comentario" placeholder="Digite aqui para alterar o comentário"></textarea>
+                                          {% endif %}
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="input-group col-lg-12">
+                                        <div class="col-lg-12">
+                                          <div class="col-lg-12" data-lightbox="image-set">
+                                            <div class="col-lg-12">
+                                              {% if chklist.descricao == null %}
+                                              <div class="col-lg-12" data-lightbox="image-set">
+                                                <span class="col-lg-9" style="margin-bottom: 15px;">Não foi adicionado evidência</span>
+                                                <input type="file" class="form-control" id="inputGroupFile02" name="evidencia2">
+                                              </div>
+                                              <br>
+                                              {% else %}
+                                              <div class="col-lg-12" data-lightbox="image-set">
+                                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span><br><br>
+                                                <img src="{{ chklist.evidencia }}" alt="Evidência" class="image-clickable" style="width: 100px;">
+                                                <hr>
+                                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span>
+                                                <input type="file" class="form-control" id="inputGroupFile02" name="evidencia">
+                                              </div>
+                                              <br>
+                                              {% endif %}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="submit" class="btn btn-primary disableOnSubmit" >Salvar Mudanças</button>
+                                    </div>
+            
+                                  </div>
+                                </form>
+                              </div>
+                            </div><!-- End Basic Modal-->
+                            
+                            <div class="modal fade" id="modalDelete{{chklist.id}}" tabindex="-1">
+                              <div class="modal-dialog modal-sm">
+                                <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                                  {% csrf_token %}
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Exclusão de resposta</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Tem certeza de que deseja excluir esta resposta?<br>
+                                      <span> <b> {{subitem.nome}}</b></span>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                      <input type="hidden" name="id_chklist" value="{{chklist.id}}">
+                                      <input type="hidden" name="_method" value="DELETE">
+                                      <button type="submit" class="btn btn-primary disableOnSubmit" >Apagar</button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div><!-- End Small Modal-->
+                            
+                            <div class="modal fade" id="Evidencias{{chklist.id}}" tabindex="-1">
+                              <div class="modal-dialog">
+                                  <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                                      {% csrf_token %}
+                                      <input type="hidden" name="_method" value="FOTOS">
+                                      <input type="hidden" name="id_resp" value="{{ chklist.id }}">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title">{{subitem.nome}} - {{chklist.id}}</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <div class="input-group col-lg-12">
+                                                  <div class="col-lg-12">
+                                                      <input type="file" class="form-control" id="inputGroupFile02" name="evidencia" multiple>
+                                                  </div>
+                                              </div>
+                                              <div class="col-lg-12" data-lightbox="image-set">
+                                                <br>
+                                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidências Enviadas:</span><br><code>Os checkbox's ao serem marcados e em seguida clicar no botão azul, serão apagados</code>
+                                            
+                                                <div class="row">
+                                                  {% for imagem in imagens %}
+                                                    {% if imagem.resposta == chklist.id %}
+                                                    <div class="col-lg-4" style="margin-bottom: 15px;">
+                                                      <a href="{{ imagem.evidencia }}" target="_blank">
+                                                        <input type="checkbox" name="fotos[]" value="{{ imagem.id }}">
+                                                        <img src="{{ imagem.evidencia }}" alt="Evidência" class="image-clickable" style="width: 120px;">
+                                                      </a>
+                                                    </div>
+                                                    {% endif %}
+                                                  {% endfor %}
+                                                </div>
+                                            
+                                                <hr>
+                                            </div>
+                                            
+                                            
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="reset" class="btn btn-secondary">Limpar</button>
+                                              <button type="submit" class="btn btn-primary disableOnSubmit">Enviar Fotos</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                            </div>
+          
+                            {% endif %}
+                            {% endfor %}
+                          </div>
+                          <!--end::Col-->      
+                        </div>
+                        <!--end::Row-->
+                        <!--begin::Separator-->
+                        <div class="separator mb-6"></div>
+                        <!--end::Separator-->
+                      </div>
+                      <!--end::Card body-->
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                    <!--end::Contacts-->
+                  </div>
+                  <!--end::Content-->
+                </div>
+                <!--end::Contacts App- Add New Contact-->
+              </div>
+              <!--end::Content container-->
+            </div>
+            <!--end::Content-->
+            {% endif %}
+            {% endfor %}
+          </div>
+          <!--end::Contacts-->
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Contacts App- Add New Contact-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+  {% endfor %}
+</div>
+<!--end::Content wrapper-->
+{% endblock %}

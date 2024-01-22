@@ -1,0 +1,251 @@
+{% extends 'base_hemodinamica.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="card-title">Total de Pacientes Hoje</h5>
+          <i class="bi bi-question-circle-fill" style="font-size: 1.5rem; color: #6c757d;" data-toggle="tooltip"
+            data-placement="top"
+            title="O número total de pacientes hoje que tiveram exames agendados, realizados ou cancelados "></i>
+        </div>
+        <!-- Bar Chart -->
+        <div id="barChart" style="min-height: 150px; width: 100%;" class="echart"></div>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const chart = echarts.init(document.querySelector("#barChart"));
+
+            const realizadoDataDia = {{ qnt_realz }};
+            const agendadoDataDia = {{ qt_agend }};
+            const canceladoDataDia = {{ qnt_cancl }};
+
+            chart.setOption({
+              
+              grid: {
+                left: '3%',
+                right: '3%',
+                bottom: '3%',
+                containLabel: true
+              },
+              xAxis: {
+                type: 'category',
+                data: ['Realizados', 'Agendados', 'Cancelados']
+              },
+              yAxis: {
+                type: 'value',
+              },
+              series: [{
+                data: [{ value: realizadoDataDia, itemStyle: { color: '#50cd89' }},{ value: agendadoDataDia, itemStyle: { color: '#ffc700' }}, { value: canceladoDataDia, itemStyle: { color: 'red' }}],
+                type: 'bar',
+                label: {
+                    show: true, 
+                    position: 'top',
+                    fontSize: 16, 
+                    fontWeight: 'bold',
+
+                }
+              }]
+            });
+          });
+        </script>
+        <!-- End Bar Chart -->
+
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="card-title">Total de Pacientes Esse Mês</h5>
+          <i class="bi bi-question-circle-fill" style="font-size: 1.5rem; color: #6c757d;" data-toggle="tooltip"
+            data-placement="top"
+            title="O número total de pacientes esse mês que tiveram exames agendados, realizados ou cancelados"></i>
+        </div>
+
+        <!-- Bar Chart -->
+        <div id="barChart2" style="min-height: 150px; width: 100%;" class="echart"></div>
+
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const chart = echarts.init(document.querySelector("#barChart2"));
+
+            // Use Django template tags to pass variables to JavaScript
+            const realizadoData = {{ qnt_realz_mes }};
+            const agendadoData = {{ qnt_ag_mes }};
+            const canceladoData = {{ qnt_cancl_mes }};
+
+            chart.setOption({
+              grid: {
+                left: '3%',
+                right: '3%',
+                bottom: '3%',
+                containLabel: true
+              },
+              xAxis: {
+                type: 'category',
+                data: ['Realizados', 'Agendados', 'Cancelados']
+              },
+              yAxis: {
+                type: 'value'
+              },
+              series: [{
+                data: [{ value: realizadoData, itemStyle: { color: '#50cd89' }},{ value: agendadoData, itemStyle: { color: '#ffc700' }}, { value: canceladoData, itemStyle: { color: 'red' }}],
+                type: 'bar',
+                label: {
+                    show: true, // Exibir rótulos
+                    position: 'top',
+                    fontSize: 16, 
+                    fontWeight: 'bold'
+
+                }
+              }]
+            });
+          });
+        </script>
+        <!-- End Bar Chart -->
+
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="card-title">Total de Pacientes Esse Ano</h5>
+          <i class="bi bi-question-circle-fill" style="font-size: 1.5rem; color: #6c757d;" data-toggle="tooltip"
+            data-placement="top"
+            title="O número total de pacientes esse ano que tiveram exames realizados"></i>
+        </div>
+
+        <!-- Bar Chart -->
+        <div id="barChart3" style="min-height: 150px; width: 100%;" class="echart"></div>
+
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+              const chart = echarts.init(document.querySelector("#barChart3"));
+              
+              // Access the patients_by_month data from the Django context
+              const patientsByMonthData = {{ patients_by_month|safe }};
+              console.log(patientsByMonthData);
+      
+              chart.setOption({
+                  grid: {
+                      left: '3%',
+                      right: '3%',
+                      bottom: '3%',
+                      containLabel: true
+                  },
+                  xAxis: {
+                      type: 'category',
+                      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                  },
+                  yAxis: {
+                      type: 'value'
+                  },
+                  series: [{
+                      data: Object.values(patientsByMonthData), 
+                      type: 'bar',
+                      label: {
+                          show: true,
+                          position: 'top',
+                          fontSize: 16, 
+                          fontWeight: 'bold'
+                      },
+                      itemStyle: {
+                        color: '#50cd89' // Set the color of the bars to green
+                      }
+                  }]
+              });
+          });
+      </script>
+        <!-- End Bar Chart -->
+      </div>
+    </div>
+  </div>
+</div>
+<!--end::Card body-->
+
+
+<div style="background-color: rgb(255, 255, 255); margin-top: 1%; justify-content: center; align-items: center;">
+  <div class="card-body pt-0">
+    <!--begin::Table-->
+    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_sales_table">
+      <thead>
+        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0" style="font-family: Arial, Helvetica, sans-serif">
+          <th style="text-align: center; color: black; font-weight: 600;">Aviso</th>
+          <th style="color: black; font-weight: 600;">Paciente</th>
+          <th style="text-align: center; color: black; font-weight: 600;">Nascimento</th>
+          <th style="text-align: center; color: black; font-weight: 600;">Idade</th>
+          <th style="text-align: center; color: black; font-weight: 600;">Procedimento</th>
+          <th style="text-align: center; color: black; font-weight: 600;">Status</th>
+          <th style="text-align: center;color: black; font-weight: 600;">Sala</th>
+          <th style="color: black; font-weight: 600; ">Prestador</th>
+          <th style="text-align: center; color: black; font-weight: 600;">Convênio</th>
+          <th style="text-align: center; color: black; font-weight: 600;">Observação</th>
+        </tr>
+      </thead>
+      <tbody class="fw-semibold text-gray-600">
+        <!-- Exibição de Cirurgias Agendadas -->
+        {% for dado in dados %}
+            {% if dado.SITUAÇÃO == 'Agendada' and dado.dt_aviso_cirurgia == data %}
+                <tr class="text-start text-black fs-7 text-uppercase gs-0" style="font-family: Arial, Helvetica, sans-serif">
+                    <td style="text-align: center;">A Iniciar</td>
+                    <td >{{ dado.paciente }}</td>
+                    <td style="text-align: center;">{{ dado.dt_nascimento }}</td>
+                    <td style="text-align: center;">{{ dado.idade }}</td>
+                    <td style="text-align: center;">
+                      {% for procedimento in dado.procedimento %}
+                          {{ procedimento }}<br>
+                      {% endfor %}
+                    </td>
+                    <td><span class="badge bg-warning" style="color: white; text-align: center;">{{ dado.SITUAÇÃO }}</span></td>
+                    <td style="text-align: center;">À Confirmar</td>
+                    <td style="text-align: center;">{{ dado.prestador }}</td>
+                    <td style="text-align: center;">{{ dado.CONVÊNIO }}</td>
+                    <td style="text-align: center;">{{ dado.OBSERVAÇÃO }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    
+        <!-- Exibição de Cirurgias Realizadas -->
+        {% for dado in dados %}
+            {% if dado.SITUAÇÃO == 'Realizada' and dado.dt_aviso_cirurgia == data %}
+                <tr class="text-start text-black fs-7 text-uppercase gs-0" style="font-family: Arial, Helvetica, sans-serif">
+                    <td style="text-align: center;">{{ dado.dt_inicio_cirurgia}}</td>
+                    <td>{{ dado.paciente }}</td>
+                    <td style="text-align: center;">{{ dado.dt_nascimento }}</td>
+                    <td style="text-align: center;">{{ dado.idade }}</td>
+                    <td style="text-align: center;">
+                      {% for procedimento in dado.procedimento %}
+                          {{ procedimento }}<br>
+                      {% endfor %}
+                    </td>
+                    <td><span class="badge bg-success" style="color: white;">{{ dado.SITUAÇÃO }}</span></td>
+                    <td style="text-align: center;">{{ dado.sala }}</td>
+                    <td style="text-align: center;">{{ dado.prestador }}</td>
+                    <td style="text-align: center;">{{ dado.CONVÊNIO }}</td>
+                    <td style="text-align: center;">{{ dado.OBSERVAÇÃO }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+    </table>
+    
+    <!--end::Table-->
+  </div>
+</div>
+<script>
+  // Função para recarregar a página
+  function recarregarPagina() {
+      location.reload(true); // O parâmetro true força o recarregamento a partir do servidor, ignorando o cache
+  }
+
+  // Configurar o intervalo de recarregamento (5 minutos = 300.000 milissegundos)
+  var intervaloRecarregamento = setInterval(recarregarPagina, 300000);
+</script>
+
+{% endblock %}

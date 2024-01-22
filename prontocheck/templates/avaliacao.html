@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %} 
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Form-->
+  <form id="kt_ecommerce_settings_general_form" enctype="multipart/form-data" action="" method="POST">
+    {% csrf_token %}
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+      <!--begin::Toolbar container-->
+      <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+          <!--begin::Title-->
+          <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Relatório</h1>
+          <!--end::Title-->
+          <!--begin::Breadcrumb-->
+          <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">
+              <a href="#" class="text-muted text-hover-primary">Home</a>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+              <span class="bullet bg-gray-400 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">Qualidade</li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+              <span class="bullet bg-gray-400 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">Proctor</li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+              <span class="bullet bg-gray-400 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">Iniciar Avaliação</li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+              <span class="bullet bg-gray-400 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">Escolhe dimensão</li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+              <span class="bullet bg-gray-400 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">Avaliação</li>
+            <!--end::Item-->
+          </ul>
+          <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+
+      </div>
+      <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+      <!--begin::Content container-->
+      <div id="kt_app_content_container" class="app-container container-xxl">
+        <!--begin::Contacts App- Add New Contact-->
+        <div class="row g-7">
+          <!--begin::Content-->
+          <div class="col-xl-12">
+            <!--begin::Contacts-->
+            <div class="card card-flush h-lg-100" id="kt_contacts_main">
+              <!--begin::Card header-->
+              <div class="card-header pt-7" id="kt_chat_contacts_header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                  <i class="ki-duotone ki-badge fs-1 me-2">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                    <span class="path5"></span>
+                  </i>
+                  <h2>Avaliação PROCTOR:</h2>
+                </div>
+                <!--end::Card title-->
+              </div>
+              <!--end::Card header-->
+              <!--begin::Card body-->
+              <div class="card-body pt-5">
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Nome do Avaliador:</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Input-->
+                        <input type="text" class="form-control form-control-solid" value="{{n_usu}}" disabled/>
+                        <!--end::Input-->
+                      </div>
+                    </div>
+                    
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Setor:</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        {% for setor in dsetor %}
+                        {% if setor.id == setorid %}
+                        <!--begin::Input-->
+                        <input type="text" class="form-control form-control-solid" value="{{setor.name}}" disabled/>
+                        <!--end::Input-->
+                        {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-3 rol-cols-md-1 row-cols-lg-3">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Empresa:</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Input-->
+                        <input type="text" class="form-control form-control-solid" value="Hospital Prontocardio" disabled/>
+                        <!--end::Input-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Dimensão:</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Input-->
+                        <input type="text" class="form-control form-control-solid" value="{{n_dimensao.dimensao}}" disabled/>
+                        <!--end::Input-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Data de Criação:</span>
+                      </label>
+                      <!--end::Label-->
+                      <div class="w-100">
+                        <!--begin::Input-->
+                        <input type="text" class="form-control form-control-solid" value="{{data}}" disabled/>
+                        <!--end::Input-->
+                      </div>
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->
+                </div>
+                <!--end::Row-->
+              </div>
+              <!--end::Card body-->
+            </div>
+            <!--end::Contacts-->
+          </div>
+          <!--end::Content-->
+        </div>
+        <!--end::Contacts App- Add New Contact-->
+      </div>
+      <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+    {% for titulo in titulos %}
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+      <!--begin::Content container-->
+      <div id="kt_app_content_container" class="app-container container-xxl">
+        <!--begin::Contacts App- Add New Contact-->
+        <div class="row g-7">
+          <!--begin::Content-->
+          <div class="col-xl-12">
+            <!--begin::Contacts-->
+            <div class="card card-flush h-lg-100" id="kt_contacts_main">
+              <!--begin::Card header-->
+              <div class="card-header pt-7" id="kt_chat_contacts_header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                  <h2>{{titulo.titulo}}</h2>
+                </div>
+                <!--end::Card title-->
+              </div>
+              <!--end::Card header-->
+              {% for pergunta in perguntas %}
+              {% if pergunta.titulo == titulo.id %}
+              <!--begin::Card body-->
+              <div class="card-body pt-5">
+                <!--begin::Row-->
+                <div class="row row-cols-2 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                      <!--begin::Label-->
+                      <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>{{pergunta.pergunta}}</span>
+                      </label>
+                      <!--end::Label-->
+                    </div>
+                    <!--end::Input group-->
+                  </div>
+                  <!--end::Col-->                 
+                  <!--begin::Col-->
+                  <div class="col">
+                    <!--begin::Input group-->
+                    <div class="d-flex justify-content-end">
+                      <input type="radio" class="btn-check text-center" name="pergunta{{pergunta.id}}" id="sim{{pergunta.id}}" autocomplete="off" value="sim">
+                      <label class="btn btn-light-success" for="sim{{pergunta.id}}">Sim</label>
+          
+                      <input type="radio" class="btn-check" name="pergunta{{pergunta.id}}" id="nao{{pergunta.id}}" autocomplete="off" value="nao" data-bs-toggle="modal" data-bs-target="#basicModal{{pergunta.id}}">
+                      <label class="btn btn-light-danger" for="nao{{pergunta.id}}">Não</label>
+          
+                      <input type="radio" class="btn-check" name="pergunta{{pergunta.id}}" id="naoAplica{{pergunta.id}}" autocomplete="off" value="na">
+                      <label class="btn btn-secondary" for="naoAplica{{pergunta.id}}">Não se Aplica</label>
+                    </div>
+                    <!--end::Input group-->
+                    <div class="modal fade" id="basicModal{{pergunta.id}}" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">{{pergunta.pergunta}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Comentário</span>
+                                <textarea class="form-control" aria-label="With textarea" name="comentario{{pergunta.id}}" placeholder="Digite aqui para alterar o comentário"></textarea>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12" data-lightbox="image-set">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Evidência</span>
+                                <input type="file" class="form-control" id="inputGroupFile02" name="evidencia{{pergunta.id}}">
+                              </div>
+                              <br>
+                            </div>
+                            <hr>
+                            <div class="input-group col-lg-12">
+                              <div class="col-lg-12">
+                                <span class="col-lg-9" style="margin-bottom: 15px;">Área Responsável:</span>
+                                <select id="inputState" class="form-select" name="a_resp{{pergunta.id}}" id="a_resp{{pergunta.id}}">
+                                  <option selected disabled></option>
+                                  {%for setor in dsetor%}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" >Limpar</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Salvar Mudanças</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- End Basic Modal-->
+                  </div>
+                  <!--end::Col-->      
+                </div>
+                <!--end::Row-->
+                <!--begin::Separator-->
+                <div class="separator mb-6"></div>
+                <!--end::Separator-->
+              </div>
+              <!--end::Card body-->
+              {% endif %}
+              {% endfor %}
+            </div>
+            <!--end::Contacts-->
+          </div>
+          <!--end::Content-->
+        </div>
+        <!--end::Contacts App- Add New Contact-->
+      </div>
+      <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+    {% endfor %}
+    <!--begin::Action buttons-->
+    <div class="d-flex justify-content-center">
+      <!--begin::Button-->
+      <button type="reset" data-kt-contacts-type="cancel" class="btn btn-light me-3">Cancelar</button>
+      <!--end::Button-->
+      <!--begin::Button-->
+      <button type="submit" class="btn btn-primary">
+        <span class="indicator-label">Finalizar</span>
+        <span class="indicator-progress">Por Favor aguarde...
+        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+      </button>
+      <!--end::Button-->
+    </div>
+    <!--end::Action buttons-->
+  </form>
+  <!--end::Form-->
+</div>
+<!--end::Content wrapper-->
+{% endblock %}

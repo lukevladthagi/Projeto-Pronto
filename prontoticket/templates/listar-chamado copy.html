@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content %}
+<link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Listar Chamado</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">Listar Chamado</li>
+          <li class="breadcrumb-item">Técnicoo</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Chamados</h5>
+
+        <!-- Table with hoverable rows -->
+        <table class="table datatable table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Nº</th>
+              <th scope="col">Chamado</th>
+              <th scope="col">Setor</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Status</th>
+              <th scope="col">Prioridade</th>
+              <th scope="col">Data Abertura</th>
+              <th scope="col">Sla</th>
+              <th scope="col">Tempo Ocorrido</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            {% for item in dados %}
+            <tr class="text-white">
+              <td>
+                <a href="{% url 'editar_chamado' idchamado=item.id %}">{{item.id}}</a>
+              </td>
+              <td style="color: black;">{{item.problema}}</td>
+              <td style="color: black;">{{item.setor_recebe}}</td>
+              <td style="color: black;">{{item.nome_solicitante}} </td>
+              {% if item.status == 1 %}
+              <td><span class="badge bg-danger">Aberto</span></td>
+              {% elif item.status == 2 %}
+              <td><span class="badge bg-success">Finalizado</span></td>
+              {% elif item.status == 3 %}
+              <td><span class="badge bg-warning">Em Progresso</span></td>
+              {% elif item.status == 4 %}
+              <td><span class="badge bg-info">Agendado</span></td>
+              {% elif item.status == 5 %}
+              <td><span class="badge bg-secondary">Ag.Esclarecimento</span></td>
+              {% elif item.status == 6 %}
+              <td><span class="badge bg-secondary">Ag.Validação</span></td>
+              {% endif %}
+              {% if item.prioridade == 'baixa' %}
+              <td><span class="badge bg-success">Baixa</span></td>
+              {% elif item.prioridade == 'media' %}
+              <td><span class="badge bg-warning">Média</span></td>
+              {% elif item.prioridade == 'alta' %}
+              <td><span class="badge bg-danger">Alta</span></td>
+              {% endif %}
+              <td style="color: black;">{{item.created_at}}</td>
+              {% if item.updated_at == "passou" %}
+                <td style="background-color: red; color: white;">{{ item.m_sla }}</td>
+              {% else %}
+               <td style="color: black;">{{ item.m_sla }}</td>
+              {% endif %}
+              <td style="color: black;">{{item.t_co}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- End Table with hoverable rows -->
+
+      </div>
+    </div>
+
+</main><!-- End #main -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  // Inicializar a tabela com a classe 'datatable' e definir o número mínimo de 10 registros por página
+  $(document).ready(function() {
+    $('.datatable').DataTable({
+      "paging": true,
+      "lengthMenu": [10, 25, 50, 100],
+      "language": {
+        "lengthMenu": "Exibir _MENU_ registros por página",
+        "zeroRecords": "Nenhum registro encontrado",
+        "info": "Página _PAGE_ de _PAGES_",
+        "infoEmpty": "Nenhum registro disponível",
+        "infoFiltered": "(filtrado de _MAX_ registros no total)",
+        "search": "Buscar:",
+        "paginate": {
+          "first": "Primeiro",
+          "last": "Último",
+          "next": "Próximo",
+          "previous": "Anterior"
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

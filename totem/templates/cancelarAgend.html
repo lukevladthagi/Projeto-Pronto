@@ -1,0 +1,45 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+			
+{% if dados|length > 0 %}
+	<span class="login100-form-title p-b-49" style="margin-bottom: -20px;">	
+		<h5 style="display: -webkit-inline-box; margin-right: 30px;">
+			<img class="image-icon" src="{% static 'img/julia_2.png' %}" alt="Imagem da Julia" width="15%"/> 
+			Selecione para cancelar uma consulta
+		</h5>
+	</span>
+	{% for elemento in dados %}
+		<form class="listaAgendamento" action="" method="POST">
+			<input  type="hidden" name="name" value="{{ elemento.cdItAgendaCentral }}">
+				<a href="{% url 'confirmaCancelamento' cdIt=elemento.cdItAgendaCentral %}" class="btn-google m-b-20">
+				<img src="{% static 'img/prancheta_5.png' %}" style="width: 30%; "/>
+				<div class="container">
+				<h5 class="hSize">{{ elemento.nmPrestador }} {{elemento.dsItemAgendamento}}</h5>
+					
+				</div>
+				<div class="container">
+					{{ elemento.hrAgenda }}
+				</div>
+			</a>
+		</form>
+
+	{% endfor %}
+	<a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+	</a>
+{% else %}
+	<div class="cancelaDiv">
+		<div class="logo-img">
+			<img src="{% static 'img/julia_2.png' %}" />
+			<p>Você não possui agendamentos marcados!</p>
+		</div>
+			
+	</div>
+	<a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+	</a>
+		
+{% endif %}
+
+{% endblock %}

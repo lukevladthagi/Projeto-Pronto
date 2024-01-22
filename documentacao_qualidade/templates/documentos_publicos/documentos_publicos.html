@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+        <!--begin::Toolbar container-->
+        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                <!--begin::Title-->
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Gestão de Documentos de Qualidade</h1>
+                <!--end::Title-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">
+                        <a href="#" class="text-muted text-hover-primary">Home</a>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Central da Qualidade</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Documentos</li>
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl">
+            <!--begin::Card-->
+            <div class="card card-flush">
+                <!--begin::Card body-->
+                <div class="card-body">
+                    <!--begin::Table header-->
+                    <div class="d-flex flex-stack">
+                        <!--begin::Folder path-->
+                        <div class="badge badge-lg badge-light-primary">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <i class="ki-duotone ki-abstract-32 fs-2 text-primary me-3">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                                <a href="#">Documentos Públicos</a>
+                                <i class="ki-duotone ki-right fs-2 text-primary mx-1"></i>
+                                <a href="#">Documentos</a>
+                                <i class="ki-duotone ki-right fs-2 text-primary mx-1"></i>
+                            </div>
+                        </div>
+                        <!--end::Folder path-->
+                        <!--begin::Folder Stats-->
+                        <div class="badge badge-lg badge-primary">
+                            {% if qt_pasta == 0 %}
+                                <span id="kt_file_manager_items_counter">Sem Documentos</P></span>
+                            {% elif qt_pasta >= 1 %}
+                                <span id="kt_file_manager_items_counter">{{ qt_pasta }} Pastas</span>
+                            {% else %}
+                                <span id="kt_file_manager_items_counter">{{ qt_pasta }} Pasta</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!--end::Folder Stats-->
+                        <!--begin::Folder Stats-->
+                        <div class="badge badge-lg ">
+
+                        </div>
+                        <!--end::Folder Stats-->
+                    </div>
+                    <!--end::Table header-->
+                    <!--begin::Table-->
+                    <table id="kt_file_manager_list" data-kt-filemanager-table="folders"
+                        class="table align-middle table-row-dashed fs-6 gy-5">
+                        <thead>
+                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                <th class="min-w-250px">Nome</th>
+                                <th class="min-w-250px">Descrição</th>
+                                <th class="min-w-250px">Data de Criação</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-600">
+                            <!-- Supondo que você tenha um contexto que contenha a lista de objetos CadastroPasta chamada 'pastas' -->
+                            {% for pasta in pastas %}
+                            <tr>
+                                <td data-order="account">
+                                    <div class="d-flex align-items-center">
+                                        <span class="icon-wrapper">
+                                            <i class="ki-duotone ki-folder fs-2x text-primary me-4">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </span>
+                                        <a href="{% url 'pastas_arquivo_documentacao' pasta.id %}" class="text-gray-800 text-hover-primary">{{ pasta.nome }}</a>
+                                    </div>
+                                </td>
+                                <td>{{ pasta.descricao }}</td>
+                                <td>{{ pasta.created_at }}</td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+{% endblock %}

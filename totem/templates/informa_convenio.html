@@ -1,0 +1,47 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+<form action="" method="POST" id="msform">
+    <fieldset>
+        <div class="container_login">
+            {% csrf_token %}
+            <label for="convenio">Conta não possui convênio, selecione um abaixo</label>
+            <select class="dropdown" name="convenio" required>J
+                <option selected disabled value="">Selecione o seu convênio</option>
+                {% for elemento in dados %}
+                <option value="{{ elemento.codigo_convenio }}">{{ elemento.nome_convenio }}</option>
+                {% endfor %}
+            </select>
+            {% if celular == None %}
+            <input class="campo_cpf" type="text" name="telefone" id="telefone" placeholder="Informe seu telefone" required/>
+            {% endif %}
+            <div class="btn_submit">
+                <input type="submit" name="next" class="next action-button" value="Confirmar" style="padding: 5%; width: 100%; border-radius: 30px; margin-bottom: 3%; font-size: 23px; margin-top: 10%;">
+                <a href="{% url 'paciente' %}" class="btn-google m-b-20">
+                    <img src="{% static 'img/voltar_ngt.png' %}" width="8%">
+                </a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<script>
+    function mascara(dataId) {
+    const input = document.getElementById(dataId);
+    if (!input) {
+        console.error(`Elemento com o ID '${dataId}' não encontrado.`);
+        return;
+    }
+
+    const { value } = input;
+    const formattedValue = value
+        .replace(/\D/g, '') // Remove caracteres não numéricos
+        .replace(/^(\d{2})(\d)/g, '$1/$2') // Formata os dois primeiros dígitos com '/'
+        .replace(/^(\d{2})\/(\d{2})(\d)/g, '$1/$2/$3') // Formata os quatro primeiros dígitos com '/'
+        .replace(/(\d{2})\/(\d{2})\/(\d{4}).*/, '$1/$2/$3'); // Limita a 10 caracteres (dd/mm/aaaa)
+    input.value = formattedValue;
+}
+
+
+</script>
+{% endblock %}
+

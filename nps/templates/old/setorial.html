@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+                <li class="breadcrumb-item">ProntoTicket</li>
+                <li class="breadcrumb-item active">Editar Chamado</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <form method="POST" id="avalConfirma">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div>
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5 class="card-title text-center">Avaliação</h5>
+                                        <p>-De 0 a 10, qual o seu nível de satisfação referente ao atendimento do
+                                            chamado?</p>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico00"
+                                            autocomplete="off" value="0">
+                                        <label class="btn btn-secondary color0" for="medico00">00</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico01"
+                                            autocomplete="off" value="1">
+                                        <label class="btn btn-secondary color1" for="medico01">01</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico02"
+                                            autocomplete="off" value="2">
+                                        <label class="btn btn-secondary color2" for="medico02">02</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico03"
+                                            autocomplete="off" value="3">
+                                        <label class="btn btn-secondary color3" for="medico03">03</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico04"
+                                            autocomplete="off" value="4">
+                                        <label class="btn btn-secondary color4" for="medico04">04</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico05"
+                                            autocomplete="off" value="5">
+                                        <label class="btn btn-secondary color5" for="medico05">05</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico06"
+                                            autocomplete="off" value="6">
+                                        <label class="btn btn-secondary color6" for="medico06">06</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico07"
+                                            autocomplete="off" value="7">
+                                        <label class="btn btn-secondary color7" for="medico07">07</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico08"
+                                            autocomplete="off" value="8">
+                                        <label class="btn btn-secondary color8" for="medico08">08</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico09"
+                                            autocomplete="off" value="9">
+                                        <label class="btn btn-secondary color9" for="medico09">09</label>
+                                        <input type="radio" class="btn-check" name="notaAvaliacao" id="medico10"
+                                            autocomplete="off" value="10">
+                                        <label class="btn btn-secondary color10" for="medico10">10</label>
+                                        <div>
+                                            <br>
+                                            <label class="form-label" for="floatingTextarea">Observação</label>
+                                            <textarea class="form-control" id="floatingTextarea" name="textoAceita"
+                                                required></textarea>
+
+                                        </div>
+                                        <div class="text-center">
+                                            <br>
+                                            <button name="enviar" id="enviarConfirma" type="submit"
+                                                class="btn btn-primary">Enviar</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Fechar</button>
+                                        </div>
+                                        <br>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <script>
+            var form = document.getElementById("avalConfirma");
+            form.onsubmit = function () {
+                var button = document.getElementById("enviarConfirma");
+                button.disabled = true;
+            };
+        </script>
+        <script>
+            var form = document.getElementById("avalRejeita");
+            form.onsubmit = function () {
+                var button = document.getElementById("enviarRejeita");
+                button.disabled = true;
+            };
+        </script>
+    </section>
+
+</main><!-- End #main -->
+<style>
+    .color0 {
+        background-color: red;
+        cursor: pointer;
+
+    }
+
+    .color1 {
+        background-color: red;
+        cursor: pointer;
+
+    }
+
+    .color2 {
+        background-color: rgba(255, 0, 0, 0.865);
+        cursor: pointer;
+    }
+
+    .color3 {
+        background-color: rgb(230, 26, 26);
+        cursor: pointer;
+    }
+
+    .color4 {
+        background-color: rgb(211, 22, 22);
+        cursor: pointer;
+    }
+
+    .color5 {
+        background-color: rgb(179, 41, 41);
+        cursor: pointer;
+    }
+
+    .color6 {
+        background-color: rgb(153, 34, 34);
+        cursor: pointer;
+    }
+
+    .color7 {
+        background-color: orange;
+        cursor: pointer;
+    }
+
+    .color8 {
+        background-color: orange;
+        cursor: pointer;
+    }
+
+    .color9 {
+        background-color: rgb(5, 107, 5);
+        cursor: pointer;
+    }
+
+    .color10 {
+        background-color: rgb(6, 102, 6);
+        cursor: pointer;
+    }
+</style>
+{% endblock %}

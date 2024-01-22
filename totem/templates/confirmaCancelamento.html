@@ -1,0 +1,19 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}	
+<form action="" method="POST" id="msform">
+	{% csrf_token %}
+		<fieldset>
+			<div class="cancelar_agend">
+				<div class="logo-img">
+					<img src="{% static 'img/julia_2.png' %}" />
+					<h5>Deseja mesmo cancelar seu agendamento?</h5>
+				</div>		
+			</div>
+		</fieldset>
+		<input type="submit" name="next" class="next action-button" value="Confirmar" style="padding: 5%; width: 100%; border-radius: 30px; margin-bottom: 3%; font-size: 23px; margin-top: 10%; background-color: #212A51; color: #ffff"/>
+</form>
+<a href="{% url 'marcacao' %}" class="btn-google m-b-20">
+	<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+</a>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+    
+<div class="itens_totem scrollable">
+	<form method="POST">
+		{% csrf_token %}
+	
+		<header>
+			<h1 style="font-size: 30px;">Horários disponíveis:</h1>
+		</header>
+		<br>
+	
+		{% for exame in exames %}
+			<h3>{{exame.0.descricao}}</h3>
+			{% if  exame|length == 0 %}  
+				<h3>Não há horários disponíveis para o exame.</h3>
+			{% endif %}
+			<br>
+	
+			<div class="item-container custom-checkbox">
+				{% for item in exame %}
+					<div class="item" style="{% if forloop.counter > 10 %}display: none;{% endif %}">
+						
+						<input class="custom-checkbox" type="checkbox" name="nrHorario[]" value="{{ item.opcao }}" id="{{ forloop.parentloop.counter }}_{{ item.opcao }}" >
+						<label class="input_totem" for="{{ forloop.parentloop.counter }}_{{ item.opcao }}">{{ item.horario }}</label>
+					</div>
+				{% endfor %}
+			</div>
+	
+			{% if exame|length > 10 %}
+				<button class="show-more-btn" data-offset="10" data-exame="{{ forloop.counter }}">Mais horários</button>
+			{% endif %}
+		{% endfor %}
+		
+		<button type="submit" class="btn-google m-b-20">Confirmar Exames</button>
+	</form>
+	
+	<a href="{% url 'exames' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+	</a>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.show-more-btn').on('click', function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            var container = $(this).prev('.item-container');
+            var hiddenItems = container.find('.item:hidden');
+            hiddenItems.slice(0, 10).toggle();
+
+            if (container.find('.item:hidden').length === 0) {
+                $(this).hide();
+            }
+        });
+    });
+</script>
+{% endblock %}

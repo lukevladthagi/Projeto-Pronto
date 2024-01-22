@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!--begin::Head-->
+
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
+<script src="{% static 'js/scripts.bundle.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--end::Global Javascript Bundle-->
+<!--end::Javascript-->
+
+<head>
+	<base href="" />
+	<title>Sistema Geral Hospital Prontocardio</title>
+	<meta charset="utf-8" />
+	<meta name="description"
+		content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free." />
+	<meta name="keywords"
+		content="keen, bootstrap, bootstrap 5, bootstrap 4, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Theme" />
+	<meta property="og:url" content="https://keenthemes.com/keen" />
+	<meta property="og:site_name" content="Keenthemes | Keen" />
+	<link rel="canonical" href="https://preview.keenthemes.com/keen" />
+	<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" />
+	<!--begin::Fonts(mandatory for all pages)-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+	<!--end::Fonts-->
+	<!--begin::Vendor Stylesheets(used for this page only)-->
+	<link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+	<!--end::Vendor Stylesheets-->
+	<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+	<link href="{% static 'plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+	<!--end::Global Stylesheets Bundle-->
+	<script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+
+	<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<style>
+	/* Adicione este bloco de estilos para estender a header ao longo da largura total */
+	#kt_app_header {
+		width: 100%;
+		left: 0;
+		right: 0;
+	}
+
+	/* Adicione estas propriedades para garantir que o conteúdo da header se ajuste corretamente */
+	#kt_app_header_container {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	#kt_app_header_wrapper {
+		width: 100%;
+	}
+</style>
+
+<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true"
+	data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true"
+	data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true"
+	data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+
+	<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+		<!--begin::Page-->
+		<!--begin::Header-->
+		<div id="kt_app_header" class="app-header">
+			<!--begin::Header container-->
+			<div class="app-container d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
+				<!--begin::Header wrapper-->
+				<div class="d-flex align-items-stretch justify-content-end w-100" id="kt_app_header_wrapper">
+					<!--begin::Menu wrapper-->
+					<!--Não apague essa DIV-->
+					<div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true"
+						data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true}"
+						data-kt-drawer-overlay="true" data-kt-drawer-width="500px" data-kt-drawer-direction="end"
+						data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true"
+						data-kt-swapper-mode="{default: 'append'}" data-kt-swapper-parent="{default: '#kt_app_body'}">
+						<!--begin::Menu-->
+						<div class="menu menu-rounded menu-column align-items-stretch fw-semibold px-2 "
+							id="kt_app_header_menu" data-kt-menu="true">
+						</div>
+						<!--end::Menu-->
+					</div>
+
+					<!--begin::Titulo-->
+					<div class="d-flex align-items-center justify-content-start flex-column w-100"
+						style="margin-top: 1.2%;">
+						<h1 class="fs-1 fw-bold text-custom-color me-2 text-center">Acompanhamento Hemodinâmica </h1>
+						<span>Última Atualização: {{data}} às {{hora}}</span>
+						<span class="fs-6 text-gray-400"></span><!-- Adicione esta linha -->
+					</div>
+					<!--end::Titulo-->
+
+					<!--begin::Logo-->
+					<div class="app-navbar flex-shrink-0 d-flex align-items-center ms-2 ms-1 ms-lg-3"
+						id="kt_header_user_menu_toggle">
+						<div class="symbol symbol-45px symbol-md-80px">
+							<img class="rounded-1" src="{% static 'img/logo.png' %}" alt="" />
+						</div>
+					</div>
+					<!--end::Logo-->
+				</div>
+			</div>
+
+		</div>
+
+		<!--end::Header-->
+		<!--begin::content-->
+		<div style="margin-top: 5%;">
+			{% block content %}
+			{% endblock %}
+		</div>
+		<!--end::content-->
+		<!--begin::Footer-->
+		<!--begin::Footer-->
+
+		<!--end::Footer-->
+
+		<div class="text-dark order-2 order-md-1 mx-auto">
+			&copy; Copyright <strong><span>Setor desenvolvimento TI Hospitalprontocardio</span></strong>. All Rights
+			Reserved
+		</div>
+		<!--end::Copyright-->
+
+
+
+		<!--end:::Main-->
+	</div>
+	<!--end::Wrapper-->
+	</div>
+	<!--end::Page-->
+	</div>
+	<!--end::App-->
+	<!--begin::Scrolltop-->
+	<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+		<i class="ki-duotone ki-arrow-up">
+			<span class="path1"></span>
+			<span class="path2"></span>
+		</i>
+	</div>
+	<!--end::Scrolltop-->
+</body>
+<!--end::Body-->
+
+</html>

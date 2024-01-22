@@ -1,0 +1,20 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+
+<form action="" method="POST" id="msform">
+	{% csrf_token %}
+		<fieldset>
+			<div class="cancelar_agend">
+				<div class="logo-img">
+					<img src="{% static 'img/julia_2.png' %}" />
+					<h5 style="position: absolute; top: 57%;">Deseja mesmo cancelar seu agendamento?</h5>
+				</div>
+			</div>
+		</fieldset>
+</form>
+<a href="{% url 'marcacao' %}" class="btn btn-primary">
+	Concluir
+</a>
+
+{% endblock %}

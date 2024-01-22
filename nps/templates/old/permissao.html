@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Formulário</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item">Formulários</li>
+        <li class="breadcrumb-item active">Abrir Chamado</li>
+        <li class="breadcrumb-item active">Chamado Realizado</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">ERROR</h5>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <h4 class="alert-heading">ACESSO NEGADO</h4>
+              <p>
+                Você nao possui acesso a tela solicitada, entre em contato com o setor para verificar.
+              </p>
+              <hr>
+            </div>
+            <div class="text-center">
+              <a class="btn btn-primary" href="{% url 'telaIni' %}">Voltar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main><!-- End #main -->
+{% endblock %}

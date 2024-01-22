@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>DashBoard NPS Geral</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+                <li class="breadcrumb-item active">nps</li>
+                <li class="breadcrumb-item active">dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item col-12" title="Report Section"
+                                    src="https://app.powerbi.com/view?r=eyJrIjoiODlhOWNlODQtODNlMS00NDBmLWIzM2YtZDllMTA4Mjk5NmE3IiwidCI6ImViNTgxZmZkLTY1YTktNDg3OS1iM2JlLTUzMTc2MzJmOGQzYSJ9"
+                                    width="100%" height="620" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

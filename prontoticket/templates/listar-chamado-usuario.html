@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}  
+<link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Meus Chamados</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item"><span class="bullet bg-gray-400 w-5px h-2px"></span></li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">ProntoTicket</li>
+          <li class="breadcrumb-item"><span class="bullet bg-gray-400 w-5px h-2px"></span></li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Meus Chamados</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+      <!--begin::Actions-->
+      <!-- <div class="d-flex align-items-center gap-2 gap-lg-3">
+        <div class="d-flex">
+          <select name="campaign-type" data-control="select2" data-hide-search="true" class="form-select form-select-sm bg-body border-body w-175px">
+            <option value="Twitter" selected="selected">Select Campaign</option>
+            <option value="Twitter">Twitter Campaign</option>
+            <option value="Twitter">Facebook Campaign</option>
+            <option value="Twitter">Adword Campaign</option>
+            <option value="Twitter">Carbon Campaign</option>
+          </select>
+          <a href="#" class="btn btn-icon btn-sm btn-success flex-shrink-0 ms-4" data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">
+            <i class="ki-duotone ki-plus fs-2"></i>
+          </a>
+        </div>
+      </div> -->
+      <!--end::Actions-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+
+     
+      <!--begin::Products-->
+      <div class="card card-flush">
+        <!--begin::Card header-->
+        <form class="form" method="post" action="{% url 'filtro' %}">
+          {% csrf_token %}
+          <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+            <div class="card-title">
+              <div class="d-flex align-items-center position-relative my-1">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+                <input type="text" data-kt-ecommerce-order-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Buscar" />
+              </div>
+            </div>
+            <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+              <div class="input-group w-250px">
+                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecione a coluna" name="coluna" id="coluna">
+                  <option></option>
+                  <option value="setor_local">Setor de Ocorrência</option>
+                  <option value="setor_recebe">Setor Responsável</option>
+                  <!-- <option value="usuario">Solicitante</option> -->
+                  <option value="usuario_atendime">Responsável</option>
+                </select>
+              </div>
+              <div class="input-group w-250px">
+                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecione o item" name="itensSelect" id="itensSelect">
+                  <option></option>
+                </select>
+              </div>
+              <div class="w-100 mw-150px">
+                <select class="form-select form-select-solid" data-control="select2"  data-placeholder="Status" name="status">
+                  <option></option>
+                  <option value="1">Abertos ({{contagem.abertos}})</option>
+                  <option value="3">Em Progresso ({{contagem.andamento}})</option>
+                  <option value="4">Agendados ({{contagem.agendados}})</option>
+                  <option value="2"> Finalizados ({{contagem.fechados}})</option>
+                </select>
+              </div>
+              <button type="submit" data-kt-contacts-type="submit" class="btn btn-primary me-3">Filtrar</button>
+            </div>
+          </div>
+          <input type="text" value="us" name="acesso" hidden>
+        </form>
+        <!--end::Card header-->
+        <!--begin::Card body-->
+
+        <div class="card-body pt-0">
+          <!--begin::Table-->
+          <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_sales_table">
+            <thead>
+              <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                <th>Nº</th>
+                <th>Chamado</th>
+                <th>Setor de ocorrência</th>
+                <th>Solicitante</th>
+                <th>Setor responsável</th>
+                <th>Responsável</th>
+                <th>Data de abertura</th>
+                <th>Sla</th>
+                <th>Tempo ocorrido</th>
+                <th>Prioridade</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody class="fw-semibold text-gray-600">
+              {% for item in dados %}
+              <tr>
+
+                <td>
+                  <a href="{% url 'editar_chamado_usuario' idchamado=item.id %}">{{item.id}}</a>
+                </td>
+                
+                <td title="{{item.titulo}}">{{item.problema}}</td>
+
+                <td>{{item.setor_local}}</td>
+
+                <td>{{item.nome_solicitante}}</td>
+
+                <td>{{item.setor_recebe}}</td>
+
+                {% if item.usuario_atendime is None %}
+                  <td>Sem Responsável</td>
+                {% else %}
+                  <td>{{item.usuario_atendime}}</td>
+                {% endif %}
+
+                <td data-order="{{item.telefone}}">{{item.created_at}}</td>
+
+                {% if item.updated_at == "passou" %}
+                  <td style="color: rgba(211, 17, 17, 0.829)">{{item.m_sla}}</td>
+                {% else %}
+                  <td>{{ item.m_sla }}</td>
+                {% endif %}
+
+                <td >{{item.t_co}}</td>
+
+                {% if item.prioridade == 'baixa' %}
+                  <td><span class="badge bg-success" style="color: white;">Baixa</span></td>
+                {% elif item.prioridade == 'media' %}
+                  <td><span class="badge bg-warning" style="color: white;">Média</span></td>
+                {% elif item.prioridade == 'alta' %}
+                  <td><span class="badge bg-danger" style="color: white;">Alta</span></td>
+                {% endif %}
+
+                {% if item.status == 1 %}
+                <td><span class="badge bg-danger" style="color: white;">Aberto</span></td>
+                {% elif item.status == 2 %}
+                <td><span class="badge bg-success" style="color: white;">Finalizado</span></td>
+                {% elif item.status == 3 %}
+                <td><span class="badge bg-warning" style="color: white;">Em Progresso</span></td>
+                {% elif item.status == 4 %}
+                <td><span class="badge bg-primary" style="color: white;">Agendado</span></td>
+                {% endif %}
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <!--end::Table-->
+        </div>
+        <!--end::Card body-->
+      </div>
+      <!--end::Products-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+  <input type="text" value="{{setores}}" id="setoresJson" hidden>
+  <input type="text" value="{{usuarios}}" id="usuariosJson" hidden>
+
+</div>
+<!--end::Content wrapper-->
+<!--begin::Javascript-->
+<script src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script>
+<script src="{% static 'js/custom/apps/ecommerce/sales/listing.js' %}"></script>
+<script src="{% static 'js/widgets.bundle.js' %}"></script>
+<script src="{% static 'js/custom/apps/chat/chat.js' %}"></script>
+<script src="{% static 'js/custom/utilities/modals/upgrade-plan.js' %}"></script>
+<script src="{% static 'js/custom/utilities/modals/create-campaign.js' %}"></script>
+<script src="{% static 'js/custom/utilities/modals/users-search.js' %}"></script>
+<script src="{% static 'js/filtro_tabela.js' %}"></script>
+<!--end::Custom Javascript-->
+<!--end::Javascript-->
+{% endblock %}

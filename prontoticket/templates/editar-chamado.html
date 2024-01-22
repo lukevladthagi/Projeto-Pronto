@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Editar Chamado</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">ProntoTicket Técnico</li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">Editar Chamado</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+      <!--begin::Actions-->
+    
+      <!--end::Actions-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Form-->
+      <form class="form d-flex flex-column flex-lg-row getForm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!--begin::Main column-->
+        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+          <!--begin:::Tabs-->
+          <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+              <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">Chamado</a>
+            </li>
+            <!--end:::Tab item-->
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+              <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Notas</a>
+            </li>
+            <!--end:::Tab item-->
+            <!--begin:::Tab item-->
+            <!-- <li class="nav-item">
+              <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_reviews">Reviews</a>
+            </li> -->
+            <!--end:::Tab item-->
+          </ul>
+          <!--end:::Tabs-->
+          <!--begin::Tab content-->
+          <div class="tab-content">
+            <!--begin::Tab pane-->
+            <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+              <div class="d-flex flex-column gap-7 gap-lg-10">
+                <!--Editar Chamado -->
+                <div class="card card-flush py-4">
+                  <!--begin::Card header-->
+                  <div class="card-header">
+                    <div class="card-title">
+                      <h2>Nº Chamado {{chamado.id}}</h2>
+                    </div>
+                  </div>
+                  <!--end::Card header-->
+                  <!--begin::Card body-->
+                  <div class="card-body pt-0">
+                    <!--begin::Billing address-->
+                    <div class="d-flex flex-column gap-5 gap-md-7">
+                      <!--begin::Title-->
+                      <!--end::Title-->
+                      <!--begin::Input group-->
+                      <div class="d-flex flex-column flex-md-row gap-5">
+                        <div class="fv-row flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Solicitante</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          <input class="form-control" name="billing_order_address_1" value="{{ chamado.usuario }}" disabled/>
+                          <!--end::Input-->
+                        </div>
+                        <div class="flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Responsável</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          {% if chamado.usuario_atendime != None  %}
+                            <input type="text" class="form-control" value="{{ userAtend }}" disabled>
+                          {% else %}
+                            <input type="text" class="form-control" value="Sem responsável" disabled>
+                          {% endif %}
+                          <!--end::Input-->
+                        </div>
+                        <div class="flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Data de abertura</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          <input class="form-control" name="billing_order_address_2" value="{{ chamado.created_at }}" disabled />
+                          <!--end::Input-->
+                        </div>
+                      </div>
+                      <!--end::Input group-->
+                      <!--begin::Input group-->
+                      <div class="d-flex flex-column flex-md-row gap-5">
+                        <div class="flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Unidade Hospitalar</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          <input class="form-control" name="billing_order_city" value="Hospital Prontocardio" disabled/>
+                          <!--end::Input-->
+                        </div>
+                        <div class="fv-row flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Setor Responsável</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          {% for setor in setores %}
+                            {% if chamado.setor_recebe == setor.id %}
+                              <input type="text" class="form-control" value="{{ setor.name }}" id="inputEmail5" disabled>
+                            {% endif %}
+                          {% endfor %}
+                          <!--end::Input-->
+                        </div>
+                        <div class="fv-row flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Problema</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          {% for prob in problema %}
+                            {% if chamado.problema == prob.id %}
+                             <input type="text" class="form-control" value="{{ prob.problema }}" disabled id="inputPassword5">
+                            {% endif %}
+                          {% endfor %}
+                          <!--end::Input-->
+                        </div>
+                      </div>
+      
+                      <div class="d-flex flex-column flex-md-row gap-5">
+                        <div class="flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Local do ocorrido</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          {% for loc in local %}
+                            {% if chamado.local_setor == loc.id %}
+                              <input type="text" class="form-control" id="inputName5" value="{{ loc.local }}" disabled>
+                            {% endif %}
+                          {% endfor %}
+                          <!--end::Input-->
+                        </div>
+                        <div class="fv-row flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">O local possui paciente?</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          {% if chamado.paciente == "sim" %}
+                            <input type="text" class="form-control" id="inputEmail5" value="Sim" disabled>
+                          {% endif %}
+                          {% if chamado.paciente == "nao" %}
+                            <input type="text" class="form-control" id="inputEmail5" value="Não" disabled>
+                          {% endif %}
+                          <!--end::Input-->
+                        </div>
+                        <div class="fv-row flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Status do chamado</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          {% if chamado.status == 1 %}
+                            <input type="text" class="form-control" id="inputPassword5" value="Aberto" disabled>
+                          {% elif chamado.status == 2 %}
+                            <input type="text" class="form-control" id="inputPassword5" value="Finalizado" disabled>
+                          {% elif chamado.status == 3 %}
+                            <input type="text" class="form-control" id="inputPassword5" value="Em Progresso" disabled>
+                          {% elif chamado.status == 4 %}
+                            <input type="text" class="form-control" id="inputPassword5" value="Agendado" disabled>
+                          {% elif chamado.status == 5 %}
+                           <input type="text" class="form-control" id="inputPassword5" value="Ag.Esclarecimento" disabled>
+                          {% elif chamado.status == 6 %}
+                           <input type="text" class="form-control" id="inputPassword5" value="Ag.validação" disabled>
+                          {% endif %}
+                          <!--end::Input-->
+                        </div>
+                      </div>
+      
+                      <div class="d-flex flex-column flex-md-row gap-5">
+                        <div class="flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Prioridade do chamado</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          <input class="form-control" name="billing_order_city" value="{{ chamado.prioridade }}" disabled />
+                          <!--end::Input-->
+                        </div>
+                        <div class="fv-row flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Telefone</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          <input class="form-control" name="billing_order_postcode" value="{{ chamado.telefone }}" disabled />
+                          <!--end::Input-->
+                        </div>
+                        <div class="fv-row flex-row-fluid">
+                          <!--begin::Label-->
+                          <label class="form-label">Email</label>
+                          <!--end::Label-->
+                          <!--begin::Input-->
+                          <input class="form-control" name="billing_order_state" value="{{ chamado.email }}" disabled />
+                          <!--end::Input-->
+                        </div>
+                      </div>
+      
+                      <!--end::Input group-->
+                      <!--begin::Input group-->
+                      <!--begin::basic autosize textarea-->
+                      <div>
+                        <label for="" class="form-label">Contexto</label>
+                        <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" aria-label="Evidencia" data-bs-toggle="modal" data-bs-target="#kt_modal_scrollable_2">
+                          <i class="ki-duotone ki-graph-3 fs-1" data-bs-toggle="tooltip" title="Evidência">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                          </i>
+                        </button>
+                        <textarea class="form-control" data-kt-autosize="true" readonly>{{chamado.titulo}}</textarea>
+                      </div>
+                    </div>
+                    <!--end::Billing address-->
+
+                    <div class="modal fade" tabindex="-1" id="kt_modal_scrollable_2">
+                      <div class="modal-dialog modal-dialog-scrollable">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title">Evidência</h5>
+                                  <!--begin::Close-->
+                                  
+                                  <!--end::Close-->
+                              </div>
+                              <div class="modal-body d-flex justify-content-center align-items-center">
+                                {% if chamado.evidencia != None %}
+                                <img src="{{chamado.evidencia}}" class="img-fluid" alt="Sem Evidência">
+                                {% endif %}
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fechar</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                    <div class="d-flex justify-content-end mt-12">
+                      {% if chamado.status == 1 or chamado.status == 4 %}
+                      <a class="btn btn-danger me-5" href="{% url 'atender_finalizar' idchamado=idchamado %}">Atender Chamado</a>
+                      {% elif chamado.status == 3%}
+                      <a class="btn btn-success me-5" href="{% url 'atender_finalizar' idchamado=idchamado %}">Finalizar Chamado</a>               
+                      {% endif %}
+          
+                      {% if chamado.status != 2 and chamado.status != 1  %}
+                      <a type="button" class="btn btn-primary me-5" href="{% url 'editar_info' idchamado=idchamado %}">Editar Chamado</a>
+                      {% endif %}
+          
+                      {% if chamado.status == 5 %}
+                      <button type="button" class="btn btn-danger me-5" data-bs-toggle="modal" data-bs-target="#escModal">Esclarecimento</button>
+                      {% endif %}
+                      <a class="btn btn-primary me-5" href="{% url 'listar_chamado' %}">Voltar</a>
+                      <!--end::Button-->
+                    </div>
+
+                  </div>
+                  <!--end::Card header-->
+                </div>
+                <!--end::General options-->                
+              </div>
+            </div>
+            <!--end::Tab pane-->
+            <!--begin::Tab pane-->
+            <div class="tab-pane fade" id="kt_ecommerce_add_product_advanced" role="tab-panel">
+              <div class="d-flex flex-column gap-7 gap-lg-10">
+                <!--begin::Inventory-->
+                <div class="card">
+                  <!--begin::Card head-->
+                  <div class="card-header card-header-stretch">
+                    <!--begin::Title-->
+                    <div class="card-title d-flex align-items-center">
+                      <h4 class="fw-bold m-0 text-gray-800">Notas<span> | Nº Chamado: {{chamado.id}}</span></h4>
+                    </div>
+                    <!--end::Title-->
+                  </div>
+                  <!--end::Card head-->
+                  <!--begin::Card body-->
+                  <div class="card-body">
+                    <!--begin::Tab Content-->
+                    <div class="tab-content">
+                      <!--begin::Tab panel-->
+                      <div id="kt_activity_today" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_activity_today_tab">
+                        <!--begin::Timeline-->
+                        {% for nota in notas %}
+                        <div class="timeline">
+                          
+                          <!--begin::Timeline item-->
+                          <div class="timeline-item">
+                            <!--begin::Timeline line-->
+                            <div class="timeline-line w-40px"></div>
+                            <!--end::Timeline line-->
+                            <!--begin::Timeline icon-->
+                            <div class="timeline-icon symbol symbol-circle symbol-40px">
+                              <div class="symbol-label bg-light">
+                                <i class="ki-duotone ki-message-text-2 fs-2 text-gray-500">
+                                  <span class="path1"></span>
+                                  <span class="path2"></span>
+                                  <span class="path3"></span>
+                                </i>
+                              </div>
+                            </div>
+                            <!--end::Timeline icon-->
+                            <!--begin::Timeline content-->
+                            <div class="timeline-content mb-10 mt-n2">
+                              <!--begin::Timeline heading-->
+                              <div class="overflow-auto pe-3">
+                                {% for usuario in usuarios %}
+                                {% if usuario.id == nota.usuario%}
+                                <!--begin::Title-->
+                                <div class="fs-5 fw-semibold mb-2">{{ nota.updated_at }}: {{ nota.nota }}</div>
+                                <!--end::Title-->
+                                <!--begin::Description-->
+                                <div class="d-flex align-items-center mt-1 fs-6">
+                                  <!--begin::Info-->
+                                  <div class="text-muted me-2 fs-7">{{ nota.created_at }}</div>
+                                  {% endif %}
+                                  {% endfor %}
+                                  <!--end::Info-->
+                                </div>
+                                <!--end::Description-->
+                              </div>
+                              <!--end::Timeline heading-->
+                            </div>
+                            <!--end::Timeline content-->
+                          </div>
+                          <!--end::Timeline item-->
+                          
+                          <!--begin::Timeline item-->
+                          <div class="timeline-item">
+                            <!--begin::Timeline line-->
+                            <div class="timeline-line w-40px"></div>
+                            <!--end::Timeline line-->
+                            <!--begin::Timeline icon-->
+                            
+                            <!--end::Timeline icon-->
+                          </div>
+                          <!--end::Timeline item-->
+                        </div>
+                        {% endfor %}
+                        <!--end::Timeline-->
+                      </div>
+                      <!--end::Tab panel-->
+                      <!--begin::Tab panel-->
+                      <div id="kt_activity_week" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_week_tab">
+                        <!--begin::Timeline-->
+                        
+                      </div>
+                      <!--end::Tab panel-->
+                      <!--begin::Tab panel-->
+                      <div id="kt_activity_month" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_month_tab">
+                        <!--begin::Timeline-->
+                        
+                      </div>
+                      <!--end::Tab panel-->
+                      <!--begin::Tab panel-->
+                      <div id="kt_activity_year" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_year_tab">
+                        <!--begin::Timeline-->
+                        
+                        <!--end::Timeline-->
+                      </div>
+                      <!--end::Tab panel-->
+                    </div>
+                    <!--end::Tab Content-->
+                    <div class="card-footer pt-4 mt-16" id="kt_drawer_chat_messenger_footer">
+                      <!--begin::Input-->
+                      <textarea class="form-control mt-6" data-kt-autosize="true" placeholder="Adicione sua nota aqui" name="nota_chamado"></textarea>
+                      <!--end::Input-->
+                      <div class="text-center">
+                        <button class="btn btn-primary mt-6 me-2 disableOnSubmit" type="submit">Enviar</button>
+                        <a class="btn btn-primary mt-6" href="{% url 'listar_chamado' %}">Voltar</a>
+                      </div>
+                      <!--begin:Toolbar-->
+                      
+                      <!--end::Toolbar-->
+                    </div>
+                  </div>
+                  <!--end::Card body-->
+                </div>
+                <!--end::Inventory-->
+              </div>
+            </div>
+            <!--end::Tab pane-->
+          </div>
+          <!--end::Tab content-->
+        </div>
+        <!--end::Main column-->
+      </form>
+      <!--end::Form-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+</div>
+<script src="{% static 'js/desabilitaBtn.js' %}"></script>
+{% endblock %}

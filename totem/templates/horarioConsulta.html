@@ -1,0 +1,48 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+<div class="scrollable">
+            <form class="listaAgendamento" action="" method="POST">
+                <input type="hidden" name="name" value="{{ elemento.opcao }}">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+							{% for elemento in dados %}
+    						{% if dados|length > 0 %}
+                            {% ifchanged elemento.nmmedico %}
+                            <button class="accordion-collapse collapsed accordion-header" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne{{elemento.medico}}" aria-expanded="false" aria-controls="flush-collapseOne{{elemento.medico}}">
+                                {{ elemento.nmmedico }}
+                            </button>
+                            {% endifchanged %}
+                        </h2>
+                        <div id="flush-collapseOne{{elemento.medico}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                        data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <a href="{% url 'agendar' cdopc=elemento.opcao %}"
+                                class="btn-google m-b-20" style="padding: 3%; margin-bottom: 2%;">
+                                    {{ elemento.horario }}
+                                </a>
+                            </div>
+                        </div>
+						{% endif %}
+						{% endfor %} 
+                    </div>
+                </div>
+            </form>
+    {% if dados|length > 0 %}
+    <a href="{% url 'especialidades' %}" class="btn-google m-b-20 btn_volta_hconsulta">
+        <img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+    </a>
+	{% else %}
+	<header class="h2Empty">
+		<h2 style="font-size: 28px;">Não há horários disponíveis</h2>
+		<br>
+	</header>
+	<a href="{% url 'especialidades' %}" class="btn-google m-b-20">
+		<img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+	</a>
+	{% endif %}
+
+</div>
+{% endblock %}

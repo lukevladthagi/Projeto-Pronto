@@ -1,0 +1,21 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+<div class="itens_totem scrollable">
+    <form method="POST">
+        {% csrf_token %}
+        {% for elemento in dados %}
+            <div class="custom-checkbox">
+                <input class="custom-checkbox" type="checkbox" name="nrServico[]" value="{{ elemento.codigo_item }}" id="checkbox{{ elemento.codigo_item }}" >
+                <label class="input_totem" for="checkbox{{ elemento.codigo_item }}">{{elemento.descricao_item}}</label>
+            </div>
+            
+            {% endfor %}
+            <button type="submit" class="btn-google m-b-20">Confirmar Exames</button>
+        </form>
+       
+    <a href="{% url 'marcacao' %}" class="btn-google m-b-20">
+        <img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+    </a>
+</div>
+{% endblock %}

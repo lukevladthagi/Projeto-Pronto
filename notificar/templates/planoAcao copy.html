@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Inclua os estilos do Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Inclua os estilos do DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Plano de ação (Planejamento 5w2h)</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Controle de Gestão</li>
+          <li class="breadcrumb-item active">Plano de Ação</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <div class="card">
+      <div class="card-body">
+          <h5 class="card-title">Tipos de Incidente</h5>
+          <div class="d-flex flex-wrap">
+              {% for tipoIncid in tpIncidente %}
+                  <div class="alert alert-{{ tipoIncid.tp_cor }} bg-{{ tipoIncid.tp_cor }} text-light border-0 alert-dismissible fade show text-white me-2 alert_tp_incidente small flex-grow-1" role="alert">
+                      <div class="d-flex justify-content-between align-items-center">
+                          <span>Tipo {{ tipoIncid.id }} - {{ tipoIncid.tp_Incidente }}</span>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <section class="section">
+          <div class="row">
+            <div class="col-lg-12">
+    
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Planejamento 5W2H</h5>
+    
+                  
+                  <table class="table datatable table_notificar">
+                    <thead>
+                      <tr>
+                        <th scope="col">Dados</th>
+                        <th scope="col">Plano de Ação</th>
+                        <th scope="col">Data do Evento</th>
+                        <th scope="col">Tipo de Incidente</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Tempo Corrido</th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody>
+                      {% for n_conform in NaoConformidade %}
+                        <tr data-toggle="modal" data-target="#modal{{n_conform.id}}" class="table_notif_tr">
+                          <!-- <td><i class="bi bi-clipboard-plus btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modal-{{ n_conform.id }}"></i></td> -->
+                          <td><i class="bi bi-file-diff-fill btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ModalDados{{n_conform.id}}"></i></td>
+                          <td><i class="bi bi-file-earmark-text btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ModalTpIncidente{{n_conform.id}}"></i></td>
+                          <td>{{n_conform.dt_evento}}</td>
+                          <td><a class="btn btn-outline-primary">Tipo {{n_conform.tp_incidente}}</a></td>
+                          <td>{{n_conform.status}}</td>
+                          <td>{{n_conform.created_at}}</td>
+                        </tr>
+                        <div class="modal fade" id="ModalTpIncidente{{n_conform.id}}" tabindex="-1">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h4 class="modal-title" id="modalLabel-5W2H-{{ n_conform.id }}">Formulário 5W2H</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <form action="" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ n_conform.plano_acao }}" name="id_plano_acao">
+                                    <input type="hidden" value="{{ n_conform.id }}" name="id_n_conform">
+                                    <div class="modal-body">
+                                      <div class="mb-3">
+                                        <label for="what-{{ n_conform.id }}" class="form-label">O que será feito?</label>
+                                        <textarea class="form-control" id="what-{{ n_conform.id }}" name="oQue_acao" rows="3">{{n_conform.planejamento.o_que}}</textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="why-{{ n_conform.id }}" class="form-label">Por que será feito?</label>
+                                        <textarea class="form-control" id="why-{{ n_conform.id }}" name="porQue_acao" rows="3">{{n_conform.planejamento.por_que}}</textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="where-{{ n_conform.id }}" class="form-label">Onde será feito?</label>
+                                        <textarea class="form-control" id="where-{{ n_conform.id }}" name="ondeAcao" rows="3">{{n_conform.planejamento.onde}}</textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="when-{{ n_conform.id }}" class="form-label">Quando será feito?</label>
+                                        <textarea class="form-control" id="when-{{ n_conform.id }}" name="quandoAcao" rows="3">{{n_conform.planejamento.quando}}</textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="who-{{ n_conform.id }}" class="form-label">Por quem será feito?</label>
+                                        <textarea class="form-control" id="who-{{ n_conform.id }}" name="porQuem_acao" rows="3">{{n_conform.planejamento.por_quem}}</textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="how-{{ n_conform.id }}" class="form-label">Como será feito?</label>
+                                        <textarea class="form-control" id="how-{{ n_conform.id }}" name="comoAcao" rows="3">{{n_conform.planejamento.como}}</textarea>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="howmuch-{{ n_conform.id }}" class="form-label">Quanto vai custar?</label>
+                                        <textarea class="form-control" id="howmuch-{{ n_conform.id }}" name="quantoAcao" rows="3">{{n_conform.planejamento.quanto}}</textarea>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                        <!-- Adicione mais botões aqui, se necessário -->
+                                    </div>
+                                  </form>
+                              </div>
+                          </div>
+                        </div>
+    
+                        <div class="modal fade" id="ModalDados{{n_conform.id}}" tabindex="-1">
+                          <div class="modal-dialog">
+                            <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                              {% csrf_token %}
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Detalhes do Evento</h5>
+                              </div>
+                                <div class="modal-body">
+                                  <p><strong>Data do Evento:</strong> {{n_conform.dt_evento}}</p>
+                                  {% if n_conform.nm_pac %}
+                                  <p><strong>Nome do(a) Paciente:</strong> {{n_conform.nm_pac}}</p>
+                                  {% else %}
+                                  <p><strong>Idade do(a) Paciente:</strong> Não Informado. </p>
+                                  {% endif %}
+                                  {% if n_conform.idade_pac %}
+                                  <p><strong>Idade do(a) Paciente:</strong> {{n_conform.idade_pac}}</p>
+                                  {% else %}
+                                  <p><strong>Idade do(a) Paciente:</strong> Não Informado. </p>
+                                  {% endif %}
+                                  <p><strong>Tipo de Incidente:</strong> Tipo {{n_conform.tp_incidente}}</p>
+                                  <p><strong>Descrição do Evento:</strong> {{n_conform.comentario}}</p>
+      
+                                  {% if n_conform.evidencia %}
+                                      <p><strong>Evidência do evento:</strong></p>
+                                      <a href="{{ n_conform.evidencia }}" target="_blank">
+                                        <img src="{{ n_conform.evidencia }}" class="image-clickable" alt="Evidência do Evento" style="max-width: 100%;" name="evidencia">
+                                      </a>
+                                      <br>
+                                      <br>
+                                  {% else %}
+                                      <p><strong>Evidência do evento:</strong> Não anexada</p>
+                                  {% endif %}
+                                  <br>
+                              </div>
+        
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <!-- End Table with stripped rows -->
+                  
+    
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+
+</main><!-- End #main -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  // Inicializar a tabela com a classe 'datatable' e definir o número mínimo de 10 registros por página
+  $(document).ready(function() {
+    $('.datatable').DataTable({
+      "paging": true,
+      "lengthMenu": [10, 25, 50, 100],
+      "language": {
+        "lengthMenu": "Exibir _MENU_ registros por página",
+        "zeroRecords": "Nenhum registro encontrado",
+        "info": "Página _PAGE_ de _PAGES_",
+        "infoEmpty": "Nenhum registro disponível",
+        "infoFiltered": "(filtrado de _MAX_ registros no total)",
+        "search": "Buscar:",
+        "paginate": {
+          "first": "Primeiro",
+          "last": "Último",
+          "next": "Próximo",
+          "previous": "Anterior"
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

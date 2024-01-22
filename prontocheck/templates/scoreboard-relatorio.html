@@ -1,0 +1,1282 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Dashboard com Dados de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: {{nome_do_setor_escolhido}} </h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">Home</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+      
+      <!-- Left side columns -->
+      <div class="col-lg-8">
+        <div class="row">
+      <!-- Reports -->
+      <div class="col-12">
+        <div class="card">
+
+          <div class="card-body">
+            <h5 class="card-title">Conformidade das Dimensões em Todos os Meses Registrados</h5>
+
+            <!-- Line Chart -->
+            <div id="reportsChart"></div>
+
+            <script>
+              var lista_de_porcentagens_sim_por_mes_assistencial_filtrada_por_setor_escolhido = JSON.parse('{{lista_de_porcentagens_sim_por_mes_assistencial_filtrada_por_setor_escolhido}}');
+              var lista_de_porcentagens_sim_por_mes_documentos_filtrada_por_setor_escolhido = JSON.parse('{{lista_de_porcentagens_sim_por_mes_documentos_filtrada_por_setor_escolhido}}');
+              var lista_de_porcentagens_sim_por_mes_estoque_filtrada_por_setor_escolhido = JSON.parse('{{lista_de_porcentagens_sim_por_mes_estoque_filtrada_por_setor_escolhido}}');
+              var lista_de_porcentagens_sim_por_mes_hotelaria_filtrada_por_setor_escolhido = JSON.parse('{{lista_de_porcentagens_sim_por_mes_hotelaria_filtrada_por_setor_escolhido}}');
+              var lista_de_porcentagens_sim_por_mes_manutencao_filtrada_por_setor_escolhido = JSON.parse('{{lista_de_porcentagens_sim_por_mes_manutencao_filtrada_por_setor_escolhido}}');
+              var lista_de_porcentagens_sim_por_mes_pessoas_filtrada_por_setor_escolhido = JSON.parse('{{lista_de_porcentagens_sim_por_mes_pessoas_filtrada_por_setor_escolhido}}');
+              var escolha_setor = JSON.parse('{{escolha_setor}}');
+              var todos_os_meses_do_ano = JSON.stringify('{{todos_os_meses_do_ano}}');
+              todos_os_meses_do_ano = todos_os_meses_do_ano.replace(/&#x27;/g, "");
+              let meses = [];
+              for(i = 2; i < todos_os_meses_do_ano.length; i=i+9){
+                meses.push(todos_os_meses_do_ano.substring(i,(i+7)));
+              };
+              document.addEventListener("DOMContentLoaded", () => {
+                new ApexCharts(document.querySelector("#reportsChart"), {
+                  series: [{
+                    name: 'Assistencial',
+                    data: lista_de_porcentagens_sim_por_mes_assistencial_filtrada_por_setor_escolhido,
+                  }, {
+                    name: 'Documentos',
+                    data: lista_de_porcentagens_sim_por_mes_documentos_filtrada_por_setor_escolhido,
+                  }, {
+                    name: 'Estoque',
+                    data: lista_de_porcentagens_sim_por_mes_estoque_filtrada_por_setor_escolhido,
+                  },{
+                    name: 'Hotelaria',
+                    data: lista_de_porcentagens_sim_por_mes_hotelaria_filtrada_por_setor_escolhido,
+                  }, {
+                    name: 'Manutenção',
+                    data: lista_de_porcentagens_sim_por_mes_manutencao_filtrada_por_setor_escolhido,
+                  }, {
+                    name: 'Pessoas',
+                    data: lista_de_porcentagens_sim_por_mes_pessoas_filtrada_por_setor_escolhido,
+                  }],
+                  chart: {
+                    height: 350,
+                    type: 'area',
+                    toolbar: {
+                      show: false
+                    },
+                  },
+                  markers: {
+                    size: 4
+                  },
+                  colors: [
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'],
+                  fill: {
+                    type: "gradient",
+                    gradient: {
+                      shadeIntensity: 1,
+                      opacityFrom: 0.3,
+                      opacityTo: 0.4,
+                      stops: [0, 90, 100]
+                    }
+                  },
+                  dataLabels: {
+                    enabled: false
+                  },
+                  stroke: {
+                    curve: 'smooth',
+                    width: 2
+                  },
+                  xaxis: {
+                    type: 'datetime',
+                    categories: meses
+                  },
+                  tooltip: {
+                    x: {
+                      format: 'MM/yy'
+                    },
+                  }
+                }).render();
+              });
+            </script>
+            <!-- End Line Chart -->
+
+          </div>
+
+        </div>
+      </div><!-- End Reports -->
+    </div>
+  </div><!-- End Left side columns -->
+
+  <!-- Right side columns -->
+  <div class="col-lg-4">
+  <!-- Website Traffic -->
+  <div class="card">
+    <div class="card-body pb-0">
+      <h5 class="card-title">Geral <span>| Porcentagem</span></h5>
+      
+      <div id="pieChart0" style="min-height: 350px;" class="echart"></div>
+      
+       <!-- Full Screen Modal -->
+       <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fullscreenModal0">
+        Detalhes
+      </button>
+
+      <div class="modal fade" id="fullscreenModal0" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Detalhes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Resultado de Avaliação proctor de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                  <!-- Primary Color Bordered Table -->
+                  <table class="table table-bordered border-primary">
+                    <thead>
+                      <tr>
+                        <th scope="col">DIMENSÃO</th>
+                        <th scope="col">N/A</th>
+                        <th scope="col">NÃO</th>
+                        <th scope="col">SIM</th>
+                        <th scope="col">NOTA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>ASSISTENCIAL</td>
+                        <td>{{lista_soma_de_nao_se_aplica_filtrada_por_setor_escolhido.1}}</td>
+                        <td>{{lista_soma_de_nao_filtrada_por_setor_escolhido.1}}</td>
+                        <td>{{lista_soma_de_sim_filtrada_por_setor_escolhido.1}}</td>
+                        <td>{{lista_de_porcentagens_de_sim_filtrada_por_setor_escolhido.1}}</td>
+                      </tr>
+                      <tr>
+                        <td>DOCUMENTOS</td>
+                        <td>{{lista_soma_de_nao_se_aplica_filtrada_por_setor_escolhido.2}}</td>
+                        <td>{{lista_soma_de_nao_filtrada_por_setor_escolhido.2}}</td>
+                        <td>{{lista_soma_de_sim_filtrada_por_setor_escolhido.2}}</td>
+                        <td>{{lista_de_porcentagens_de_sim_filtrada_por_setor_escolhido.2}}</td>
+                      </tr>
+                      <tr>
+                        <td>ESTOQUE</td>
+                        <td>{{lista_soma_de_nao_se_aplica_filtrada_por_setor_escolhido.3}}</td>
+                        <td>{{lista_soma_de_nao_filtrada_por_setor_escolhido.3}}</td>
+                        <td>{{lista_soma_de_sim_filtrada_por_setor_escolhido.3}}</td>
+                        <td>{{lista_de_porcentagens_de_sim_filtrada_por_setor_escolhido.3}}</td>
+                      </tr>
+                      <tr>
+                        <td>HOTELARIA</td>
+                        <td>{{lista_soma_de_nao_se_aplica_filtrada_por_setor_escolhido.4}}</td>
+                        <td>{{lista_soma_de_nao_filtrada_por_setor_escolhido.4}}</td>
+                        <td>{{lista_soma_de_sim_filtrada_por_setor_escolhido.4}}</td>
+                        <td>{{lista_de_porcentagens_de_sim_filtrada_por_setor_escolhido.4}}</td>
+                      </tr>
+                      <tr>
+                        <td>MANUTENÇÃO</td>
+                        <td>{{lista_soma_de_nao_se_aplica_filtrada_por_setor_escolhido.5}}</td>
+                        <td>{{lista_soma_de_nao_filtrada_por_setor_escolhido.5}}</td>
+                        <td>{{lista_soma_de_sim_filtrada_por_setor_escolhido.5}}</td>
+                        <td>{{lista_de_porcentagens_de_sim_filtrada_por_setor_escolhido.5}}</td>
+                      </tr>
+                      <tr>
+                        <td>PESSOAS</td>
+                        <td>{{lista_soma_de_nao_se_aplica_filtrada_por_setor_escolhido.6}}</td>
+                        <td>{{lista_soma_de_nao_filtrada_por_setor_escolhido.6}}</td>
+                        <td>{{lista_soma_de_sim_filtrada_por_setor_escolhido.6}}</td>
+                        <td>{{lista_de_porcentagens_de_sim_filtrada_por_setor_escolhido.6}}</td>
+                      </tr>
+                      <tr>
+                        <td><b>TOTAL</b></td>
+                        <td><b>{{lista_soma_de_nao_se_aplica_filtrada_por_setor_escolhido.0}}</b></td>
+                        <td><b>{{lista_soma_de_nao_filtrada_por_setor_escolhido.0}}</b></td>
+                        <td><b>{{lista_soma_de_sim_filtrada_por_setor_escolhido.0}}</b></td>
+                        <td class="bg-success text-white"><b>{{lista_de_porcentagens_de_sim_filtrada_por_setor_escolhido.0}}</b></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- End Primary Color Bordered Table -->
+      
+                </div>
+              </div>
+             <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Itens Negativos de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                  <table class="table table-bordered border-primary">
+                    <thead>
+                      <tr>
+                        <th scope="col">Pergunta</th>
+                        <th scope="col">Dimensão</th>
+                        <th scope="col">Eixo</th>
+                        <th scope="col">Comentário</th>
+                        <th scope="col">Evidência</th>
+                        <th scope="col">Área Responsável</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for resposta in respostas %}
+                      {% if resposta.resposta == "nao" %}
+                      <tr>
+                        <td>{{ resposta.pergunta }}</td>
+                        <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                        <td>{{ resposta.titulo }}</td>
+                        <td>{{ resposta.comentario }}</td>
+                        {% if resposta.evidencia == None %}
+                        <td></td>
+                        {% else %}
+                        <td>
+                          <a href="{{ resposta.evidencia }}" target="_blank">
+                            <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                          </a>
+                        </td>
+                        {% endif %}
+                        {% if resposta.a_resp == None %}
+                        <td></td>
+                        {% else %}
+                          {% for setor in setores %}
+                          {% if resposta.a_resp == setor.id %}
+                          <td>{{ setor.name }}</td>
+                          {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                      </tr>
+                      {% endif %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+              <!-- <button type="button" class="btn btn-primary">Salvar Alterações</button> -->
+            </div>
+          </div>
+        </div>
+      </div><!-- End Full Screen Modal-->
+
+      <script>
+        var matriz_de_porcentagens_sim = JSON.parse('{{matriz_de_porcentagens_sim}}');
+        var matriz_de_porcentagens_nao = JSON.parse('{{matriz_de_porcentagens_nao}}');
+        var matriz_soma_de_sim = JSON.parse('{{matriz_soma_de_sim}}');
+        var matriz_soma_de_nao = JSON.parse('{{matriz_soma_de_nao}}');      
+        document.addEventListener("DOMContentLoaded", () => {
+          echarts.init(document.querySelector("#pieChart0")).setOption({
+            tooltip: {
+              trigger: 'item'
+            },
+            legend: {
+              top: '5%',
+              left: 'center'
+            },
+            series: [{
+              name: 'Porcentagem e Quantidade',
+              type: 'pie',
+              radius: ['0%', '70%'],
+              avoidLabelOverlap: false,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              plugins: {
+                dataLabels: {}
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '18',
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: true
+              },
+              data: [{
+                  
+                },
+                {
+                  value: matriz_soma_de_sim[escolha_setor][0],
+                  name: 'Sim ' + matriz_de_porcentagens_sim[escolha_setor][0] + '%'
+                },
+                {
+                  /* value: soma_de_nao_se_aplica,
+                  name: 'Não se aplica' */
+                },
+                {
+                  value: matriz_soma_de_nao[escolha_setor][0],
+                  name: 'Não ' + matriz_de_porcentagens_nao[escolha_setor][0] + '%'
+                },
+                {
+                 
+                }
+              ]
+            }]
+          });
+        });
+      </script>
+
+    </div>
+  </div><!-- End Website Traffic -->
+
+</div><!-- End Right side columns -->
+</div>
+</section>
+
+<section class="section">
+  <div class="row">
+
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Conformidade no período por dimensão (porcentagem)</h5>
+
+          <!-- Bar Chart -->
+          <canvas id="barChart" style="max-height: 400px;"></canvas>
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              new Chart(document.querySelector('#barChart'), {
+                type: 'bar',
+                data: {
+                  labels: ['Geral', 'Assistencial', 'Documentos', 'Estoque', 'Hotelaria', 'Manutenção', 'Pessoas'],
+                  datasets: [{
+                    label: '',
+                    data: [matriz_de_porcentagens_sim[escolha_setor][0], matriz_de_porcentagens_sim[escolha_setor][1], matriz_de_porcentagens_sim[escolha_setor][2], matriz_de_porcentagens_sim[escolha_setor][3], matriz_de_porcentagens_sim[escolha_setor][4], matriz_de_porcentagens_sim[escolha_setor][5], matriz_de_porcentagens_sim[escolha_setor][6]],
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(255, 159, 64, 0.2)',
+                      'rgba(255, 205, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(255, 159, 64)',
+                      'rgb(255, 205, 86)',
+                      'rgb(75, 192, 192)',
+                      'rgb(54, 162, 235)',
+                      'rgb(153, 102, 255)',
+                      'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+                }
+              });
+            });
+          </script>
+          <!-- End Bar CHart -->
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Conformidade no período por dimensão (unidade)</h5>
+
+          <!-- Stacked Bar Chart -->
+          <canvas id="stakedBarChart" style="max-height: 450px;"></canvas>
+          <script>
+            var matriz_soma_de_nao_se_aplica = JSON.parse('{{matriz_soma_de_nao_se_aplica}}');
+            document.addEventListener("DOMContentLoaded", () => {
+              new Chart(document.querySelector('#stakedBarChart'), {
+                type: 'bar',
+                data: {
+                  labels: ['Geral', 'Assistencial', 'Documentos', 'Estoque', 'Hotelaria', 'Manutenção', 'Pessoas'],
+                  datasets: [{
+                      label: 'Não',
+                      data: [matriz_soma_de_nao[escolha_setor][0], matriz_soma_de_nao[escolha_setor][1], matriz_soma_de_nao[escolha_setor][2], matriz_soma_de_nao[escolha_setor][3], matriz_soma_de_nao[escolha_setor][4],matriz_soma_de_nao[escolha_setor][5],matriz_soma_de_nao[escolha_setor][6]],
+                      backgroundColor: 'rgb(255, 99, 132)',
+                    },
+                    {
+                      label: 'Sim',
+                      data: [matriz_soma_de_sim[escolha_setor][0], matriz_soma_de_sim[escolha_setor][1], matriz_soma_de_sim[escolha_setor][2], matriz_soma_de_sim[escolha_setor][3], matriz_soma_de_sim[escolha_setor][4],matriz_soma_de_sim[escolha_setor][5],matriz_soma_de_sim[escolha_setor][6]],
+                      backgroundColor: 'rgb(75, 192, 192)',
+                    },
+                    {
+                      label: 'Não se aplica',
+                      data: [matriz_soma_de_nao_se_aplica[escolha_setor][0], matriz_soma_de_nao_se_aplica[escolha_setor][1], matriz_soma_de_nao_se_aplica[escolha_setor][2], matriz_soma_de_nao_se_aplica[escolha_setor][3], matriz_soma_de_nao_se_aplica[escolha_setor][4],matriz_soma_de_nao_se_aplica[escolha_setor][5],matriz_soma_de_nao_se_aplica[escolha_setor][6]],
+                      backgroundColor: 'rgb(255, 205, 86)',
+                    },
+                  ]
+                },
+                options: {
+                  plugins: {
+                    title: {
+                      display: false,
+                      text: 'Chart.js Bar Chart - Stacked'
+                    },
+                  },
+                  responsive: true,
+                  scales: {
+                    x: {
+                      stacked: true,
+                    },
+                    y: {
+                      stacked: true
+                    }
+                  }
+                }
+              });
+            });
+          </script>
+          <!-- End Stacked Bar Chart -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Assistencial<span>| Porcentagem</span></h5>
+      
+            <div id="pieChart1" style="min-height: 400px;" class="echart"></div>
+                 <!-- Full Screen Modal -->
+                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fullscreenModal1">
+                  Detalhes
+                </button>
+    
+                <div class="modal fade" id="fullscreenModal1" tabindex="-1">
+                  <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Detalhes Dimensão Assistencial</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Itens Negativos de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                            <table class="table table-bordered border-primary">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Pergunta</th>
+                                  <th scope="col">Dimensão</th>
+                                  <th scope="col">Eixo</th>
+                                  <th scope="col">Comentário</th>
+                                  <th scope="col">Evidência</th>
+                                  <th scope="col">Área Responsável</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for resposta in respostas %}
+                                {% if resposta.resposta == "nao" and resposta.dimensao == "DIMENSÃO ASSISTENCIAL"%}
+                                <tr>
+                                  <td>{{ resposta.pergunta }}</td>
+                                  <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                                  <td>{{ resposta.titulo }}</td>
+                                  <td>{{ resposta.comentario }}</td>
+                                  {% if resposta.evidencia == None %}
+                                  <td></td>
+                                  {% else %}
+                                  <td>
+                                    <a href="{{ resposta.evidencia }}" target="_blank">
+                                      <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                                    </a>
+                                  </td>
+                                  {% endif %}
+                                  {% if resposta.a_resp == None %}
+                                  <td></td>
+                                  {% else %}
+                                    {% for setor in setores %}
+                                    {% if resposta.a_resp == setor.id %}
+                                    <td>{{ setor.name }}</td>
+                                    {% endif %}
+                                    {% endfor %}
+                                  {% endif %}
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                        <!-- <button type="button" class="btn btn-primary">Salvar Alterações</button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- End Full Screen Modal-->
+    
+            <script>            
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart1")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Porcentagem e Quantidade',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_soma_de_sim[escolha_setor][1],
+                        name: 'Sim ' + matriz_de_porcentagens_sim[escolha_setor][1] + '%'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_soma_de_nao[escolha_setor][1],
+                        name: 'Não ' + matriz_de_porcentagens_nao[escolha_setor][1] + '%'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Documentos<span>| Porcentagem</span></h5>
+      
+            <div id="pieChart2" style="min-height: 400px;" class="echart"></div>
+                 <!-- Full Screen Modal -->
+                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fullscreenModal2">
+                  Detalhes
+                </button>
+    
+                <div class="modal fade" id="fullscreenModal2" tabindex="-1">
+                  <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Detalhes Dimensão Documentos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Itens Negativos de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                            <table class="table table-bordered border-primary">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Pergunta</th>
+                                  <th scope="col">Dimensão</th>
+                                  <th scope="col">Eixo</th>
+                                  <th scope="col">Comentário</th>
+                                  <th scope="col">Evidência</th>
+                                  <th scope="col">Área Responsável</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for resposta in respostas %}
+                                {% if resposta.resposta == "nao" and resposta.dimensao == "DIMENSÃO DOCUMENTOS"%}
+                                <tr>
+                                  <td>{{ resposta.pergunta }}</td>
+                                  <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                                  <td>{{ resposta.titulo }}</td>
+                                  <td>{{ resposta.comentario }}</td>
+                                  {% if resposta.evidencia == None %}
+                                  <td></td>
+                                  {% else %}
+                                  <td>
+                                    <a href="{{ resposta.evidencia }}" target="_blank">
+                                      <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                                    </a>
+                                  </td>
+                                  {% endif %}
+                                  {% if resposta.a_resp == None %}
+                                  <td></td>
+                                  {% else %}
+                                    {% for setor in setores %}
+                                    {% if resposta.a_resp == setor.id %}
+                                    <td>{{ setor.name }}</td>
+                                    {% endif %}
+                                    {% endfor %}
+                                  {% endif %}
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                        <!-- <button type="button" class="btn btn-primary">Salvar Alterações</button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- End Full Screen Modal-->
+    
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart2")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Porcentagem e Quantidade',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_soma_de_sim[escolha_setor][2],
+                        name: 'Sim ' + matriz_de_porcentagens_sim[escolha_setor][2] + '%'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_soma_de_nao[escolha_setor][2],
+                        name: 'Não ' + matriz_de_porcentagens_nao[escolha_setor][2] + '%'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">      
+          <div class="card-body pb-0">
+            <h5 class="card-title">Estoque<span>| Porcentagem</span></h5>
+      
+            <div id="pieChart3" style="min-height: 400px;" class="echart"></div>
+            
+                  <!-- Full Screen Modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fullscreenModal3">
+              Detalhes
+            </button>
+
+            <div class="modal fade" id="fullscreenModal3" tabindex="-1">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Detalhes Dimensão Estoque</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                  <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Itens Negativos de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                        <table class="table table-bordered border-primary">
+                          <thead>
+                            <tr>
+                              <th scope="col">Pergunta</th>
+                              <th scope="col">Dimensão</th>
+                              <th scope="col">Eixo</th>
+                              <th scope="col">Comentário</th>
+                              <th scope="col">Evidência</th>
+                              <th scope="col">Área Responsável</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for resposta in respostas %}
+                            {% if resposta.resposta == "nao" and resposta.dimensao == "DIMENSÃO ESTOQUE"%}
+                            <tr>
+                              <td>{{ resposta.pergunta }}</td>
+                              <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                              <td>{{ resposta.titulo }}</td>
+                              <td>{{ resposta.comentario }}</td>
+                              {% if resposta.evidencia == None %}
+                              <td></td>
+                              {% else %}
+                              <td>
+                                <a href="{{ resposta.evidencia }}" target="_blank">
+                                  <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                                </a>
+                              </td>
+                              {% endif %}
+                              {% if resposta.a_resp == None %}
+                              <td></td>
+                              {% else %}
+                                {% for setor in setores %}
+                                {% if resposta.a_resp == setor.id %}
+                                <td>{{ setor.name }}</td>
+                                {% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                    <!-- <button type="button" class="btn btn-primary">Salvar Alterações</button> -->
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Full Screen Modal-->
+
+            <script>          
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart3")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Porcentagem e Quantidade',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_soma_de_sim[escolha_setor][3],
+                        name: 'Sim ' + matriz_de_porcentagens_sim[escolha_setor][3] + '%'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_soma_de_nao[escolha_setor][3],
+                        name: 'Não ' + matriz_de_porcentagens_nao[escolha_setor][3] + '%'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Hotelaria<span>| Porcentagem</span></h5>
+      
+            <div id="pieChart4" style="min-height: 400px;" class="echart"></div>
+            <!-- Full Screen Modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fullscreenModal4">
+              Detalhes
+            </button>
+
+            <div class="modal fade" id="fullscreenModal4" tabindex="-1">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Detalhes Dimensão Hotelaria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                  <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Itens Negativos de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                        <table class="table table-bordered border-primary">
+                          <thead>
+                            <tr>
+                              <th scope="col">Pergunta</th>
+                              <th scope="col">Dimensão</th>
+                              <th scope="col">Eixo</th>
+                              <th scope="col">Comentário</th>
+                              <th scope="col">Evidência</th>
+                              <th scope="col">Área Responsável</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for resposta in respostas %}
+                            {% if resposta.resposta == "nao" and resposta.dimensao == "DIMENSÃO HOTELARIA"%}
+                            <tr>
+                              <td>{{ resposta.pergunta }}</td>
+                              <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                              <td>{{ resposta.titulo }}</td>
+                              <td>{{ resposta.comentario }}</td>
+                              {% if resposta.evidencia == None %}
+                              <td></td>
+                              {% else %}
+                              <td>
+                                <a href="{{ resposta.evidencia }}" target="_blank">
+                                  <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                                </a>
+                              </td>
+                              {% endif %}
+                              {% if resposta.a_resp == None %}
+                              <td></td>
+                              {% else %}
+                                {% for setor in setores %}
+                                {% if resposta.a_resp == setor.id %}
+                                <td>{{ setor.name }}</td>
+                                {% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                    <!-- <button type="button" class="btn btn-primary">Salvar Alterações</button> -->
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Full Screen Modal-->
+            <script>        
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart4")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Porcentagem e Quantidade',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_soma_de_sim[escolha_setor][4],
+                        name: 'Sim ' + matriz_de_porcentagens_sim[escolha_setor][4] + '%'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_soma_de_nao[escolha_setor][4],
+                        name: 'Não ' + matriz_de_porcentagens_nao[escolha_setor][4] + '%'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Manutenção<span>| Porcentagem</span></h5>
+      
+            <div id="pieChart5" style="min-height: 400px;" class="echart"></div>
+            <!-- Full Screen Modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fullscreenModal5">
+              Detalhes
+            </button>
+
+            <div class="modal fade" id="fullscreenModal5" tabindex="-1">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Detalhes Dimensão Manutenção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                  <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Itens Negativos de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                        <table class="table table-bordered border-primary">
+                          <thead>
+                            <tr>
+                              <th scope="col">Pergunta</th>
+                              <th scope="col">Dimensão</th>
+                              <th scope="col">Eixo</th>
+                              <th scope="col">Comentário</th>
+                              <th scope="col">Evidência</th>
+                              <th scope="col">Área Responsável</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for resposta in respostas %}
+                            {% if resposta.resposta == "nao" and resposta.dimensao == "DIMENSÃO MANUTENÇÃO"%}
+                            <tr>
+                              <td>{{ resposta.pergunta }}</td>
+                              <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                              <td>{{ resposta.titulo }}</td>
+                              <td>{{ resposta.comentario }}</td>
+                              {% if resposta.evidencia == None %}
+                              <td></td>
+                              {% else %}
+                              <td>
+                                <a href="{{ resposta.evidencia }}" target="_blank">
+                                  <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                                </a>
+                              </td>
+                              {% endif %}
+                              {% if resposta.a_resp == None %}
+                              <td></td>
+                              {% else %}
+                                {% for setor in setores %}
+                                {% if resposta.a_resp == setor.id %}
+                                <td>{{ setor.name }}</td>
+                                {% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                    <!-- <button type="button" class="btn btn-primary">Salvar Alterações</button> -->
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Full Screen Modal-->
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart5")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Porcentagem e Quantidade',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_soma_de_sim[escolha_setor][5],
+                        name: 'Sim ' + matriz_de_porcentagens_sim[escolha_setor][5] + '%'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_soma_de_nao[escolha_setor][5],
+                        name: 'Não ' + matriz_de_porcentagens_nao[escolha_setor][5] + '%'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Pessoas<span>| Porcentagem</span></h5>
+      
+            <div id="pieChart6" style="min-height: 400px;" class="echart"></div>
+            <!-- Full Screen Modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fullscreenModal6">
+              Detalhes
+            </button>
+
+            <div class="modal fade" id="fullscreenModal6" tabindex="-1">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Detalhes Dimensão Pessoas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                  <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Itens Negativos de {{data_inicial_escolhida}} a {{data_final_escolhida}} do Setor: <b>{{nome_do_setor_escolhido}}</b></h5>
+                        <table class="table table-bordered border-primary">
+                          <thead>
+                            <tr>
+                              <th scope="col">Pergunta</th>
+                              <th scope="col">Dimensão</th>
+                              <th scope="col">Eixo</th>
+                              <th scope="col">Comentário</th>
+                              <th scope="col">Evidência</th>
+                              <th scope="col">Área Responsável</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for resposta in respostas %}
+                            {% if resposta.resposta == "nao" and resposta.dimensao == "DIMENSÃO PESSOAS"%}
+                            <tr>
+                              <td>{{ resposta.pergunta }}</td>
+                              <td>{{ resposta.dimensao|slice:"8:21" }}</td>
+                              <td>{{ resposta.titulo }}</td>
+                              <td>{{ resposta.comentario }}</td>
+                              {% if resposta.evidencia == None %}
+                              <td></td>
+                              {% else %}
+                              <td>
+                                <a href="{{ resposta.evidencia }}" target="_blank">
+                                  <img src="{{ resposta.evidencia }}" alt="Evidência" class="image-clickable" style="width: 80px;">
+                                </a>
+                              </td>
+                              {% endif %}
+                              {% if resposta.a_resp == None %}
+                              <td></td>
+                              {% else %}
+                                {% for setor in setores %}
+                                {% if resposta.a_resp == setor.id %}
+                                <td>{{ setor.name }}</td>
+                                {% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                    <!-- <button type="button" class="btn btn-primary">Salvar Alterações</button> -->
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Full Screen Modal-->
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart6")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Porcentagem e Quantidade',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_soma_de_sim[escolha_setor][6],
+                        name: 'Sim ' + matriz_de_porcentagens_sim[escolha_setor][6] + '%'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_soma_de_nao[escolha_setor][6],
+                        name: 'Não ' + matriz_de_porcentagens_nao[escolha_setor][6] + '%'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+      
+     <!--  <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Test Pie Chart</h5>
+
+            <canvas id="TestPieChart" style="max-height: 400px;"></canvas>
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                new Chart(document.querySelector('#TestPieChart'), {
+                  type: 'pie',
+                  data: {
+                    labels: [
+                      'Red',
+                      'Green',
+                      //'Yellow'
+                    ],
+                    datasets: [{
+                      label: 'My First Dataset',
+                      data: [300, 50], //100],
+                      backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(75, 192, 192)',
+                        //'rgb(255, 205, 86)'
+                      ],
+                      hoverOffset: 4
+                    }]
+                  }
+                });
+              });
+            </script>
+
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+  </section>
+</main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Cadastro Checklist</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">ProntoTicket</li>
+                <li class="breadcrumb-item active">Cadastro Checklist</li>
+                <li class="breadcrumb-item active">{{setorNome}}</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!-- Recent Sales -->
+                    <div class="col-12">
+                        <div class="card recent-sales">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <div class="list-group">
+                                </div>
+                                <div class="table-responsive table-block overflow-auto">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title mb-0">Cadastro de Técnicos</h5>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalAdicionarDimensao">Adicionar</button>
+                                    </div>
+                                    <div class="modal fade" id="modalAdicionarDimensao" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <form action="" method="POST" enctype="multipart/form-data" class="getForm" id="cadTecForm">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="_method" value="D">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Adicionar Técnico</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <div class="col-12">
+                                                            <label for="inputNanme4" class="form-label">Nome do Item</label>
+                                                            <input type="hidden" name="idItem" value="{{item.id}}">
+                                                            <select id="setorSelect" class="form-select" name="tecId" required>
+                                                              <option selected value="" >Selecione o usuário</option>
+                                                              {% for item in usuarios %}
+                                                              <option value="{{ item.id }}">{{ item.nome }}</option>
+                                                              {% endfor %}
+                                                            </select>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="modal-footer">
+                                                        <button type="reset" class="btn btn-secondary">Limpar</button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary disableOnSubmit">Salvar</button>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <table class="table table-borderless datatable table-striped" id="minha-tabela">
+                                        <!-- Cabeçalho da tabela -->
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Setor</th>
+
+                                            </tr>
+                                        </thead>
+                                        <!-- Dados da tabela -->
+                                        <tbody>
+                                            {% for item in tecnicos %}
+                                            <tr>
+                                                <td>
+                                                    <a href="#modal{{item.id}}" data-bs-toggle="modal"><i class="ri-file-edit-line fs-4 text-blue"></i></a>
+                                                    <a href="#modalDelete{{item.id}}" data-bs-toggle="modal"><i class="ri-file-excel-line fs-4 text-danger"></i></a>
+                                                </td>
+
+                                                <td>{{item.nome}}</td>
+                                                <td>{{item.nomeSetor}}</td>
+                                            </tr>
+                                            <div class="modal fade" id="modal{{item.id}}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <form action="" method="POST" enctype="multipart/form-data" id="tecCadFormEdit"
+                                                        class="getForm">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="_method" value="D_ALT">
+                                                        <input type="hidden" name="id_Dim" value="{{item.id}}">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">{{item.nome}}</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="col-md-12">
+                                                                    <label for="setorSelect" class="form-label">Modificar Setor</label>
+                                                                    <input type="hidden" name="idTecEdit" value="{{item.id}}">
+                                                                    <select id="setorSelect" class="form-select" name="setorLocalEdit">
+                                                                      <option selected value="" >Selecione o setor</option>
+                                                                      {% for item in setores %}
+                                                                      <option value="{{ item.id }}">{{ item.name }}</option>
+                                                                      {% endfor %}
+                                                                    </select>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-secondary disableOnSubmit" type="reset" >Limpar</button>
+                                                                <button class="btn btn-primary disableOnSubmit" type="submit" >Salvar</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="modalDelete{{item.id}}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <form action="" method="POST" enctype="multipart/form-data"
+                                                        class="getForm">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="_method" value="D_DEL">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">{{item.nome}}</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="col-12">
+                                                                    <label for="inputNanme4" class="form-label">Deseja deletar o Técnico?</label>
+                                                                    <input type="hidden" name="idTecDelete" value="{{item.id}}">
+                                                                </div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <!-- Botão voltar subitem -->
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                                <button type="submit" class="btn btn-danger disableOnSubmit">Deletar</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Recent Sales -->
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <br>
+            <a class="btn btn-primary" href="{% url 'redireciona_cadtec' %}">Voltar</a>
+        </div>
+    </section>
+</main><!-- End #main -->
+{% endblock %}

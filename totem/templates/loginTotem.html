@@ -1,0 +1,53 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+
+<form action="" method="POST" id="msform">
+    <fieldset>
+        <div class="container_login">
+            {% csrf_token %}
+            <div class="cpf_esc">
+                <label for="cpf"> CPF:</label>
+                <input oninput="mascara(this)" class="campo_cpf" type="cpf" name="cpf" id="cpf" required
+                    placeholder="Informe aqui o CPF" minlength="11" autocomplete="off" inputmode="numeric"/>
+                <hr>
+            </div>
+
+            <div class="data_esc">
+                <label for="data">Data:</label>
+                <input oninput="mascara('data')" class="campo_cpf" type="text" name="data" id="data" required placeholder="dd/mm/aaaa" inputmode="numeric" autocomplete="off" />
+                <hr>
+            </div>
+
+            <div class="btn_submit">
+                <input type="submit" name="next" class="next action-button" value="Verificar" style="padding: 5%; width: 100%; border-radius: 30px; margin-bottom: 3%; font-size: 23px; margin-top: 10%;">
+                <a href="{% url 'paciente' %}" class="btn-google m-b-20">
+                    <img src="{% static 'img/voltar_ngt.png' %}" width="8%">
+                </a>
+            </div>
+        </div>
+        
+    </fieldset>
+
+</form>
+
+<script>
+    function mascara(dataId) {
+    const input = document.getElementById(dataId);
+    if (!input) {
+        console.error(`Elemento com o ID '${dataId}' não encontrado.`);
+        return;
+    }
+
+    const { value } = input;
+    const formattedValue = value
+        .replace(/\D/g, '') // Remove caracteres não numéricos
+        .replace(/^(\d{2})(\d)/g, '$1/$2') // Formata os dois primeiros dígitos com '/'
+        .replace(/^(\d{2})\/(\d{2})(\d)/g, '$1/$2/$3') // Formata os quatro primeiros dígitos com '/'
+        .replace(/(\d{2})\/(\d{2})\/(\d{4}).*/, '$1/$2/$3'); // Limita a 10 caracteres (dd/mm/aaaa)
+    input.value = formattedValue;
+}
+
+
+</script>
+{% endblock %}

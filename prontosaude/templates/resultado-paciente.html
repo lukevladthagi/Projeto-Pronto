@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Consultar dados do Paciente</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item">ProntoSaúde</li>
+        <li class="breadcrumb-item active">Consultar dados paciente</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Pesquisar paciente</h5>
+
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Digite o CPF..." aria-label="Search">
+              <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+            </form>
+            <br>
+            <div class="table-responsive custom-table-responsive">
+              <table class="table custom-table">
+                <thead>
+                  <tr>
+
+
+                    </label>
+                    </th>
+                    <th scope="col" class="dropdown">Prontuário</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr scope="row" class="">
+
+                    </label>
+                    </th>
+                    <td>
+                      1392
+                    </td>
+                    <td><a href="{% url 'paciente_resupesquisa' %}">James Yates</a></td>
+                    <td>
+                      Web Designer
+                      <small class="d-block">Far far away, behind the word mountains</small>
+                    </td>
+                    <td>471.837.705-67</td>
+                    <td>jy234@gmail.com</td>
+                  </tr>
+                  <tr class="spacer">
+                    <td colspan="100"></td>
+                  </tr>
+                  <tr class="">
+
+                    </label>
+                    </th>
+                    <td>4616</td>
+                    <td><a href="{% url 'paciente_resupesquisa' %}">Matthew Wasil</a></td>
+                    <td>
+                      Graphic Designer
+                      <small class="d-block">Far far away, behind the word mountains</small>
+                    </td>
+                    <td>824.260.655-24</td>
+                    <td>matt.sil@gmail.com</td>
+                  </tr>
+                  <tr class="spacer">
+                    <td colspan="100"></td>
+                  </tr>
+                  <tr>
+
+                    </label>
+                    </th>
+                    <td>9841</td>
+                    <td><a href="{% url 'paciente_resupesquisa' %}">Sampson Murphy</a></td>
+                    <td>
+                      Mobile Dev
+                      <small class="d-block">Far far away, behind the word mountains</small>
+                    </td>
+                    <td>728.837.274-06</td>
+                    <td>sam.phy@gmail.com</td>
+                  </tr>
+                  <tr class="spacer">
+                    <td colspan="100"></td>
+                  </tr>
+                  <tr>
+
+                    </label>
+                    </th>
+                    <td>9548</td>
+                    <td><a href="{% url 'paciente_resupesquisa' %}">Gaspar Semenov</a></td>
+                    <td>
+                      Illustrator
+                      <small class="d-block">Far far away, behind the word mountains</small>
+                    </td>
+                    <td>236.760.138-08</td>
+                    <td>gaspar.seme@gmail.com</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+          </form>
+
+
+
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </section>
+</main>
+  {% endblock %}

@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Inclua os estilos do Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Inclua os estilos do DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+      <!-- Left side columns -->
+      <div class="col-lg-12">
+        <div class="row">
+          <!-- Recent Sales -->
+          <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title">Problemas<span>| cadastro</span></h5>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdicionarProblema">Adicionar</button>
+                </div>
+                <!-- Modal de Adição de Problema -->
+                <div class="modal fade" id="modalAdicionarProblema" tabindex="-1">
+                  <div class="modal-dialog">
+                    <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                      {% csrf_token %}
+                      <input type="hidden" name="_method"   value="ADD_PROBLEMA">
+                      <!-- Inserir campos para adicionar um novo problema aqui -->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Adicionar Novo Problema</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Inserir formulário para adicionar um novo problema aqui -->
+                          <div class="form-group">
+                            <label for="inputNomeProblema" class="form-label">Nome do Problema:</label>
+                            <input type="text" class="form-control" name="n_prob" required>
+                          </div>
+                
+                          <!-- Informações Novas -->
+                          <div class="form-group">
+                            <label for="selectTipoProblema"><strong>Novo Tipo de Problema:</strong></label>
+                            <select class="form-select" name="tp_prob_id" id="selectTipoProblema" required>
+                              <option disabled selected>Escolha um tipo de problema</option>
+                              {% for tipoProblema in dataTbProb %}
+                                <option value="{{tipoProblema.id}}">{{tipoProblema.tipoProb}}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="selectTempoSla"><strong>Novo Tempo para SLA:</strong></label>
+                            <select class="form-select" name="id_sla" id="selectTempoSla" required>
+                              <option disabled selected>Escolha um tempo para SLA</option>
+                              {% for sla in dataSla %}
+                              <option value="{{sla.id}}">{{sla.sla}}</option>
+                              {% endfor %}
+                              <!-- Adicione mais opções conforme necessário -->
+                            </select>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                          <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                
+                <table class="table table-hover datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">Problema</th>
+                      <th scope="col">Tipo Problema</th>
+                      <th scope="col">Sla</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                    {% for problema in dataProb %}
+                    <tr data-toggle="modal" data-target="#modal{{n_conform.id}}" class="table_notif_tr">
+                    <td><a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ModalProblema{{problema.id}}">{{problema.id}} - {{problema.problema}}</a></td>
+                      <td>{{problema.tipoProblema}}</td>
+                      <td>{{problema.sla}}</td>
+                    </tr>
+
+                    <div class="modal fade" id="ModalProblema{{problema.id}}" tabindex="-1">
+                        <div class="modal-dialog">
+                          <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="problema_id" value="{{problema.id}}">
+                            <input type="hidden" name="_method"   value="PROBLEMA">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title"><strong>Tipo de Problema:</strong> <br> {{problema.problema}} </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="form-group">
+                                  <label for="inputNanme4" class="form-label"><strong>Novo nome para o problema:</strong></label>
+                                  <input type="text" class="form-control" name="n_prob">
+                                </div>
+                                <!-- Informações Antigas -->
+                          <hr style="border-top: 2px solid #000; margin: 15px 0;">
+
+                                <div class="form-group">
+                                  <label for="tipo_problema_atual"><strong>Tipo de Problema Atual:</strong></label>
+                                  <p>{{ problema.tipoProblema }}</p>
+                                </div>
+                                <div class="form-group">
+                                  <label for="select_tipo_problema"><strong>Selecione o novo tipo de problema:</strong></label>
+                                  <select class="form-select" name="tp_prob_id" id="select_tipo_problema" required>
+                                    <option disabled selected>Escolha uma opção</option>
+                                    {% for tipoProblema in dataTbProb %}
+                                      <option value="{{tipoProblema.id}}">{{tipoProblema.tipoProb}}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="input_sla_atual"><strong>SLA Atual:</strong></label>
+                                  <p>{{ problema.sla }}</p>
+                                </div>
+                                <div class="form-group">
+                                  <label for="select_tempo_sla"><strong>Escolha o tempo para SLA:</strong></label>
+                                  <select class="form-select" name="tempo_sla" id="select_tempo_sla" required>
+                                    <option disabled selected>Escolha uma opção</option>
+                                    {% for sla in dataSla %}
+                                    <option value="{{sla.id}}">{{sla.sla}}</option>
+                                    {% endfor %}
+                                    <!-- Adicione mais opções conforme necessário -->
+                                  </select>
+                                </div>
+                              </div>
+                              
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div><!-- End Recent Sales -->
+
+        </div>
+      </div><!-- End Left side columns -->
+
+      <!-- Left side columns -->
+      <div class="col-lg-12">
+        <div class="row">
+          <!-- Recent Sales -->
+          <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+              <div class="card-body">
+                <h5 class="card-title">Tipo de Problemas<span>| cadastro</span></h5>
+
+                <table class="table table-hover datatable">
+                  <thead>
+                    <tr>
+                        <th scope="col">Tipo Problema</th>
+                        <th scope="col">Problema</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for tipoProblema in dataTbProb %}
+                    <tr data-toggle="modal" data-target="#modal{{tipoProblema.id}}" class="table_notif_tr">
+                        <td><a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ModalTpProblema{{tipoProblema.id}}">{{tipoProblema.id}} -  {{tipoProblema.tipoProb}}</a></td>
+                        <td>{{tipoProblema.problema_id}}</td>
+                    </tr>
+
+                    <div class="modal fade" id="ModalTpProblema{{tipoProblema.id}}" tabindex="-1">
+                      <div class="modal-dialog">
+                        <form action="" method="POST" enctype="multipart/form-data" class="getForm">
+                          {% csrf_token %}
+                          <input type="hidden" name="id_tp_problema" value="{{tipoProblema.id}}">
+                          <input type="hidden" name="_method" value="TP_PROB">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title"><strong>Tipo de Problema:</strong> {{tipoProblema.tipoProb}} </h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <label for="inputNanme4" class="form-label"><strong>Novo nome para o tipo de problema:</strong></label>
+                                <input type="text" class="form-control" name="n_tp_prob">
+                              </div>
+                              <!-- Informações Antigas -->
+                          <hr style="border-top: 2px solid #000; margin: 15px 0;">
+
+                              <div class="form-group">
+                                <label for="tipo_problema_atual"><strong>Tipo de Problema Atual:</strong></label>
+                                <p>{{ tipoProblema.problema_id }}</p>
+                              </div>
+                              <div class="form-group">
+                                <label for="select_tipo_problema"><strong>Selecione o novo tipo de problema:</strong></label>
+                                <select class="form-select" name="problema_id" id="select_tipo_problema" required>
+                                  <option disabled selected>Escolha uma opção</option>
+                                  {% for problema in dataProb %}
+                                    <option value="{{ problema.id }}">{{ problema.problema }}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                              <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      </div>
+                      
+                  {% endfor %}
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div><!-- End Recent Sales -->
+
+        </div>
+      </div><!-- End Left side columns -->
+    </div>
+  </section>
+
+</main><!-- End #main -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  // Inicializar a tabela com a classe 'datatable' e definir o número mínimo de 10 registros por página
+  $(document).ready(function() {
+    $('.datatable').DataTable({
+      "paging": true,
+      "lengthMenu": [5,10, 25, 50, 100],
+      "language": {
+        "lengthMenu": "Exibir _MENU_ registros por página",
+        "zeroRecords": "Nenhum registro encontrado",
+        "info": "Página _PAGE_ de _PAGES_",
+        "infoEmpty": "Nenhum registro disponível",
+        "infoFiltered": "(filtrado de _MAX_ registros no total)",
+        "search": "Buscar:",
+        "paginate": {
+          "first": "Primeiro",
+          "last": "Último",
+          "next": "Próximo",
+          "previous": "Anterior"
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

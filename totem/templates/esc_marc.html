@@ -1,0 +1,21 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+	<div class="login100-form validate-form flex-sb flex-w button-container">
+		<a href="{% url 'especialidades' %}" class="btn-google m-b-20">
+			<img src="{% static 'img/Prancheta_5.png' %}" alt="Imagem do Link" class="link-icon" width="10%">
+			<span class="link-label">Agendamento de consultas</span>
+		</a>
+		<a href="{% url 'exames' %}" class="btn-google m-b-20">
+			<img src="{% static 'img/Prancheta_6.png' %}" alt="Imagem do Link" class="link-icon" width="10%">
+			<span class="link-label">Agendamento de exames</span>
+		</a>
+		<a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+			<img src="{% static 'img/Prancheta_7.png' %}" alt="Imagem do Link" class="link-icon" width="10%">
+			<span class="link-label">Meus agendamentos</span>
+		</a>
+		<a href="{% url 'paciente' %}" class="btn-google m-b-20">
+			Finalizar Atendimento
+		</a>
+	</div>
+{% endblock %}

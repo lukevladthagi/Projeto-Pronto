@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Setor de Cadastro</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item">Escolher Setor</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Selecionar Setor</h5>
+                        <form action="" method="POST" class="row justify-content-center">
+                            {% csrf_token %}
+                            <div class="col-md-4">
+                                <label for="setorSelect" class="form-label">Área Responsável</label>
+                                <select id="setorSelect" class="form-select" name="setor" required>
+                                  <option selected value="" >Selecione a área</option>
+                                  {% for setor in setores %}
+                                  <option value="{{ setor.id }}">{{ setor.name }}</option>
+                                  {% endfor %}
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <br>
+                                <button type="submit" class="btn btn-primary">Próximo</button>
+                                <button type="reset" class="btn btn-secondary" id="a_button">Apagar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}

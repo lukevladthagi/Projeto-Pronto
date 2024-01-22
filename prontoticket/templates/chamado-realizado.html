@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block content %}  
+{% load static %} 
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Abertura de Chamados</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">ProntoTicket Técnico</li>
+          <li class="breadcrumb-item"><span class="bullet bg-gray-400 w-5px h-2px"></span></li>
+          <li class="breadcrumb-item text-muted">Chamado Realizado</li>
+
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Contacts App- Add New Contact-->
+      <div class="row g-7">
+        <!--begin::Content-->
+        <div class="col-xl-12">
+          <!--begin::Contacts-->
+          <div class="card card-flush h-lg-100" id="kt_contacts_main">
+            <!--begin::Card header-->
+            <div class="card-header pt-7" id="kt_chat_contacts_header">
+              <!--begin::Card title-->
+              <div class="card-title">
+                <i class="ki-duotone ki-badge fs-1 me-2">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                </i>
+                <h2>Solicitação realizada com sucesso</h2>
+              </div>
+              <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-5">
+              <!--begin::Form-->
+              <form id="kt_ecommerce_settings_general_form" class="form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-1">
+                  <!--begin::Col-->
+                  <div class="col">
+                    <div class="d-flex flex-column gap-1">
+                      <div class="fw-bold text-muted">Aberto</div>
+                      <p>Seu chamado foi aberto com sucesso no sistema de ocorrências! Aguarde o atendimento pela equipe de suporte.
+                      <p>O chamado sera atendido dentro do prazo de {{resposta.m_sla}}</p>
+                      <p>Acompanhe seu chamado no menu lateral. O numero do seu atendimento é <a href="{% url 'editar_chamado' idchamado=resposta.id %}">Nº{{ resposta.id }}</p>
+                    </div>
+                    <!--end::col-->
+                  </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+              
+                <div class="separator mb-6"></div>
+                <!--end::Separator-->
+              </form>
+              <!--end::Form-->
+            </div>
+            <!--end::Card body-->
+            <div class="d-flex justify-content-end mb-4">
+              <a class="btn btn-primary me-5" href="{% url 'abrir_chamado' %}">Voltar</a>
+            </div>
+          </div>
+          <!--end::Contacts-->
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Contacts App- Add New Contact-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+  <input type="text" value="{{problemas}}" id="probJson" hidden>
+  <input type="text" value="{{tipoProb}}" id="tipoProbJson" hidden>
+  <input type="text" value="{{local}}" id="localJson" hidden>
+  <input type="text" value="{{setores}}" id="setoresJson" hidden>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/smartSelect.js' %}"></script>
+<!--end::Content wrapper-->
+{% endblock %}

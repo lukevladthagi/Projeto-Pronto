@@ -1,0 +1,2588 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Auto Avaliação Competencia</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+                <li class="breadcrumb-item">Avaliação desempenho</li>
+                <li class="breadcrumb-item active">Auto avaliação competencia</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dados Colaborador</h5>
+
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3">
+                            <div class="col-md-12">
+                                <label for="inputName5" class="form-label">Nome Colaborador</label>
+                                <input type="text" class="form-control" id="inputName5" value="Nome Colaborador"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="inputName5" value="Nome Colaborador"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Escolaridade</label>
+                                <input type="text" class="form-control" id="inputName5" value="Escolaridade" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Gestor Imediato</label>
+                                <input type="text" class="form-control" id="inputName5" value="Gestor Imediato"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputDate" class="form-label">Data de Admissão</label>
+
+                                <input type="date" class="form-control" disabled>
+
+
+                            </div>
+
+
+                        </form><!-- End Multi Columns Form -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+
+                        <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">INICIATIVA</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O Colaborador toma iniciativa e consegue executar tarefas além do
+                                    que lhe é demandado?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Se dispõe a resolver questões com agilidade, tão logo são
+                                    repassadas pelo cliente?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Precisa da orientação do gestor/líder para executar tarefas
+                                    simples?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">TRABALHO EM EQUIPE</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">Tem habilidade de trabalhar em equipe?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue compartilhar soluções para problemas comuns com os
+                                    demais membros do time?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Ajuda proativamente a solucionar problemas?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue operar de forma satisfatória as ferramentas de
+                                    colaboração
+                                    usadas pela empresa? </span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Integra seu trabalho ao de outros setores? </span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12">
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">COMUNICAÇÃO E EMPATIA</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador consegue se comunicar de forma
+                                    clara com a equipe e a liderança?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue se comunicar de forma clara com o cliente?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Sabe exercer sua capacidade de escuta?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue estabelecer uma comunicação além do script com o
+                                    cliente?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador consegue exercitar a empatia no ambiente de
+                                    trabalho?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue se relacionar com o cliente de forma empática e
+                                    humanizada?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">GESTÃO DE TEMPO</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador conseguir gerir seu tempo de forma
+                                    satisfatória?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Sabe elencar prioridades na rotina de trabalho? </span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Entende e aplica a importância do tempo de resposta no
+                                    atendimento ao cliente?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Sabe utilizar ferramentas para otimizar sua gestão de tempo?
+                                    ?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue cumprir prazos? </span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">CRIATIVIDADE</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador consegue contribuir em reuniões de
+                                    brainstorming e de planejamento?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Explora diferentes soluções para uma mesma questão?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue improvisar no momento da negociação?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">PERSUASÃO</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador tem boa capacidade de persuasão?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue utilizar argumentos sólidos para provar seu
+                                    ponto??</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue converter vendas ou Negociações complexas?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">REAÇÃO A FEEDBACK</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador reage bem a feedbacks do líder?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Reage bem a feedbacks da equipe?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Reage bem a feedbacks dos clientes e fornecedores?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue absorver os feedbacks de forma positiva?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">VISÃO ESTRATÉGICA</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador tem boa capacidade analítica para situações
+                                    diversas?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue entender como cada etapa do processo contribui para o
+                                    todo?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue analisar um problema de forma racional antes de
+                                    resolvê-lo?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">CAPACIDADE DE NEGOCIAÇÃO</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">O colaborador conhece o produto/serviço a ponto de negociar com o
+                                    cliente as melhores condições para a venda ou compra?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue propor condições de venda acessíveis para o cliente e
+                                    para a empresa de forma autônoma e sem supervisão? </span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">CARACTERÍSTICAS COMPORTAMENTAIS</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">Equilíbrio emocional</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Automotivação</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Organização</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">HABILIDADES DE GESTÃO E LIDERANÇA</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue mobilizar a equipe em nome de um objetivo comum? </span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue delegar tarefas?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">É capaz de dar/receber feedbacks?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Consegue monitorar o desempenho da equipe?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">ORIENTAÇÃO PARA RESULTADO</h5>
+                            <div class="input-group">
+                                <span class="col-lg-6">Busca formas eficazes e eficientes de realizar tarefas?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect2"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect1">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Trabalha com foco nas metas e objetivos?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Busca superar seus próprios resultados?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="input-group">
+                                <span class="col-lg-6">Tem ambição?</span>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">1° TRIM</label>
+                                </div>
+                                <div class="form-floating bg-danger">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">2° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">3° TRIM</label>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example">
+                                        <option selected></option>
+                                        <option class="bg-danger" value="1">1</option>
+                                        <option class="bg-warning" value="2">2</option>
+                                        <option class="bg-success" value="3">3</option>
+                                        <option class="bg-primary" value="4">4</option>
+                                    </select>
+                                    <label for="floatingSelect">4° TRIM</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Confirmar avaliação</button>
+                    <button type="reset" class="btn btn-secondary">Cancelar avaliação</button>
+                </div>
+
+            </form>
+
+
+        </div>
+
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                    legend: {
+                        data: ['1° TRIM', '2° TRIM', '3° TRIM', '4° TRIM']
+                    },
+                    radar: {
+                        // shape: 'circle',
+                        indicator: [{
+                            name: 'Iniciativa',
+                            max: 20
+                        },
+                        {
+                            name: 'Trabalho em equipe',
+                            max: 20
+                        },
+                        {
+                            name: 'Comunicação e empatia',
+                            max: 20
+                        },
+                        {
+                            name: 'Gestão de tempo',
+                            max: 20
+                        },
+                        {
+                            name: 'Criatividade',
+                            max: 20
+                        },
+                        {
+                            name: 'Persuasão',
+                            max: 20
+                        },
+                        {
+                            name: 'Reação a feedback',
+                            max: 20
+                        },
+                        {
+                            name: 'Visão estratégica',
+                            max: 20
+                        },
+                        {
+                            name: 'Capacidade de negociação',
+                            max: 20
+                        },
+                        {
+                            name: 'Caracteríticas comportamentais',
+                            max: 20
+                        },
+                        {
+                            name: 'Habilidades de gestão e liderança',
+                            max: 20
+                        },
+                        {
+                            name: 'Orientação para resultado',
+                            max: 20
+                        },
+
+
+                        ]
+                    },
+                    series: [{
+                        name: 'Budget vs spending',
+                        type: 'radar',
+                        data: [{
+                            value: [10, 5, 20, 15, 11, 6, 7, 10, 12, 13, 20, 15],
+                            name: '1° TRIM'
+
+                        },
+                        {
+                            value: [6, 7, 15, 11, 20, 8, 11, 7, 9, 11, 13, 15],
+                            name: '2° TRIM'
+
+                        },
+                        {
+                            value: [5, 9, 3, 8, 11, 15, 19, 12, 20, 9, 11, 12],
+                            name: '3° TRIM'
+
+                        },
+                        {
+                            value: [9, 10, 20, 17, 18, 10, 9, 10, 11, 15, 16, 18],
+                            name: '4° TRIM'
+
+                        },
+
+
+                        ]
+                    }]
+                });
+            });
+        </script>
+
+
+
+
+
+
+
+
+
+    </section>
+
+</main>
+
+
+
+{% endblock %}

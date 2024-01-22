@@ -1,0 +1,936 @@
+{% extends 'base.html' %}
+{% block content %}   
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Dashboard Geral do Prontoticket</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard Prontoticket</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+      <div class="col-lg-8">
+        <div class="row">
+          <!-- Reports -->
+          <div class="col-12">
+            <div class="card">
+              
+              <div class="card-body">
+                <h5 class="card-title">Porcentagem de SLAs Atendidos por Setor<span>| Mensal</span></h5>
+
+                <!-- Line Chart -->
+                <div id="reportsChart2"></div>
+
+                <script>
+                  var matriz_de_porcentagens_de_sla_atendidos = JSON.parse('{{matriz_de_porcentagens_de_sla_atendidos}}');
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(
+                      document.querySelector("#reportsChart2"),
+                      {
+                        series: [
+                          {
+                            name: setores[1],
+                            data: [matriz_de_porcentagens_de_sla_atendidos[1][1]],
+                          },
+                          {
+                            name: setores[2],
+                            data: [matriz_de_porcentagens_de_sla_atendidos[2][1]],
+                          },
+                          {
+                            name: setores[3],
+                            data: [matriz_de_porcentagens_de_sla_atendidos[3][1]],
+                          },
+                        ],
+                        chart: {
+                          height: 350,                                                                                                      
+                          type: "area",
+                          toolbar: {
+                            show: false,
+                          },
+                        },
+                        markers: {
+                          size: 4,
+                        },
+                        colors: ["#4154f1", "#2eca6a", "#ff771d"],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100],
+                          },
+                        },
+                        dataLabels: {
+                          enabled: false,
+                        },
+                        stroke: {
+                          curve: "smooth",
+                          width: 2,
+                        },
+                        xaxis: {
+                          type: "datetime",
+                          categories: meses_de_chamados,
+                        },
+                        tooltip: {
+                          x: {
+                            format: "MM/yy",
+                          },
+                        },
+                      }
+                    ).render();
+                  });
+                </script>
+                <!-- End Line Chart -->
+              </div>
+            </div>
+          </div>
+          <!-- End Reports -->
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">SLAs Atendidos<span>| Quantidade</span></h5>
+      
+            <div id="pieChart1" style="min-height: 400px;" class="echart"></div>
+            
+            <script>
+              var matriz_de_quantidade_de_slas_atendidos = JSON.parse('{{matriz_de_quantidade_de_slas_atendidos}}');
+              var matriz_de_quantidade_de_slas_nao_atendidos = JSON.parse('{{matriz_de_quantidade_de_slas_nao_atendidos}}');            
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart1")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_de_quantidade_de_slas_atendidos[0][0],
+                        name: 'Sim'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_de_quantidade_de_slas_nao_atendidos[0][0],
+                        name: 'Não'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row">
+          <!-- Reports -->
+          <div class="col-12">
+            <div class="card">
+              
+              <div class="card-body">
+                <h5 class="card-title">Porcentagem de Chamados com Tempo Decorrido Inferior ao SLA<span>| Mensal</span></h5>
+
+                <!-- Line Chart -->
+                <div id="reportsChart6"></div>
+
+                <script>
+                  var matriz_de_porcentagens_de_chamados_com_tempo_decorrido_menor_que_sla = JSON.parse('{{matriz_de_porcentagens_de_chamados_com_tempo_decorrido_menor_que_sla}}');
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(
+                      document.querySelector("#reportsChart6"),
+                      {
+                        series: [
+                          {
+                            name: setores[1],
+                            data: [matriz_de_porcentagens_de_chamados_com_tempo_decorrido_menor_que_sla[1][1]],
+                          },
+                          {
+                            name: setores[2],
+                            data: [matriz_de_porcentagens_de_chamados_com_tempo_decorrido_menor_que_sla[2][1]],
+                          },
+                          {
+                            name: setores[3],
+                            data: [matriz_de_porcentagens_de_chamados_com_tempo_decorrido_menor_que_sla[3][1]],
+                          },
+                        ],
+                        chart: {
+                          height: 350,                                                                                                      
+                          type: "area",
+                          toolbar: {
+                            show: false,
+                          },
+                        },
+                        markers: {
+                          size: 4,
+                        },
+                        colors: ["#4154f1", "#2eca6a", "#ff771d"],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100],
+                          },
+                        },
+                        dataLabels: {
+                          enabled: false,
+                        },
+                        stroke: {
+                          curve: "smooth",
+                          width: 2,
+                        },
+                        xaxis: {
+                          type: "datetime",
+                          categories: meses_de_chamados,
+                        },
+                        tooltip: {
+                          x: {
+                            format: "MM/yy",
+                          },
+                        },
+                      }
+                    ).render();
+                  });
+                </script>
+                <!-- End Line Chart -->
+              </div>
+            </div>
+          </div>
+          <!-- End Reports -->
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Chamados com Tempo Decorrido Inferior ao SLA<span>| Quantidade</span></h5>
+      
+            <div id="pieChart4" style="min-height: 400px;" class="echart"></div>
+            
+            <script>
+              var matriz_de_quantidade_de_chamados_com_tempo_decorrido_menor_que_sla = JSON.parse('{{matriz_de_quantidade_de_chamados_com_tempo_decorrido_menor_que_sla}}');
+              var matriz_de_quantidade_de_chamados_com_tempo_decorrido_maior_que_sla = JSON.parse('{{matriz_de_quantidade_de_chamados_com_tempo_decorrido_maior_que_sla}}');            
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart4")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_de_quantidade_de_chamados_com_tempo_decorrido_menor_que_sla[0][0],
+                        name: 'Sim'
+                      },
+                      {
+                        /* value: soma_de_nao_se_aplica,
+                        name: 'Não se aplica' */
+                      },
+                      {
+                        value: matriz_de_quantidade_de_chamados_com_tempo_decorrido_maior_que_sla[0][0],
+                        name: 'Não'
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+
+
+      <div class="col-lg-8">
+        <div class="row">
+          <!-- Reports -->
+          <div class="col-12">
+            <div class="card">
+              
+              <div class="card-body">
+                <h5 class="card-title">Quantidade de Chamados por Setor<span>| Mensal</span></h5>
+
+                <!-- Line Chart -->
+                <div id="reportsChart4"></div>
+
+                <script>
+                  var matriz_de_quantidade_de_chamados = JSON.parse('{{matriz_de_quantidade_de_chamados}}');
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(
+                      document.querySelector("#reportsChart4"),
+                      {
+                        series: [
+                          {
+                            name: setores[1],
+                            data: [matriz_de_quantidade_de_chamados[1][1]],
+                          },
+                          {
+                            name: setores[2],
+                            data: [matriz_de_quantidade_de_chamados[2][1]],
+                          },
+                          {
+                            name: setores[3],
+                            data: [matriz_de_quantidade_de_chamados[3][1]],
+                          },
+                        ],
+                        chart: {
+                          height: 350,                                                                                                      
+                          type: "area",
+                          toolbar: {
+                            show: false,
+                          },
+                        },
+                        markers: {
+                          size: 4,
+                        },
+                        colors: ["#4154f1", "#2eca6a", "#ff771d"],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100],
+                          },
+                        },
+                        dataLabels: {
+                          enabled: false,
+                        },
+                        stroke: {
+                          curve: "smooth",
+                          width: 2,
+                        },
+                        xaxis: {
+                          type: "datetime",
+                          categories: meses_de_chamados,
+                        },
+                        tooltip: {
+                          x: {
+                            format: "MM/yy",
+                          },
+                        },
+                      }
+                    ).render();
+                  });
+                </script>
+                <!-- End Line Chart -->
+              </div>
+            </div>
+          </div>
+          <!-- End Reports -->
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Chamados por Setor<span>| Quantidade</span></h5>
+      
+            <div id="pieChart2" style="min-height: 400px;" class="echart"></div>
+            
+            <script>           
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart2")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        
+                      },
+                      {
+                        value: matriz_de_quantidade_de_chamados[1][1],
+                        name: setores[1],
+                      },
+                      {
+                        value: matriz_de_quantidade_de_chamados[2][1],
+                        name: setores[2],
+                      },
+                      {
+                        value: matriz_de_quantidade_de_chamados[3][1],
+                        name: setores[3],
+                      },
+                      {
+                       
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+
+      <!-- Left side columns -->
+      <div class="col-lg-6">
+        <div class="row">
+          <!-- Reports -->
+          <div class="col-12">
+            <div class="card">
+              
+              <div class="card-body">
+                <h5 class="card-title">Quantidade de Chamados Finalizados por Setor <span>| Mensal</span></h5>
+
+                <!-- Line Chart -->
+                <div id="reportsChart1"></div>
+
+                <script>
+                  var matriz_de_quantidade_de_chamados_finalizados = JSON.parse('{{matriz_de_quantidade_de_chamados_finalizados}}');
+                  var setores = JSON.stringify('{{setores_ordenados_por_id}}');
+                  var meses_distintos_de_chamados = JSON.stringify('{{meses_distintos_de_chamados}}');
+                  setores = setores.replace(/&#x27;/g, "");
+                  setores = setores.replace("\"[","");
+                  setores = setores.replace("\]","");
+                  setores = setores.replace(/(")/,"");
+                  console.log(setores);
+                  setores = setores.split(",");
+                  console.log(setores);
+                  meses_distintos_de_chamados = meses_distintos_de_chamados.replace(/&#x27;/g, "");
+                  let meses_de_chamados = [];
+                  for(i = 2; i < meses_distintos_de_chamados.length; i=i+9){
+                    meses_de_chamados.push(meses_distintos_de_chamados.substring(i,(i+7)));
+                  };
+                  console.log(matriz_de_quantidade_de_chamados_finalizados)
+                  console.log(matriz_de_quantidade_de_chamados_finalizados[1].slice(1))
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(
+                      document.querySelector("#reportsChart1"),
+                      {
+                        series: [
+                          {
+                            name: setores[1],
+                            data: [matriz_de_quantidade_de_chamados_finalizados[1][1]],
+                          },
+                          {
+                            name: setores[2],
+                            data: [matriz_de_quantidade_de_chamados_finalizados[2][1]],
+                          },
+                          {
+                            name: setores[3],
+                            data: [matriz_de_quantidade_de_chamados_finalizados[3][1]],
+                          },
+                        ],
+                        chart: {
+                          height: 350,                                                                                                      
+                          type: "area",
+                          toolbar: {
+                            show: false,
+                          },
+                        },
+                        markers: {
+                          size: 4,
+                        },
+                        colors: ["#4154f1", "#2eca6a", "#ff771d"],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100],
+                          },
+                        },
+                        dataLabels: {
+                          enabled: false,
+                        },
+                        stroke: {
+                          curve: "smooth",
+                          width: 2,
+                        },
+                        xaxis: {
+                          type: "datetime",
+                          categories: meses_de_chamados,
+                        },
+                        tooltip: {
+                          x: {
+                            format: "MM/yy",
+                          },
+                        },
+                      }
+                    ).render();
+                  });
+                </script>
+                <!-- End Line Chart -->
+              </div>
+            </div>
+          </div>
+          <!-- End Reports -->
+        </div>
+      </div>
+      <!-- End Left side columns -->
+
+      <div class="col-lg-6">
+        <div class="row">
+          <!-- Reports -->
+          <div class="col-12">
+            <div class="card">
+              
+              <div class="card-body">
+                <h5 class="card-title">Quantidade de Chamados Abertos por Setor<span>| Mensal</span></h5>
+
+                <!-- Line Chart -->
+                <div id="reportsChart3"></div>
+
+                <script>
+                  var matriz_de_quantidade_de_chamados_abertos = JSON.parse('{{matriz_de_quantidade_de_chamados_abertos}}');
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(
+                      document.querySelector("#reportsChart3"),
+                      {
+                        series: [
+                          {
+                            name: setores[1],
+                            data: [matriz_de_quantidade_de_chamados_abertos[1][1]],
+                          },
+                          {
+                            name: setores[2],
+                            data: [matriz_de_quantidade_de_chamados_abertos[2][1]],
+                          },
+                          {
+                            name: setores[3],
+                            data: [matriz_de_quantidade_de_chamados_abertos[3][1]],
+                          },
+                        ],
+                        chart: {
+                          height: 350,                                                                                                      
+                          type: "area",
+                          toolbar: {
+                            show: false,
+                          },
+                        },
+                        markers: {
+                          size: 4,
+                        },
+                        colors: ["#4154f1", "#2eca6a", "#ff771d"],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100],
+                          },
+                        },
+                        dataLabels: {
+                          enabled: false,
+                        },
+                        stroke: {
+                          curve: "smooth",
+                          width: 2,
+                        },
+                        xaxis: {
+                          type: "datetime",
+                          categories: meses_de_chamados,
+                        },
+                        tooltip: {
+                          x: {
+                            format: "MM/yy",
+                          },
+                        },
+                      }
+                    ).render();
+                  });
+                </script>
+                <!-- End Line Chart -->
+              </div>
+            </div>
+          </div>
+          <!-- End Reports -->
+        </div>
+      </div>
+  
+      <div class="col-lg-8">
+        <div class="row">
+          <!-- Reports -->
+          <div class="col-12">
+            <div class="card">
+              
+              <div class="card-body">
+                <h5 class="card-title">Quantidade de Chamados por Status<span>| Mensal</span></h5>
+
+                <!-- Line Chart -->
+                <div id="reportsChart5"></div>
+
+                <script>
+                  var matriz_de_quantidade_de_chamados_por_status = JSON.parse('{{matriz_de_quantidade_de_chamados_por_status}}');
+                  var status = JSON.stringify('{{status}}');
+                  var mapa_status = '{{data_status}}';
+                  mapa_status = mapa_status.replace(/&#x27;/g, "");
+                  console.log(mapa_status)
+                  console.log(mapa_status[1])
+                  console.log(status)
+                  /* status = status.replace(/&#x27;/g, ""); */
+                  status = status.split(";");
+                  /* status = status.replace("\"[","");
+                  status = status.replace("\]","");
+                  status = status.replace(/(")/,"");
+                  status = status.split(' '); */
+                  console.log(status);
+                  console.log(typeof(status))
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(
+                      document.querySelector("#reportsChart5"),
+                      {
+                        series: [
+                          {
+                            name: "Aberto",
+                            data: [matriz_de_quantidade_de_chamados_por_status[1][1]],
+                          },
+                          {
+                            name: "Finalizado",
+                            data: [matriz_de_quantidade_de_chamados_por_status[2][1]],
+                          },
+                          {
+                            name: "Em progresso",
+                            data: [matriz_de_quantidade_de_chamados_por_status[3][1]],
+                          },
+                          {
+                            name: "Agendado",
+                            data: [matriz_de_quantidade_de_chamados_por_status[4][1]],
+                          },
+                          {
+                            name: "Ag. Esclarecimento",
+                            data: [matriz_de_quantidade_de_chamados_por_status[5][1]],
+                          },
+                          {
+                            name: "Ag. Validação",
+                            data: [matriz_de_quantidade_de_chamados_por_status[6][1]],
+                          },
+                        ],
+                        chart: {
+                          height: 350,                                                                                                      
+                          type: "area",
+                          toolbar: {
+                            show: false,
+                          },
+                        },
+                        markers: {
+                          size: 4,
+                        },
+                        colors: ["#4154f1", "#2eca6a", "#ff771d"],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100],
+                          },
+                        },
+                        dataLabels: {
+                          enabled: false,
+                        },
+                        stroke: {
+                          curve: "smooth",
+                          width: 2,
+                        },
+                        xaxis: {
+                          type: "datetime",
+                          categories: meses_de_chamados,
+                        },
+                        tooltip: {
+                          x: {
+                            format: "MM/yy",
+                          },
+                        },
+                      }
+                    ).render();
+                  });
+                </script>
+                <!-- End Line Chart -->
+              </div>
+            </div>
+          </div>
+          <!-- End Reports -->
+        </div>
+      </div>
+      
+      <div class="col-lg-4">
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="card-body pb-0">
+            <h5 class="card-title">Chamados por Status<span>| Quantidade</span></h5>
+      
+            <div id="pieChart3" style="min-height: 400px;" class="echart"></div>
+            
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#pieChart3")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['0%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [
+                          {
+                            name: "Aberto",
+                            value: [matriz_de_quantidade_de_chamados_por_status[1][1]],
+                          },
+                          {
+                            name: "Finalizado",
+                            value: [matriz_de_quantidade_de_chamados_por_status[2][1]],
+                          },
+                          {
+                            name: "Em progresso",
+                            value: [matriz_de_quantidade_de_chamados_por_status[3][1]],
+                          },
+                          {
+                            name: "Agendado",
+                            value: [matriz_de_quantidade_de_chamados_por_status[4][1]],
+                          },
+                          {
+                            name: "Ag. Esclarecimento",
+                            value: [matriz_de_quantidade_de_chamados_por_status[5][1]],
+                          },
+                          {
+                            name: "Ag. Validação",
+                            value: [matriz_de_quantidade_de_chamados_por_status[6][1]],
+                          },
+                        ],
+                  }]
+                });
+              });
+            </script>
+      
+          </div>
+                </div><!-- End Website Traffic -->
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Histograma Quantidade de Horas Chamados Abertos</h5>
+  
+            <!-- Bar Chart -->
+            <canvas id="barChart1" style="max-height: 400px;"></canvas>
+            <script>
+              var limites_entre_retangulos_arredondado_histograma = JSON.parse('{{limites_entre_retangulos_arredondado_histograma}}');
+              var valores_histograma = JSON.parse('{{valores_histograma}}');
+              document.addEventListener("DOMContentLoaded", () => {
+                new Chart(document.querySelector('#barChart1'), {
+                  type: 'bar',
+                  data: {
+                    labels: limites_entre_retangulos_arredondado_histograma,
+                    datasets: [{
+                      label: 'Distribuição dos Chamados',
+                      data: valores_histograma,
+                      backgroundColor: [
+                        'rgba(33,42,81, 1)',
+                      ],
+                      borderWidth: 1,
+                      barPercentage: 1,
+                      categoryPercentage: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      x: {
+                        grid:{
+                          offset:true
+                        },
+                        ticks:{
+                          //beginAtZero: true,
+                          stepSize: 3,
+                        },
+                        title: {
+                          display: true,
+                          text: 'Tempo em horas'
+                        }
+                      },
+                      y: {
+                        ticks: {beginAtZero: true},
+                        title: {
+                          display: true,
+                          text: 'Quantidade de Chamados'
+                        }
+                      },
+                    }
+                  }
+                });
+              });
+            </script>
+            <!-- End Bar CHart -->
+  
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Histograma de Diferenças entre Tempo Decorrido Real e Meta</h5>
+  
+            <!-- Bar Chart -->
+            <canvas id="barChart2" style="max-height: 400px;"></canvas>
+            <script>
+              var limites_entre_retangulos_arredondado_histograma_diferencas = JSON.parse('{{limites_entre_retangulos_arredondado_histograma_diferencas}}');
+              var valores_histograma_entre_tempo_decorrido_meta_e_real = JSON.parse('{{valores_histograma_entre_tempo_decorrido_meta_e_real}}');
+              document.addEventListener("DOMContentLoaded", () => {
+                new Chart(document.querySelector('#barChart2'), {
+                  type: 'bar',
+                  data: {
+                    labels: limites_entre_retangulos_arredondado_histograma_diferencas,
+                    datasets: [{
+                      label: 'Distribuição dos Chamados',
+                      data: valores_histograma_entre_tempo_decorrido_meta_e_real,
+                      backgroundColor: [
+                        'rgba(33,42,81, 1)',
+                      ],
+                      borderWidth: 1,
+                      barPercentage: 1,
+                      categoryPercentage: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      x: {
+                        grid:{
+                          offset:true
+                        },
+                        ticks:{
+                          //beginAtZero: true,
+                          stepSize: 3,
+                        },
+                        title: {
+                          display: true,
+                          text: 'Tempo em horas'
+                        }
+                      },
+                      y: {
+                        ticks: {beginAtZero: true},
+                        title: {
+                          display: true,
+                          text: 'Quantidade de Chamados'
+                        }
+                      },
+                    }
+                  }
+                });
+              });
+            </script>
+            <!-- End Bar CHart -->
+  
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  
+</main>
+{% endblock %}

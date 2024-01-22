@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}  
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Cadastro</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+          <li class="breadcrumb-item active">Cadastro Dimensão</li>
+        </ol>
+      </nav>
+    </div>
+  
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Cadastro de dimensão</h5>
+              <form action="" method="POST" class="row justify-content-center"> 
+                <div class="col-md-6">
+                  <div class="row mb-3">
+                    {% csrf_token %}
+                    <select class="form-select" id="item_setor_eixo" name="setorDim" required>
+                      <option disabled selected>Selecione o setor da dimensão</option>
+                      {% for setor in setores_c %}
+                      <option value="{{ setor.id }}">{{ setor.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Próximo</button>
+                        <button type="reset" class="btn btn-secondary" id="a_button">Apagar</button>
+                    </div>
+                    </div>
+              </form>
+  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </section>
+  
+  </main>
+
+{% endblock %}

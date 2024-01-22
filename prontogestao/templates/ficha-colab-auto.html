@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Auto Avaliação de Competência</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item">Avaliação desempenho</li>
+        <li class="breadcrumb-item active">Auto Avaliação</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Dados Colaborador</h5>
+
+            <!-- Multi Columns Form -->
+            <form class="row g-3">
+              <div class="col-md-12">
+                <label for="inputName5" class="form-label">Nome Colaborador</label>
+                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.nome}}" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputName5" class="form-label">Cargo</label>
+                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.funcao}}" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputName5" class="form-label">Escolaridade</label>
+                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.escolaridade}}" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputName5" class="form-label">Gestor Imediato</label>
+                <input type="text" class="form-control" id="inputName5" value="Gestor Imediato" disabled>
+              </div>
+              <div class="col-md-6">
+                <label for="inputDate" class="form-label">Data de Admissão</label>
+                <input type="text" class="form-control" disabled value="{{usuario_nome.admissao}}">
+              </div>
+
+
+            </form><!-- End Multi Columns Form -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Escolha a Avaliação</h5>
+
+            <!-- Accordion without outline borders -->
+            <div class="accordion accordion-flush" id="accordionDesempenhoGeral">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <div class="d-flex justify-content-center">
+                      <b>Auto Avaliação de competência</b>
+                    </div>
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionDesempenhoGeral">
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'autoAvCompetencia' usuario_nome.id 3 1 %}">1º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'autoAvCompetencia' usuario_nome.id 3 2 %}">2º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'autoAvCompetencia' usuario_nome.id 3 3 %}">3º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'autoAvCompetencia' usuario_nome.id 3 4 %}">4º Trimestre</a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Accordion without outline borders -->
+            
+            <div class="accordion accordion-flush" id="resultadoAvaliacoes">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                  <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    <div class="d-flex justify-content-center">
+                      <b>Resultado das Avaliações</b>
+                    </div>
+                  </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#resultadoAvaliacoes">
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="{% url 'relatorio_gestao' usuario_nome.id 1 1 %}">1º Trimestre</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="#">Resultado Competência</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="#">Resultado Auto Avaliação</a>
+                  </div>
+                  <div class="d-grid">
+                    <a class="btn btn-outline-secondary" href="#">Comparativo: Auto Avaliação X Avaliador</a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Accordion without outline borders -->
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+</main>
+
+
+
+{% endblock %}

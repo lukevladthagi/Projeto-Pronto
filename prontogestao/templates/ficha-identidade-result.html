@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Ficha de Identidade</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+        <li class="breadcrumb-item">ProntoGestão</li>
+        <li class="breadcrumb-item active">Ficha de Identidade</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Pesquisar colaborador</h5>
+
+            <section class="section">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Pesquisar colaborador</h5>
+          
+                      <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Digite o Nome..." aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+                      </form>
+                      <br>
+                      <div class="table-responsive custom-table-responsive">
+                        <table class="table custom-table">
+                          <thead>
+                            <tr>
+                              </label>
+                              </th>
+                              <th scope="col" class="dropdown">Código</th>
+                              <th scope="col">Nome</th>
+                              <th scope="col">Cargo</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Escolaridade</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr scope="row" class=""></tr>
+                              <td>1393</td>
+                              <td><a href="{% url 'pesquisa_resultado' %}">Lucas Marins</a></td>
+                              <td>Gerente de TI<small class="d-block">Far far away, behind the word mountains</small></td>
+                              <td>lucas2marins@gmail.com</td>
+                              <td>Pós Graduação</td>
+                            </tr>
+                            <tr class="spacer">
+                              <td colspan="100"></td>
+                            </tr>
+                            <tr class="">                          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>  
+
+  {% endblock %}

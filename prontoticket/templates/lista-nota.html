@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="d-flex flex-column flex-column-fluid">
+  <!--begin::Toolbar-->
+  <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+      <!--begin::Page title-->
+      <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!--begin::Title-->
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Listagem de Notas</h1>
+        <!--end::Title-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">
+            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+          </li>
+          <!--end::Item-->
+          <!--begin::Item-->
+          <li class="breadcrumb-item text-muted">ProntoTicket Técnico</li>
+          <li class="breadcrumb-item"><span class="bullet bg-gray-400 w-5px h-2px"></span></li>
+          <li class="breadcrumb-item text-muted">Listar Notas</li>
+          <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+      </div>
+      <!--end::Page title-->
+      <!--begin::Actions-->
+      <div class="d-flex align-items-center gap-2 gap-lg-3">
+        
+      </div>
+      <!--end::Actions-->
+    </div>
+    <!--end::Toolbar container-->
+  </div>
+  <!--end::Toolbar-->
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Navbar-->
+      <div class="card card-flush mb-9" id="kt_user_profile_panel">
+     
+        <!--begin::Body-->
+       
+      </div>
+      <!--end::Navbar-->
+      
+      <!--begin::Timeline-->
+      <div class="card">
+        <!--begin::Card head-->
+        <div class="card-header card-header-stretch">
+          <!--begin::Title-->
+          <div class="card-title d-flex align-items-center">
+            <h4 class="fw-bold m-0 text-gray-800">Notas<span> | Nº Chamado: {{chamado.id}}</span></h4>
+          </div>
+          <!--end::Title-->
+        </div>
+        <!--end::Card head-->
+        <!--begin::Card body-->
+        <div class="card-body">
+          <!--begin::Tab Content-->
+          <div class="tab-content">
+            <!--begin::Tab panel-->
+            <div id="kt_activity_today" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_activity_today_tab">
+              <!--begin::Timeline-->
+              {% for nota in notas %}
+              <div class="timeline">
+                
+                <!--begin::Timeline item-->
+                <div class="timeline-item">
+                  <!--begin::Timeline line-->
+                  <div class="timeline-line w-40px"></div>
+                  <!--end::Timeline line-->
+                  <!--begin::Timeline icon-->
+                  <div class="timeline-icon symbol symbol-circle symbol-40px">
+                    <div class="symbol-label bg-light">
+                      <i class="ki-duotone ki-message-text-2 fs-2 text-gray-500">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                      </i>
+                    </div>
+                  </div>
+                  <!--end::Timeline icon-->
+                  <!--begin::Timeline content-->
+                  <div class="timeline-content mb-10 mt-n2">
+                    <!--begin::Timeline heading-->
+                    <div class="overflow-auto pe-3">
+                      {% for usuario in usuarios %}
+                      {% if usuario.id == nota.usuario%}
+                      <!--begin::Title-->
+                      <div class="fs-5 fw-semibold mb-2">{{ nota.updated_at }}: {{ nota.nota }}</div>
+                      <!--end::Title-->
+                      <!--begin::Description-->
+                      <div class="d-flex align-items-center mt-1 fs-6">
+                        <!--begin::Info-->
+                        <div class="text-muted me-2 fs-7">{{ nota.created_at }}</div>
+                        {% endif %}
+                        {% endfor %}
+                        <!--end::Info-->
+                      </div>
+                      <!--end::Description-->
+                    </div>
+                    <!--end::Timeline heading-->
+                  </div>
+                  <!--end::Timeline content-->
+                </div>
+                <!--end::Timeline item-->
+                
+                <!--begin::Timeline item-->
+                <div class="timeline-item">
+                  <!--begin::Timeline line-->
+                  <div class="timeline-line w-40px"></div>
+                  <!--end::Timeline line-->
+                  <!--begin::Timeline icon-->
+                  
+                  <!--end::Timeline icon-->
+                </div>
+                <!--end::Timeline item-->
+              </div>
+              {% endfor %}
+              <!--end::Timeline-->
+            </div>
+            <!--end::Tab panel-->
+            <!--begin::Tab panel-->
+            <div id="kt_activity_week" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_week_tab">
+              <!--begin::Timeline-->
+              
+            </div>
+            <!--end::Tab panel-->
+            <!--begin::Tab panel-->
+            <div id="kt_activity_month" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_month_tab">
+              <!--begin::Timeline-->
+              
+            </div>
+            <!--end::Tab panel-->
+            <!--begin::Tab panel-->
+            <div id="kt_activity_year" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_year_tab">
+              <!--begin::Timeline-->
+              
+              <!--end::Timeline-->
+            </div>
+            <!--end::Tab panel-->
+          </div>
+          <!--end::Tab Content-->
+        </div>
+        <!--end::Card body-->
+      </div>
+      <!--end::Timeline-->
+      <div class="d-flex justify-content-end mt-6">
+        <a class="btn btn-primary me-5" href="{% url 'nota_informativa' idchamado=idchamado %}">Adicionar Notas</a>
+        <a class="btn btn-primary me-5" href="{% url 'editar_chamado' idchamado=idchamado %}"  role="button">Voltar</a>
+      </div>
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+</div>
+{% endblock %}

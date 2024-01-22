@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Avaliação De Competência: {{ trim.trimestre }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'telaIni' %}">Home</a></li>
+                <li class="breadcrumb-item">Avaliação Desempenho</li>
+                <li class="breadcrumb-item active">Pesquisar Gestor</li>
+                <li class="breadcrumb-item active">Listagem da pesquisa</li>
+                <li class="breadcrumb-item active">Ficha de colaborador</li>
+                <li class="breadcrumb-item active">Avaliação de Competência</li>
+                <li class="breadcrumb-item active">{{ trim.trimestre }}</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dados Colaborador</h5>
+
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3">
+                            <div class="col-md-12">
+                                <label for="inputName5" class="form-label">Nome Colaborador</label>
+                                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.nome}}"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="inputName5" value="{{usuario_nome.funcao}}"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Escolaridade</label>
+                                <input type="text" class="form-control" id="inputName5"
+                                    value="{{usuario_nome.escolaridade}}" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputName5" class="form-label">Gestor Imediato</label>
+                                <input type="text" class="form-control" id="inputName5" value="Gestor Imediato"
+                                    disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputDate" class="form-label">Data de Admissão</label>
+                                <input type="text" class="form-control" disabled value="{{usuario_nome.admissao}}">
+
+                            </div>
+
+                        </form><!-- End Multi Columns Form -->
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Critérios de Avaliação</h5>
+                        <div class="d-flex col-lg-12">
+                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show text-white col-lg-6 me-2"
+                                role="alert">
+                                Nota 1 - Não cumpre o requisito
+                            </div>
+                            <div class="alert alert-warning bg-warning border-0 alert-dismissible fade show text-white col-lg-6 mX-2"
+                                role="alert">
+                                Nota 2 - Cumpre moderadamente
+                            </div>
+                        </div>
+                        <div class="d-flex col-lg-12">
+                            <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show text-white col-lg-6 me-2"
+                                role="alert">
+                                Nota 3 - Cumpre o que foi solicitado
+                            </div>
+                            <div class="alert alert-primary bg-primary text-light border-0 alert-dismissible fade show text-white col-lg-6 mX-2"
+                                role="alert">
+                                Nota 4 - Cumpre o requisito e supera as expectativas
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+
+                        <!-- Radar Chart -->
+                        <canvas id="radarChart" style="max-height: 400px;"></canvas>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                const data = JSON.parse('{{ data_json|safe }}');
+                                const labels = data.map(item => item.titulo);
+
+                                new Chart(document.querySelector('#radarChart'), {
+                                    type: 'radar',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: '1º Trimestre',
+                                            data: [{{tri_1_0}},{{tri_1_1}},{{tri_1_2}},{{tri_1_3}},{{tri_1_4}},{{tri_1_5}},{{tri_1_6}},{{tri_1_7}},{{tri_1_8}},{{tri_1_9}},{{tri_1_10}},{{tri_1_11}}],
+                                            fill: true,
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            borderColor: 'rgb(255, 99, 132)',
+                                            pointBackgroundColor: 'rgb(255, 99, 132)',
+                                            pointBorderColor: '#fff',
+                                            pointHoverBackgroundColor: '#fff',
+                                            pointHoverBorderColor: 'rgb(255, 99, 132)'
+                                        }, {
+                                            label: '2º Trimestre',
+                                            data: [{{tri_2_0}},{{tri_2_1}},{{tri_2_2}},{{tri_2_3}},{{tri_2_4}},{{tri_2_5}},{{tri_2_6}},{{tri_2_7}},{{tri_2_8}},{{tri_2_9}},{{tri_2_10}},{{tri_2_11}}],
+                                            fill: true,
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            borderColor: 'rgb(54, 162, 235)',
+                                            pointBackgroundColor: 'rgb(54, 162, 235)',
+                                            pointBorderColor: '#fff',
+                                            pointHoverBackgroundColor: '#fff',
+                                            pointHoverBorderColor: 'rgb(54, 162, 235)'
+                                        },
+                                        {
+                                            label: '3º Trimestre',
+                                            data: [{{tri_3_0}},{{tri_3_1}},{{tri_3_2}},{{tri_3_3}},{{tri_3_4}},{{tri_3_5}},{{tri_3_6}},{{tri_3_7}},{{tri_3_8}},{{tri_3_9}},{{tri_3_10}},{{tri_3_11}}],
+                                            fill: true,
+                                            backgroundColor: 'rgba(255, 205, 86, 0.2)',
+                                            borderColor: 'rgb(255, 205, 86)',
+                                            pointBackgroundColor: 'rgb(255, 205, 86)',
+                                            pointBorderColor: '#fff',
+                                            pointHoverBackgroundColor: '#fff',
+                                            pointHoverBorderColor: 'rgb(255, 205, 86)'
+                                        },
+                                        {
+                                            label: '4º Trimestre',
+                                            data: [{{tri_4_0}},{{tri_4_1}},{{tri_4_2}},{{tri_4_3}},{{tri_4_4}},{{tri_4_5}},{{tri_4_6}},{{tri_4_7}},{{tri_4_8}},{{tri_4_9}},{{tri_4_10}},{{tri_4_11}}],
+                                            fill: true,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgb(75, 192, 192)',
+                                            pointBackgroundColor: 'rgb(75, 192, 192)',
+                                            pointBorderColor: '#fff',
+                                            pointHoverBackgroundColor: '#fff',
+                                            pointHoverBorderColor: 'rgb(75, 192, 192)'
+                                        }]
+                                    },
+                                    options: {
+                                        elements: {
+                                            line: {
+                                                borderWidth: 3
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <!-- End Radar CHart -->
+
+                    </div>
+                </div>
+            </div>
+
+
+            <form action="" method="POST">
+                {% for indicador in indicadores %}
+                {% csrf_token %}
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <br>
+                            <input type="hidden" id="input_hidden_pg" name="indicador_id{{indicador.id}}"
+                                value="{{ indicador.id }}">
+                            <h5 style="color: #012970; font-weight: 600">{{ indicador.titulo }}</h5>
+                            <hr>
+                            <div class="input-group">
+                                {% for item in itemindicador %}
+                                {% if indicador.id == item.indicador %}
+                                <div class="col-lg-10" style="margin-top: 15px;">
+                                    <input type="hidden" style="margin-bottom: 15px;" name="item_id{{item.id}}"
+                                        value="{{ item.id }}">{{item.item }}</input>
+                                </div>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect{{ item.id }}_tri1"
+                                        aria-label="Floating label select example" name="res_tri{{ item.id }}" required>
+                                        <option></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+
+                                    <label for="floatingSelect{{ item.id }}_tri1">{{ trim.trimestre }}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center">
+                        <button type="reset" class="btn btn-primary" style="margin: 0px 5px 0px 5px;">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar Avaliação</button>
+                    </div>
+            </form>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                    legend: {
+                        data: ['1° TRIM', '2° TRIM', '3° TRIM', '4° TRIM']
+                    },
+                    radar: {
+                        indicator: [
+                            {
+                                name: 'Assiduidade',
+                                max: 8
+                            },
+                            {
+                                name: 'Responsabilidade',
+                                max: 16
+                            },
+                            {
+                                name: 'Disciplina',
+                                max: 8
+                            },
+                            {
+                                name: 'Motivação',
+                                max: 16
+                            }
+                        ]
+                    },
+                    series: [{
+                        name: 'Budget vs spending',
+                        type: 'radar',
+                        data: [
+                            {
+                                value: ['{{ tri_1_0 }}', '{{ tri_1_1 }}', '{{ tri_1_2 }}', '{{ tri_1_3 }}'],
+                                name: '1° TRIM'
+                            },
+                            {
+                                value: ['{{ tri_2_0 }}', '{{ tri_2_1 }}', '{{ tri_2_2 }}', '{{ tri_2_3 }}'],
+                                name: '2° TRIM'
+                            },
+                            {
+                                value: ['{{ tri_3_0 }}', '{{ tri_3_1 }}', '{{ tri_3_2 }}', '{{ tri_3_3 }}'],
+                                name: '3° TRIM'
+                            },
+                            {
+                                value: ['{{ tri_4_0 }}', '{{ tri_4_1 }}', '{{ tri_4_2 }}', '{{ tri_4_3 }}'],
+                                name: '4° TRIM'
+                            }
+                        ]
+                    }]
+                });
+            });
+        </script>
+
+
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base_totem.html' %}
+{% block content %}
+{% load static %}
+<form action="" method="POST" id="msform" name="getForm">
+    {% csrf_token %}
+    <div class="container_login">
+        <fieldset>
+            <div class="form-card">
+                <h4 style="margin-bottom: 3%;">Olá, <strong>{{ nome }}</strong>. Por favor, confirme os seus dados:</h4>
+                <label for="">CPF</label>
+                <input value="{{dados.cpf}}" class="campo_cpf" type="text" name="cpf" style="width: 94%; margin-top: 5%;"/>
+                {% if nrTel != None %}
+                <label for="">Telefone</label>
+                <input value="{{nrTel}}" class="campo_cpf" type="text" name="tel" style="width: 94%; margin-top: 5%;"/>
+                {% else %}
+                <label for="">Telefone</label>
+                <input placeholder="Informe seu número" class="campo_cpf" type="text" name="tel" style="width: 94%; margin-top: 5%;"/>
+                {% endif %}
+
+                <div class="btn_submit disableOnSubmit">
+                    <input type="submit" name="next" class="next action-button" value="Confirmar os dados" style="padding: 5%; width: 100%; border-radius: 30px; margin-bottom: 3%; font-size: 23px; margin-top: 10%;" />
+                </div>
+                <a href="{% url 'verifcarAgend' %}" class="btn-google m-b-20">
+                    <img src="{% static 'img/voltar_ngt.png' %}" width="6%">
+                </a>
+            </div>
+        </fieldset>
+    </div>
+</form>
+{% endblock %}
